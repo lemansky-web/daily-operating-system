@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Operating System – Peer</title>
+  <style>
+    :root {
+      --bg: #f5f1ea;
+      --bg-2: #eee7dd;
+      --surface: rgba(255,255,255,.82);
+      --surface-solid: #ffffff;
+      --text: #1f2326;
+      --muted: #66706b;
+      --line: rgba(31,35,38,.11);
+      --accent: #557766;
+      --accent-2: #8c6b4e;
+      --accent-soft: #e7f0ea;
+      --success: #3d7a57;
+      --warning: #a56a2a;
+      --danger: #a84f4f;
+      --shadow: 0 20px 55px rgba(45,35,25,.10);
+      --shadow-soft: 0 10px 28px rgba(45,35,25,.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --nav-h: 76px;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    html[data-theme="dark"] {
+      --bg: #151917;
+      --bg-2: #202620;
+      --surface: rgba(31,37,33,.78);
+      --surface-solid: #1e2520;
+      --text: #f3f1ec;
+      --muted: #aeb8b0;
+      --line: rgba(243,241,236,.12);
+      --accent: #9fc6ad;
+      --accent-2: #d3b18c;
+      --accent-soft: rgba(159,198,173,.14);
+      --success: #9fc6ad;
+      --warning: #e0b06b;
+      --danger: #e38d8d;
+      --shadow: 0 20px 55px rgba(0,0,0,.28);
+      --shadow-soft: 0 10px 28px rgba(0,0,0,.22);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(85,119,102,.18), transparent 32%),
+        radial-gradient(circle at 90% 0%, rgba(140,107,78,.16), transparent 28%),
+        linear-gradient(140deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
+      line-height: 1.42;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    .app-shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 18px 16px calc(var(--nav-h) + 28px);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(21px, 4vw, 32px);
+      letter-spacing: -.7px;
+      line-height: 1.05;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      min-width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      place-items: center;
+    }
+
+    .hero {
+      margin: 12px 0 18px;
+      padding: clamp(20px, 4vw, 34px);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(85,119,102,.92), rgba(140,107,78,.82));
+      color: white;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      right: -90px;
+      top: -90px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      width: fit-content;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 720px;
+      font-size: clamp(28px, 7vw, 56px);
+      line-height: .98;
+      letter-spacing: -1.4px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 650px;
+      color: rgba(255,255,255,.86);
+      font-size: clamp(15px, 2.2vw, 18px);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .soft-btn {
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-weight: 760;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .15s ease, opacity .15s ease, background .15s ease;
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover,
+    .soft-btn:hover,
+    .icon-btn:hover,
+    .nav-item:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary-btn {
+      background: var(--accent);
+      color: white;
+    }
+
+    .hero .primary-btn {
+      background: white;
+      color: #304139;
+    }
+
+    .secondary-btn {
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .hero .secondary-btn {
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.24);
+      color: white;
+    }
+
+    .soft-btn {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(85,119,102,.13);
+    }
+
+    .view {
+      display: none;
+      animation: fadeIn .18s ease;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -.25px;
+    }
+
+    .card-subtitle {
+      margin: 3px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 760;
+      color: var(--muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 15px;
+      border: 1px solid var(--line);
+      background: var(--surface-solid);
+      color: var(--text);
+      padding: 12px 13px;
+      outline: none;
+      transition: border .15s ease, box-shadow .15s ease;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(85,119,102,.55);
+      box-shadow: 0 0 0 4px rgba(85,119,102,.12);
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 9px 11px;
+      border-radius: 999px;
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 720;
+      font-size: 13px;
+    }
+
+    .chip.active {
+      background: var(--accent);
+      color: white;
+      border-color: transparent;
+    }
+
+    .priority-list,
+    .routine-list,
+    .timeline,
+    .affirmation-list,
+    .success-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .priority-item,
+    .routine-item,
+    .time-item,
+    .affirmation-item,
+    .success-item {
+      padding: 13px;
+      border-radius: var(--radius-md);
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      display: grid;
+      gap: 9px;
+    }
+
+    .priority-row,
+    .routine-row,
+    .time-row,
+    .success-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .priority-left,
+    .routine-left,
+    .time-left,
+    .success-left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .checkbox {
+      width: 30px;
+      height: 30px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      font-weight: 900;
+      color: transparent;
+    }
+
+    .checkbox.done {
+      background: var(--accent);
+      color: white;
+      border-color: transparent;
+    }
+
+    .item-title {
+      font-weight: 820;
+      letter-spacing: -.15px;
+      overflow-wrap: anywhere;
+    }
+
+    .item-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .status-select {
+      min-height: 36px;
+      width: auto;
+      max-width: 142px;
+      padding: 7px 8px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .progress {
+      width: 100%;
+      height: 11px;
+      border-radius: 999px;
+      background: rgba(127,127,127,.14);
+      overflow: hidden;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: inherit;
+      transition: width .24s ease;
+    }
+
+    .big-number {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      margin-top: 4px;
+    }
+
+    .affirmation-display {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--accent-soft), rgba(140,107,78,.12));
+      border: 1px solid var(--line);
+      min-height: 138px;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+    }
+
+    .affirmation-display blockquote {
+      margin: 0;
+      font-size: clamp(20px, 4.5vw, 34px);
+      line-height: 1.13;
+      letter-spacing: -.75px;
+      font-weight: 850;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 24px 2px 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(22px, 4vw, 30px);
+      letter-spacing: -.65px;
+    }
+
+    .section-title p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .mini-form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .empty {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--line);
+      color: var(--muted);
+      background: rgba(127,127,127,.04);
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(var(--nav-h) + 18px);
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface-solid);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      padding: 11px 16px;
+      font-weight: 780;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 20;
+      max-width: calc(100% - 32px);
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      width: min(720px, calc(100% - 18px));
+      height: var(--nav-h);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 7px;
+      padding: 8px;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(255,255,255,.55);
+      box-shadow: 0 18px 55px rgba(0,0,0,.16);
+      border-radius: 24px;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      z-index: 15;
+    }
+
+    html[data-theme="dark"] .bottom-nav {
+      background: rgba(31,37,33,.76);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .nav-item {
+      border-radius: 18px;
+      background: transparent;
+      display: grid;
+      place-items: center;
+      gap: 2px;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 11px;
+      transition: transform .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .nav-item .nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .nav-item.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .celebrate {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 30;
+    }
+
+    .confetti {
+      position: absolute;
+      top: -20px;
+      width: 9px;
+      height: 15px;
+      border-radius: 3px;
+      background: var(--accent);
+      opacity: .95;
+      animation: fall 900ms ease-in forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(450deg); opacity: 0; }
+    }
+
+    .desktop-layout {
+      display: grid;
+      gap: 14px;
+    }
+
+    .desktop-aside {
+      display: none;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      text-align: center;
+      margin: 20px 0 4px;
+      font-size: 13px;
+    }
+
+    @media (min-width: 760px) {
+      .grid-2 { grid-template-columns: 1.1fr .9fr; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .mini-form { grid-template-columns: 1fr auto; align-items: end; }
+      .time-item { grid-template-columns: 126px 1fr; align-items: center; }
+      .stat-row { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (min-width: 1040px) {
+      .app-shell {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+      .desktop-layout {
+        grid-template-columns: minmax(0, 1fr) 330px;
+        align-items: start;
+      }
+      .desktop-aside {
+        display: grid;
+        gap: 14px;
+        position: sticky;
+        top: 88px;
+      }
+      .bottom-nav {
+        top: 96px;
+        bottom: auto;
+        left: 22px;
+        transform: none;
+        width: 88px;
+        height: auto;
+        grid-template-columns: 1fr;
+        border-radius: 28px;
+      }
+      .nav-item {
+        min-height: 70px;
+      }
+      .app-shell {
+        padding-left: 128px;
+        padding-bottom: 32px;
+      }
+      .toast {
+        bottom: 22px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .topbar {
+        align-items: flex-start;
+      }
+      .top-actions {
+        flex-direction: column;
+      }
+      .hero {
+        border-radius: 24px;
+      }
+      .card {
+        padding: 15px;
+      }
+      .priority-row,
+      .routine-row,
+      .time-row,
+      .success-row {
+        align-items: flex-start;
+      }
+      .status-select {
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="celebrate" id="celebrate"></div>
+  <div class="toast" id="toast">Gespeichert.</div>
+
+  <nav class="bottom-nav" aria-label="Hauptnavigation">
+    <button class="nav-item active" data-view="dashboard"><span class="nav-icon">⌂</span><span>Heute</span></button>
+    <button class="nav-item" data-view="planung"><span class="nav-icon">◷</span><span>Plan</span></button>
+    <button class="nav-item" data-view="routinen"><span class="nav-icon">✓</span><span>Routine</span></button>
+    <button class="nav-item" data-view="saetze"><span class="nav-icon">✦</span><span>Sätze</span></button>
+    <button class="nav-item" data-view="reflexion"><span class="nav-icon">◌</span><span>Reflexion</span></button>
+  </nav>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">🌿</div>
+        <div>
+          <h1>Daily Operating System</h1>
+          <p id="dateLine">Heute</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="exportBtn" title="Tagebuch-Text kopieren">⤴</button>
+        <button class="icon-btn" id="themeBtn" title="Dark Mode">☾</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-kicker"><span>Heute zählt Richtung, nicht Perfektion</span></div>
+        <h2 id="heroGreeting">Guten Tag, Peer.</h2>
+        <p>Plane deinen Tag klar, führe dich freundlich und sammle kleine Beweise für Selbstvertrauen.</p>
+        <div class="quick-actions">
+          <button class="primary-btn" data-jump="moodCard">Stimmung checken</button>
+          <button class="secondary-btn" id="quickWinBtn">+ Erfolg festhalten</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="desktop-layout">
+      <div>
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="view active">
+          <div class="grid-2">
+            <article class="card" id="moodCard">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Check-in</h2>
+                  <p class="card-subtitle">Kurz spüren. Dann klar handeln.</p>
+                </div>
+                <span class="badge">2 Minuten</span>
+              </div>
+              <div class="chips" id="moodChips"></div>
+
+              <div class="field">
+                <label for="dailyFocus">Tagesfokus</label>
+                <input id="dailyFocus" placeholder="z. B. Ruhe bewahren, Bewerbungen, Körper aktivieren" />
+              </div>
+
+              <div class="field">
+                <label for="needToday">Was brauche ich heute?</label>
+                <select id="needToday">
+                  <option value="">Auswählen</option>
+                  <option>Struktur</option>
+                  <option>Ruhe</option>
+                  <option>Mut</option>
+                  <option>Bewegung</option>
+                  <option>Klarheit</option>
+                  <option>Nähe</option>
+                  <option>Selbstfürsorge</option>
+                </select>
+              </div>
+
+              <button class="primary-btn" style="width:100%; margin-top:14px;" id="saveCheckinBtn">Check-in speichern</button>
+            </article>
+
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Heutiger Satz</h2>
+                  <p class="card-subtitle" id="affirmationCategoryLabel">Passend für deinen Tag</p>
+                </div>
+                <button class="soft-btn" id="shuffleAffirmationBtn">Neu</button>
+              </div>
+              <div class="affirmation-display">
+                <blockquote id="todayAffirmation">Erst aktivieren, dann entscheiden.</blockquote>
+                <button class="secondary-btn" id="setTodayAffirmationBtn">Als heutigen Satz merken</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="section-title">
+            <div>
+              <h2>Deine Top 3</h2>
+              <p>Nur die drei wichtigsten Dinge. Nicht alles auf einmal.</p>
+            </div>
+          </div>
+          <article class="card">
+            <div class="priority-list" id="priorityList"></div>
+            <div class="mini-form">
+              <input id="priorityInput" placeholder="Neue Priorität hinzufügen" />
+              <button class="primary-btn" id="addPriorityBtn">Hinzufügen</button>
+            </div>
+          </article>
+
+          <div class="grid-3" style="margin-top:14px;">
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Routinen heute</h2>
+                  <p class="card-subtitle">Erledigt / teilweise / verschoben</p>
+                </div>
+                <span class="badge" id="routineBadge">0%</span>
+              </div>
+              <div class="progress"><span id="routineProgress"></span></div>
+              <p class="card-subtitle" id="routineProgressText" style="margin-top:10px;">Noch nichts erledigt.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">5 Selbstliebe-Momente</h2>
+                  <p class="card-subtitle">Deine Murmel-Umsetzung digital</p>
+                </div>
+                <span class="badge" id="marbleBadge">0/5</span>
+              </div>
+              <div class="progress"><span id="marbleProgress"></span></div>
+              <button class="primary-btn" style="width:100%; margin-top:14px;" id="addMarbleBtn">+ Selbstliebe-Moment</button>
+            </article>
+
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Heutiger Erfolg</h2>
+                  <p class="card-subtitle">Ein Satz reicht.</p>
+                </div>
+                <span class="badge">Stolz</span>
+              </div>
+              <input id="dailySuccess" placeholder="z. B. Altpapier weggebracht" />
+              <button class="primary-btn" style="width:100%; margin-top:12px;" id="saveDailySuccessBtn">Erfolg speichern</button>
+            </article>
+          </div>
+
+          <div class="section-title">
+            <div>
+              <h2>Kleine Erfolge</h2>
+              <p>Sichtbare Beweise, dass du für dich handelst.</p>
+            </div>
+          </div>
+          <article class="card">
+            <div class="success-list" id="successList"></div>
+          </article>
+        </section>
+
+        <!-- PLANUNG -->
+        <section id="planung" class="view">
+          <div class="section-title">
+            <div>
+              <h2>Tagesplanung</h2>
+              <p>Zeitblöcke, Fokuszeit, Pausen und Abendroutine.</p>
+            </div>
+          </div>
+
+          <article class="card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Zeitblöcke</h2>
+                <p class="card-subtitle">Realistisch planen. Luft lassen. Verschieben ist erlaubt.</p>
+              </div>
+              <span class="badge">Heute</span>
+            </div>
+            <div class="timeline" id="timelineList"></div>
+            <div class="mini-form" style="grid-template-columns: 95px 1fr auto;">
+              <input id="timeInput" placeholder="09:00" />
+              <input id="timeTitleInput" placeholder="Neuer Zeitblock, Termin oder Pause" />
+              <button class="primary-btn" id="addTimeBlockBtn">+</button>
+            </div>
+          </article>
+
+          <div class="grid-2" style="margin-top:14px;">
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Fokuszeit</h2>
+                  <p class="card-subtitle">Eine klare Arbeitsinsel.</p>
+                </div>
+                <span class="badge">Deep Work</span>
+              </div>
+              <div class="field">
+                <label for="focusBlock">Heute fokussiere ich mich auf</label>
+                <input id="focusBlock" placeholder="z. B. 45 Min Bewerbung / Projekt / Lernen" />
+              </div>
+              <button class="primary-btn" style="width:100%; margin-top:14px;" id="saveFocusBtn">Fokuszeit speichern</button>
+            </article>
+
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Abendroutine</h2>
+                  <p class="card-subtitle">Runterfahren ohne Druck.</p>
+                </div>
+                <span class="badge">Ruhe</span>
+              </div>
+              <div class="chips" id="eveningChips"></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ROUTINEN -->
+        <section id="routinen" class="view">
+          <div class="section-title">
+            <div>
+              <h2>Routinen-Tracker</h2>
+              <p>Erledigt, teilweise oder verschoben. Kein Drama.</p>
+            </div>
+          </div>
+
+          <article class="card">
+            <div class="routine-list" id="routineList"></div>
+            <div class="mini-form" style="grid-template-columns: 1fr 150px auto;">
+              <input id="routineInput" placeholder="Neue Routine" />
+              <select id="routineTypeInput">
+                <option>täglich</option>
+                <option>wöchentlich</option>
+                <option>flexibel</option>
+              </select>
+              <button class="primary-btn" id="addRoutineBtn">+</button>
+            </div>
+          </article>
+        </section>
+
+        <!-- SÄTZE -->
+        <section id="saetze" class="view">
+          <div class="section-title">
+            <div>
+              <h2>Glaubenssätze</h2>
+              <p>Erwachsen, klar, stärkend. Kein Kitsch.</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Kategorien</h2>
+                  <p class="card-subtitle">Wähle, was du gerade brauchst.</p>
+                </div>
+              </div>
+              <div class="chips" id="affirmationCategories"></div>
+            </article>
+
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Eigener Satz</h2>
+                  <p class="card-subtitle">Kurz. Glaubwürdig. Alltagstauglich.</p>
+                </div>
+              </div>
+              <div class="field">
+                <label for="customAffirmation">Neuer Glaubenssatz</label>
+                <input id="customAffirmation" placeholder="z. B. Ich mache heute einen ehrlichen Schritt." />
+              </div>
+              <button class="primary-btn" style="width:100%; margin-top:14px;" id="addAffirmationBtn">Speichern</button>
+            </article>
+          </div>
+
+          <article class="card" style="margin-top:14px;">
+            <div class="affirmation-list" id="affirmationList"></div>
+          </article>
+        </section>
+
+        <!-- REFLEXION -->
+        <section id="reflexion" class="view">
+          <div class="section-title">
+            <div>
+              <h2>Erfolg & Reflexion</h2>
+              <p>Kurz genug, damit du es wirklich machst.</p>
+            </div>
+          </div>
+
+          <article class="card">
+            <div class="grid-2">
+              <div class="field">
+                <label for="reflectionSuccess">Was war heute mein Erfolg?</label>
+                <input id="reflectionSuccess" placeholder="Ein Satz reicht." />
+              </div>
+              <div class="field">
+                <label for="reflectionProud">Worauf bin ich stolz?</label>
+                <input id="reflectionProud" placeholder="Auch klein zählt." />
+              </div>
+              <div class="field">
+                <label for="reflectionLearned">Was habe ich gelernt?</label>
+                <input id="reflectionLearned" placeholder="z. B. Bewegung bringt Klarheit." />
+              </div>
+              <div class="field">
+                <label for="reflectionGrateful">Wofür bin ich dankbar?</label>
+                <input id="reflectionGrateful" placeholder="Mensch, Moment, Handlung, Gefühl..." />
+              </div>
+            </div>
+            <button class="primary-btn" style="width:100%; margin-top:16px;" id="saveReflectionBtn">Reflexion speichern</button>
+          </article>
+
+          <article class="card" style="margin-top:14px;">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Tagebuch-Export</h2>
+                <p class="card-subtitle">Zum Kopieren in dein bestehendes Tagebuch.</p>
+              </div>
+              <button class="soft-btn" id="copyJournalBtn">Kopieren</button>
+            </div>
+            <textarea id="journalExport" readonly></textarea>
+          </article>
+
+          <article class="card" style="margin-top:14px;">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Wochenrückblick vorbereitet</h2>
+                <p class="card-subtitle">Diese Fragen reichen für Sonntag.</p>
+              </div>
+            </div>
+            <div class="chips">
+              <button class="chip">Was hat mich gestärkt?</button>
+              <button class="chip">Was habe ich vermieden?</button>
+              <button class="chip">Was nehme ich mit?</button>
+              <button class="chip">Was ist nächste Woche ein kleiner Schritt?</button>
+            </div>
+          </article>
+        </section>
+      </div>
+
+      <aside class="desktop-aside">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Tagesstatus</h2>
+              <p class="card-subtitle">Kompakt auf einen Blick</p>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat"><div class="big-number" id="asideRoutineDone">0</div><span>Routinen</span></div>
+            <div class="stat"><div class="big-number" id="asideMarbles">0</div><span>Murmeln</span></div>
+            <div class="stat"><div class="big-number" id="asidePriorities">0</div><span>Top 3</span></div>
+            <div class="stat"><div class="big-number" id="asideWins">0</div><span>Erfolge</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Micro-Coach</h2>
+              <p class="card-subtitle">Eine klare Intervention</p>
+            </div>
+          </div>
+          <div class="affirmation-display" style="min-height:120px;">
+            <blockquote style="font-size:24px;">Erst aktivieren, dann entscheiden.</blockquote>
+          </div>
+          <button class="primary-btn" style="width:100%; margin-top:12px;" id="coachActionBtn">5-Minuten-Aktivierung eintragen</button>
+        </article>
+      </aside>
+    </div>
+
+    <p class="footer-note">Lokal gespeichert im Browser. Fortschritt statt Perfektion.</p>
+  </main>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+    const todayISO = new Date().toISOString().slice(0, 10);
+    const storeKey = "peer_daily_os_" + todayISO;
+    const settingsKey = "peer_daily_os_settings";
+
+    const defaultAffirmations = {
+      "Selbstwert": [
+        "Ich beweise mir meinen Wert durch kleine ehrliche Handlungen.",
+        "Ich darf Bedürfnisse haben und sie ernst nehmen.",
+        "Ich muss nicht perfekt sein, um stolz auf mich zu sein."
+      ],
+      "Ruhe": [
+        "Ich darf langsamer werden, ohne stehenzubleiben.",
+        "Ruhe ist kein Rückzug. Ruhe ist Kraft sammeln.",
+        "Ich atme, sortiere mich und mache dann den nächsten Schritt."
+      ],
+      "Vertrauen": [
+        "Ich kann unangenehme Gefühle halten, ohne vor mir wegzulaufen.",
+        "Ich vertraue kleinen Schritten mehr als großen Versprechen.",
+        "Ich darf mir zeigen, dass ich verlässlich für mich bin."
+      ],
+      "Erfolg": [
+        "Erfolg beginnt heute mit einem klaren nächsten Schritt.",
+        "Ich handle, bevor ich mich bewerte.",
+        "Ich baue mein neues Leben über tägliche Beweise auf."
+      ],
+      "Gesundheit": [
+        "Mein Körper ist mein Partner, nicht mein Gegner.",
+        "Bewegung bringt Klarheit.",
+        "Schlaf, Bewegung und Essen sind Selbstrespekt im Alltag."
+      ]
+    };
+
+    let state = {
+      mood: "klar",
+      need: "Struktur",
+      dailyFocus: "Erst aktivieren, dann entscheiden",
+      todayAffirmation: "Erst aktivieren, dann entscheiden.",
+      priorities: [
+        { text: "Morgenspaziergang machen", done: false },
+        { text: "Eine kleine unangenehme Sache erledigen", done: false },
+        { text: "Rechtzeitig ins Bett gehen", done: false }
+      ],
+      routines: [
+        { title: "Morgen: Spaziergang", type: "täglich", status: "offen", icon: "🚶" },
+        { title: "Gesundheit: Wasser + kurzer Check-in", type: "täglich", status: "offen", icon: "💧" },
+        { title: "Bewegung: 5-Minuten-Aktivierung", type: "flexibel", status: "offen", icon: "⚡" },
+        { title: "Arbeit/Lernen: 25 Min Fokus", type: "täglich", status: "offen", icon: "🎯" },
+        { title: "Abend: Handy runter, Bett vorbereiten", type: "täglich", status: "offen", icon: "🌙" }
+      ],
+      timeBlocks: [
+        { time: "08:00", title: "Morgenspaziergang + Check-in", type: "Routine", done: false },
+        { time: "10:00", title: "Fokuszeit: Bewerbung / Orga / Lernen", type: "Fokus", done: false },
+        { time: "13:00", title: "Pause + Essen", type: "Pause", done: false },
+        { time: "18:30", title: "Runterfahren, kleine Ordnung", type: "Routine", done: false },
+        { time: "22:00", title: "Bettzeit vorbereiten", type: "Abend", done: false }
+      ],
+      focusBlock: "25–45 Minuten für eine wichtige Sache",
+      successes: [
+        { text: "Altpapier weggebracht", time: "Beispiel", kind: "Erfolg" }
+      ],
+      marbles: [],
+      actions: [],
+      eveningItems: ["Licht dimmen", "Handy weglegen", "kurz reflektieren", "Bett vorbereiten"],
+      customAffirmations: [],
+      selectedAffirmationCategory: "Selbstwert",
+      reflection: {
+        success: "",
+        proud: "",
+        learned: "",
+        grateful: ""
+      }
+    };
+
+    let settings = {
+      theme: "light"
+    };
+
+    function init() {
+      renderDate();
+      load();
+      applyTheme();
+      bindEvents();
+      renderAll();
+      greet();
+    }
+
+    function load() {
+      const stored = localStorage.getItem(storeKey);
+      if (stored) {
+        state = { ...state, ...JSON.parse(stored) };
+      }
+      const storedSettings = localStorage.getItem(settingsKey);
+      if (storedSettings) {
+        settings = { ...settings, ...JSON.parse(storedSettings) };
+      }
+    }
+
+    function save() {
+      localStorage.setItem(storeKey, JSON.stringify(state));
+      renderAll();
+    }
+
+    function saveSettings() {
+      localStorage.setItem(settingsKey, JSON.stringify(settings));
+    }
+
+    function renderDate() {
+      const date = new Date();
+      $("#dateLine").textContent = date.toLocaleDateString("de-DE", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+    }
+
+    function greet() {
+      const hour = new Date().getHours();
+      let text = "Guten Tag, Peer.";
+      if (hour < 10) text = "Guten Morgen, Peer.";
+      else if (hour >= 18) text = "Guten Abend, Peer.";
+      $("#heroGreeting").textContent = text;
+    }
+
+    function bindEvents() {
+      $$(".nav-item").forEach(btn => {
+        btn.addEventListener("click", () => switchView(btn.dataset.view));
+      });
+
+      $$("[data-jump]").forEach(btn => {
+        btn.addEventListener("click", () => document.getElementById(btn.dataset.jump).scrollIntoView({ behavior: "smooth" }));
+      });
+
+      $("#themeBtn").addEventListener("click", toggleTheme);
+      $("#exportBtn").addEventListener("click", copyJournal);
+      $("#copyJournalBtn").addEventListener("click", copyJournal);
+
+      $("#saveCheckinBtn").addEventListener("click", saveCheckin);
+      $("#addPriorityBtn").addEventListener("click", addPriority);
+      $("#priorityInput").addEventListener("keydown", (e) => { if(e.key === "Enter") addPriority(); });
+
+      $("#addTimeBlockBtn").addEventListener("click", addTimeBlock);
+      $("#saveFocusBtn").addEventListener("click", () => {
+        state.focusBlock = $("#focusBlock").value.trim();
+        addSuccess("Fokuszeit geplant");
+        save();
+        toast("Fokuszeit gespeichert.");
+      });
+
+      $("#addRoutineBtn").addEventListener("click", addRoutine);
+      $("#shuffleAffirmationBtn").addEventListener("click", shuffleAffirmation);
+      $("#setTodayAffirmationBtn").addEventListener("click", () => {
+        state.todayAffirmation = $("#todayAffirmation").textContent;
+        save();
+        toast("Heutiger Satz gespeichert.");
+      });
+      $("#addAffirmationBtn").addEventListener("click", addCustomAffirmation);
+
+      $("#saveDailySuccessBtn").addEventListener("click", saveDailySuccess);
+      $("#quickWinBtn").addEventListener("click", () => {
+        const text = prompt("Welchen Erfolg möchtest du festhalten?");
+        if (text && text.trim()) {
+          addSuccess(text.trim());
+          save();
+          celebrate();
+          toast("Erfolg festgehalten.");
+        }
+      });
+
+      $("#addMarbleBtn").addEventListener("click", addMarble);
+      $("#coachActionBtn").addEventListener("click", () => {
+        state.actions.push({ text: "5-Minuten-Aktivierung gemacht", time: currentTime() });
+        addSuccess("5-Minuten-Aktivierung");
+        save();
+        celebrate();
+        toast("Aktivierung eingetragen.");
+      });
+
+      $("#saveReflectionBtn").addEventListener("click", saveReflection);
+    }
+
+    function switchView(view) {
+      $$(".view").forEach(v => v.classList.remove("active"));
+      $("#" + view).classList.add("active");
+      $$(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === view));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function applyTheme() {
+      document.documentElement.setAttribute("data-theme", settings.theme);
+      $("#themeBtn").textContent = settings.theme === "dark" ? "☀" : "☾";
+    }
+
+    function toggleTheme() {
+      settings.theme = settings.theme === "dark" ? "light" : "dark";
+      saveSettings();
+      applyTheme();
+      toast(settings.theme === "dark" ? "Dark Mode aktiv." : "Light Mode aktiv.");
+    }
+
+    function renderAll() {
+      renderMood();
+      renderInputs();
+      renderPriorities();
+      renderRoutines();
+      renderTimeBlocks();
+      renderEveningChips();
+      renderAffirmations();
+      renderSuccesses();
+      renderStats();
+      renderJournal();
+    }
+
+    function renderInputs() {
+      $("#dailyFocus").value = state.dailyFocus || "";
+      $("#needToday").value = state.need || "";
+      $("#focusBlock").value = state.focusBlock || "";
+      $("#dailySuccess").value = "";
+      $("#reflectionSuccess").value = state.reflection.success || "";
+      $("#reflectionProud").value = state.reflection.proud || "";
+      $("#reflectionLearned").value = state.reflection.learned || "";
+      $("#reflectionGrateful").value = state.reflection.grateful || "";
+      $("#todayAffirmation").textContent = state.todayAffirmation || getAffirmations()[0];
+      $("#affirmationCategoryLabel").textContent = state.selectedAffirmationCategory || "Passend für deinen Tag";
+    }
+
+    function renderMood() {
+      const moods = ["ruhig", "klar", "müde", "unruhig", "motiviert", "überfordert", "traurig"];
+      $("#moodChips").innerHTML = moods.map(m => `
+        <button class="chip ${state.mood === m ? "active" : ""}" data-mood="${escapeHTML(m)}">${emojiMood(m)} ${escapeHTML(m)}</button>
+      `).join("");
+      $$("#moodChips .chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          state.mood = chip.dataset.mood;
+          save();
+          toast("Stimmung gespeichert.");
+        });
+      });
+    }
+
+    function saveCheckin() {
+      state.dailyFocus = $("#dailyFocus").value.trim();
+      state.need = $("#needToday").value;
+      save();
+      toast("Check-in gespeichert.");
+    }
+
+    function renderPriorities() {
+      $("#priorityList").innerHTML = state.priorities.slice(0, 3).map((p, index) => `
+        <div class="priority-item">
+          <div class="priority-row">
+            <div class="priority-left">
+              <button class="checkbox ${p.done ? "done" : ""}" data-priority-toggle="${index}">✓</button>
+              <div>
+                <div class="item-title">${escapeHTML(p.text)}</div>
+                <div class="item-meta">Top ${index + 1}</div>
+              </div>
+            </div>
+            <button class="chip" data-priority-remove="${index}">Entfernen</button>
+          </div>
+        </div>
+      `).join("") || `<div class="empty">Noch keine Prioritäten. Wähle maximal drei.</div>`;
+
+      $$("[data-priority-toggle]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const i = Number(btn.dataset.priorityToggle);
+          state.priorities[i].done = !state.priorities[i].done;
+          if (state.priorities[i].done) {
+            addSuccess("Priorität erledigt: " + state.priorities[i].text);
+            celebrate();
+          }
+          save();
+        });
+      });
+
+      $$("[data-priority-remove]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.priorities.splice(Number(btn.dataset.priorityRemove), 1);
+          save();
+        });
+      });
+    }
+
+    function addPriority() {
+      const input = $("#priorityInput");
+      const text = input.value.trim();
+      if (!text) return;
+      if (state.priorities.length >= 3) {
+        toast("Maximal drei Prioritäten. Erst eine entfernen.");
+        return;
+      }
+      state.priorities.push({ text, done: false });
+      input.value = "";
+      save();
+      toast("Priorität hinzugefügt.");
+    }
+
+    function renderRoutines() {
+      $("#routineList").innerHTML = state.routines.map((r, index) => `
+        <div class="routine-item">
+          <div class="routine-row">
+            <div class="routine-left">
+              <div class="brand-mark" style="width:36px;height:36px;border-radius:13px;box-shadow:none;">${r.icon || "✓"}</div>
+              <div>
+                <div class="item-title">${escapeHTML(r.title)}</div>
+                <div class="item-meta">${escapeHTML(r.type)} · ${routineStatusCopy(r.status)}</div>
+              </div>
+            </div>
+            <select class="status-select" data-routine-status="${index}">
+              <option value="offen" ${r.status === "offen" ? "selected" : ""}>offen</option>
+              <option value="erledigt" ${r.status === "erledigt" ? "selected" : ""}>erledigt</option>
+              <option value="teilweise" ${r.status === "teilweise" ? "selected" : ""}>teilweise</option>
+              <option value="verschoben" ${r.status === "verschoben" ? "selected" : ""}>verschoben</option>
+            </select>
+          </div>
+        </div>
+      `).join("");
+
+      $$("[data-routine-status]").forEach(select => {
+        select.addEventListener("change", () => {
+          const i = Number(select.dataset.routineStatus);
+          const old = state.routines[i].status;
+          state.routines[i].status = select.value;
+          if (select.value === "erledigt" && old !== "erledigt") {
+            addSuccess("Routine erledigt: " + state.routines[i].title);
+            celebrate();
+          }
+          save();
+        });
+      });
+
+      updateRoutineProgress();
+    }
+
+    function addRoutine() {
+      const text = $("#routineInput").value.trim();
+      const type = $("#routineTypeInput").value;
+      if (!text) return;
+      state.routines.push({ title: text, type, status: "offen", icon: "✓" });
+      $("#routineInput").value = "";
+      save();
+      toast("Routine hinzugefügt.");
+    }
+
+    function updateRoutineProgress() {
+      const total = state.routines.length || 1;
+      const score = state.routines.reduce((sum, r) => {
+        if (r.status === "erledigt") return sum + 1;
+        if (r.status === "teilweise") return sum + .5;
+        return sum;
+      }, 0);
+      const pct = Math.round((score / total) * 100);
+      $("#routineProgress").style.width = pct + "%";
+      $("#routineBadge").textContent = pct + "%";
+      $("#routineProgressText").textContent = pct === 0
+        ? "Noch nichts erledigt. Ein kleiner Start reicht."
+        : pct < 100
+          ? "Du bist unterwegs. Fortschritt zählt."
+          : "Stark. Deine Routinen sind für heute rund.";
+    }
+
+    function renderTimeBlocks() {
+      $("#timelineList").innerHTML = state.timeBlocks.map((b, index) => `
+        <div class="time-item">
+          <div class="item-meta"><strong>${escapeHTML(b.time)}</strong> · ${escapeHTML(b.type || "Block")}</div>
+          <div class="time-row">
+            <div class="time-left">
+              <button class="checkbox ${b.done ? "done" : ""}" data-time-toggle="${index}">✓</button>
+              <div>
+                <div class="item-title">${escapeHTML(b.title)}</div>
+                <div class="item-meta">${b.done ? "abgeschlossen" : "geplant"}</div>
+              </div>
+            </div>
+            <button class="chip" data-time-remove="${index}">Entfernen</button>
+          </div>
+        </div>
+      `).join("");
+
+      $$("[data-time-toggle]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const i = Number(btn.dataset.timeToggle);
+          state.timeBlocks[i].done = !state.timeBlocks[i].done;
+          if (state.timeBlocks[i].done) {
+            addSuccess("Zeitblock abgeschlossen: " + state.timeBlocks[i].title);
+            celebrate();
+          }
+          save();
+        });
+      });
+
+      $$("[data-time-remove]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.timeBlocks.splice(Number(btn.dataset.timeRemove), 1);
+          save();
+        });
+      });
+    }
+
+    function addTimeBlock() {
+      const time = $("#timeInput").value.trim() || "flexibel";
+      const title = $("#timeTitleInput").value.trim();
+      if (!title) return;
+      state.timeBlocks.push({ time, title, type: "Plan", done: false });
+      state.timeBlocks.sort((a,b) => String(a.time).localeCompare(String(b.time)));
+      $("#timeInput").value = "";
+      $("#timeTitleInput").value = "";
+      save();
+      toast("Zeitblock hinzugefügt.");
+    }
+
+    function renderEveningChips() {
+      $("#eveningChips").innerHTML = state.eveningItems.map((item, index) => `
+        <button class="chip" data-evening="${index}">${escapeHTML(item)}</button>
+      `).join("");
+      $$("[data-evening]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("active");
+          addSuccess("Abendroutine: " + state.eveningItems[Number(btn.dataset.evening)]);
+          save();
+          toast("Abendroutine eingetragen.");
+        });
+      });
+    }
+
+    function renderAffirmations() {
+      const cats = Object.keys(defaultAffirmations);
+      $("#affirmationCategories").innerHTML = cats.map(c => `
+        <button class="chip ${state.selectedAffirmationCategory === c ? "active" : ""}" data-category="${escapeHTML(c)}">${categoryIcon(c)} ${escapeHTML(c)}</button>
+      `).join("");
+
+      $$("#affirmationCategories .chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          state.selectedAffirmationCategory = chip.dataset.category;
+          const list = getAffirmations();
+          state.todayAffirmation = list[0] || state.todayAffirmation;
+          save();
+        });
+      });
+
+      const list = getAffirmations();
+      $("#affirmationList").innerHTML = list.map((text, index) => `
+        <div class="affirmation-item">
+          <div class="item-title">„${escapeHTML(text)}“</div>
+          <div class="row">
+            <button class="soft-btn" data-use-affirmation="${index}">Heute nutzen</button>
+          </div>
+        </div>
+      `).join("");
+
+      $$("[data-use-affirmation]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.todayAffirmation = getAffirmations()[Number(btn.dataset.useAffirmation)];
+          save();
+          toast("Satz für heute gesetzt.");
+        });
+      });
+    }
+
+    function getAffirmations() {
+      return [
+        ...(defaultAffirmations[state.selectedAffirmationCategory] || []),
+        ...state.customAffirmations.filter(a => a.category === state.selectedAffirmationCategory).map(a => a.text)
+      ];
+    }
+
+    function shuffleAffirmation() {
+      const all = [
+        ...Object.values(defaultAffirmations).flat(),
+        ...state.customAffirmations.map(a => a.text)
+      ];
+      const pick = all[Math.floor(Math.random() * all.length)];
+      state.todayAffirmation = pick;
+      save();
+      toast("Neuer Satz gewählt.");
+    }
+
+    function addCustomAffirmation() {
+      const input = $("#customAffirmation");
+      const text = input.value.trim();
+      if (!text) return;
+      state.customAffirmations.push({ text, category: state.selectedAffirmationCategory });
+      input.value = "";
+      save();
+      toast("Glaubenssatz gespeichert.");
+    }
+
+    function saveDailySuccess() {
+      const text = $("#dailySuccess").value.trim();
+      if (!text) return;
+      addSuccess(text);
+      $("#dailySuccess").value = "";
+      save();
+      celebrate();
+      toast("Erfolg gespeichert.");
+    }
+
+    function addMarble() {
+      if (state.marbles.length >= 5) {
+        toast("5/5 erreicht. Sehr stark für heute.");
+        celebrate();
+        return;
+      }
+      const text = prompt("Wofür bekommst du eine Murmel?");
+      const value = text && text.trim() ? text.trim() : "Selbstliebe-Moment";
+      state.marbles.push({ text: value, time: currentTime() });
+      addSuccess("Murmel: " + value);
+      save();
+      celebrate();
+      toast("Murmel eingetragen.");
+    }
+
+    function addSuccess(text) {
+      if (!text) return;
+      state.successes.unshift({ text, time: currentTime(), kind: "Erfolg" });
+      state.successes = state.successes.slice(0, 30);
+    }
+
+    function renderSuccesses() {
+      $("#successList").innerHTML = state.successes.length ? state.successes.map((s, index) => `
+        <div class="success-item">
+          <div class="success-row">
+            <div class="success-left">
+              <div class="brand-mark" style="width:36px;height:36px;border-radius:13px;box-shadow:none;">✦</div>
+              <div>
+                <div class="item-title">${escapeHTML(s.text)}</div>
+                <div class="item-meta">${escapeHTML(s.time || "")} · ${escapeHTML(s.kind || "Erfolg")}</div>
+              </div>
+            </div>
+            <button class="chip" data-success-remove="${index}">Entfernen</button>
+          </div>
+        </div>
+      `).join("") : `<div class="empty">Noch kein Erfolg eingetragen. Ein kleiner Schritt reicht.</div>`;
+
+      $$("[data-success-remove]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.successes.splice(Number(btn.dataset.successRemove), 1);
+          save();
+        });
+      });
+    }
+
+    function saveReflection() {
+      state.reflection = {
+        success: $("#reflectionSuccess").value.trim(),
+        proud: $("#reflectionProud").value.trim(),
+        learned: $("#reflectionLearned").value.trim(),
+        grateful: $("#reflectionGrateful").value.trim()
+      };
+      if (state.reflection.success) addSuccess("Reflexion: " + state.reflection.success);
+      save();
+      toast("Reflexion gespeichert.");
+    }
+
+    function renderStats() {
+      const doneRoutines = state.routines.filter(r => r.status === "erledigt").length;
+      const donePriorities = state.priorities.filter(p => p.done).length;
+
+      $("#asideRoutineDone").textContent = doneRoutines;
+      $("#asideMarbles").textContent = state.marbles.length;
+      $("#asidePriorities").textContent = donePriorities;
+      $("#asideWins").textContent = state.successes.length;
+
+      $("#marbleBadge").textContent = state.marbles.length + "/5";
+      $("#marbleProgress").style.width = Math.min(100, (state.marbles.length / 5) * 100) + "%";
+    }
+
+    function renderJournal() {
+      const doneRoutines = state.routines.filter(r => r.status === "erledigt").map(r => r.title);
+      const partialRoutines = state.routines.filter(r => r.status === "teilweise").map(r => r.title);
+      const shiftedRoutines = state.routines.filter(r => r.status === "verschoben").map(r => r.title);
+
+      const text = [
+        "Daily Operating System – " + $("#dateLine").textContent,
+        "",
+        "Tagesfokus: " + (state.dailyFocus || "-"),
+        "Stimmung: " + (state.mood || "-"),
+        "Bedürfnis: " + (state.need || "-"),
+        "",
+        "Heutiger Satz:",
+        "„" + (state.todayAffirmation || "-") + "“",
+        "",
+        "Top 3:",
+        ...state.priorities.map((p, i) => `${i + 1}. ${p.done ? "✓" : "○"} ${p.text}`),
+        "",
+        "Routinen erledigt:",
+        doneRoutines.length ? doneRoutines.map(r => "- " + r).join("\n") : "-",
+        "",
+        "Routinen teilweise:",
+        partialRoutines.length ? partialRoutines.map(r => "- " + r).join("\n") : "-",
+        "",
+        "Routinen verschoben:",
+        shiftedRoutines.length ? shiftedRoutines.map(r => "- " + r).join("\n") : "-",
+        "",
+        "5 Selbstliebe-Momente:",
+        state.marbles.length ? state.marbles.map((m, i) => `${i + 1}. ${m.text}`).join("\n") : "-",
+        "",
+        "Erfolge:",
+        state.successes.length ? state.successes.slice(0, 8).map(s => "- " + s.text).join("\n") : "-",
+        "",
+        "Reflexion:",
+        "Erfolg: " + (state.reflection.success || "-"),
+        "Stolz: " + (state.reflection.proud || "-"),
+        "Gelernt: " + (state.reflection.learned || "-"),
+        "Dankbar: " + (state.reflection.grateful || "-")
+      ].join("\n");
+
+      $("#journalExport").value = text;
+    }
+
+    function copyJournal() {
+      renderJournal();
+      navigator.clipboard.writeText($("#journalExport").value).then(() => {
+        toast("Tagebuch-Text kopiert.");
+      }).catch(() => {
+        $("#journalExport").select();
+        document.execCommand("copy");
+        toast("Tagebuch-Text kopiert.");
+      });
+    }
+
+    function routineStatusCopy(status) {
+      const map = {
+        offen: "noch offen",
+        erledigt: "erledigt",
+        teilweise: "teilweise geschafft",
+        verschoben: "bewusst verschoben"
+      };
+      return map[status] || status;
+    }
+
+    function emojiMood(mood) {
+      const map = {
+        ruhig: "🌿",
+        klar: "◌",
+        müde: "☁",
+        unruhig: "〰",
+        motiviert: "⚡",
+        überfordert: "⧖",
+        traurig: "☔"
+      };
+      return map[mood] || "•";
+    }
+
+    function categoryIcon(cat) {
+      const map = {
+        "Selbstwert": "✦",
+        "Ruhe": "🌿",
+        "Vertrauen": "◌",
+        "Erfolg": "🎯",
+        "Gesundheit": "💧"
+      };
+      return map[cat] || "•";
+    }
+
+    function currentTime() {
+      return new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function toast(text) {
+      const el = $("#toast");
+      el.textContent = text;
+      el.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.remove("show"), 1700);
+    }
+
+    function celebrate() {
+      const wrap = $("#celebrate");
+      wrap.innerHTML = "";
+      const colors = ["#557766", "#8c6b4e", "#d3b18c", "#9fc6ad", "#ffffff"];
+      for (let i = 0; i < 28; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.animationDelay = Math.random() * 200 + "ms";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.transform = `rotate(${Math.random() * 160}deg)`;
+        wrap.appendChild(piece);
+      }
+      setTimeout(() => wrap.innerHTML = "", 1100);
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    init();
+  </script>
+</body>
+</html>
