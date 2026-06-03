@@ -43,7 +43,7 @@
     input,select,textarea{width:100%;min-height:46px;border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:15px;padding:12px;outline:none}
     textarea{min-height:100px;resize:vertical} label{display:block;font-size:13px;font-weight:850;color:var(--muted);margin:12px 0 7px}
     .btn,.btn-soft,.btn-light{border-radius:15px;padding:12px 14px;font-weight:900;display:inline-flex;justify-content:center;align-items:center;gap:8px}
-    .btn{background:var(--accent);color:white}.btn-soft{background:var(--soft);color:var(--accent)}.btn-light{background:var(--surface2);border:1px solid var(--line)}.full{width:100%;margin-top:12px}.star-btn{width:38px;height:38px;border-radius:14px;background:var(--surface2);border:1px solid var(--line);font-size:18px;display:grid;place-items:center;flex:0 0 auto}.star-btn.active{background:var(--accent);color:white;border-color:var(--accent)}.top3-hint{font-size:13px;color:var(--muted);margin-top:10px}
+    .btn{background:var(--accent);color:white}.btn-soft{background:var(--soft);color:var(--accent)}.btn-light{background:var(--surface2);border:1px solid var(--line)}.full{width:100%;margin-top:12px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:9px 11px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:850}.chip.active{background:var(--accent);color:white;border-color:var(--accent)}
     .emoji-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.emoji-card{min-height:72px;border-radius:17px;background:var(--surface2);border:1px solid var(--line);padding:10px;display:grid;place-items:center;text-align:center;gap:4px;font-weight:900;color:var(--muted)}
     .emoji-card .e{font-size:24px;line-height:1}.emoji-card.active{background:var(--accent);color:white;border-color:var(--accent)}
@@ -66,9 +66,33 @@
     @media(min-width:760px){.grid-2{grid-template-columns:1.1fr .9fr}.grid-3{grid-template-columns:repeat(3,1fr)}.emoji-row.four{grid-template-columns:repeat(4,1fr)}}
     @media(min-width:1040px){.app{padding-left:124px;padding-bottom:34px}.nav{left:22px;top:100px;bottom:auto;transform:none;width:86px;height:auto;grid-template-columns:1fr;border-radius:28px}.nav button{min-height:70px}}
     @media(max-width:430px){.emoji-grid{grid-template-columns:repeat(2,1fr)}.edit-grid{grid-template-columns:1fr}.time-grid{grid-template-columns:1fr}}
+
+    /* v1.6 Dashboard Redesign */
+    body{background:radial-gradient(circle at 14% -8%,rgba(85,119,102,.12),transparent 32%),linear-gradient(145deg,var(--bg),#efe7dc)!important;}
+    .app{max-width:1180px!important;padding-top:16px!important;}
+    .hero{padding:19px 22px!important;border-radius:26px!important;margin-bottom:14px!important;box-shadow:0 12px 32px rgba(65,48,32,.10)!important;}
+    .hero h2{font-size:clamp(28px,5vw,44px)!important;letter-spacing:-1.1px!important;}
+    .card{box-shadow:0 10px 28px rgba(65,48,32,.075)!important;}
+    .dashboard-focus{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;align-items:start;}
+    .dashboard-important{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;align-items:start;}
+    .side-mini-stack{display:grid;gap:14px;}
+    .affirmation{min-height:auto!important;padding:15px!important;}
+    .affirmation blockquote{font-size:clamp(20px,3vw,28px)!important;}
+    .success-list .item:nth-child(n+6){display:none;}
+    .star-btn{width:38px;height:38px;border-radius:14px;background:var(--surface2);border:1px solid var(--line);font-size:18px;display:grid;place-items:center;flex:0 0 auto;}
+    .star-btn.active{background:var(--accent);color:white;border-color:var(--accent)}
+    .top3-select-row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px;}
+    .celebrate{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:40;}
+    .confetti{position:absolute;top:-20px;width:9px;height:14px;border-radius:4px;background:var(--accent);animation:fall 900ms ease-in forwards;}
+    @keyframes fall{to{transform:translateY(110vh) rotate(460deg);opacity:0}}
+    @media(min-width:1040px){.app{padding-left:100px!important}.nav{width:72px!important;left:18px!important;border-radius:24px!important}.nav button{min-height:66px!important}}
+    @media(max-width:960px){.dashboard-focus,.dashboard-important{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr!important}}
+    @media(max-width:520px){.top3-select-row{grid-template-columns:1fr}.hero{padding:17px!important}}
+
   </style>
 </head>
 <body>
+  <div class="celebrate" id="celebrate"></div>
   <div class="toast" id="toast">Gespeichert.</div>
   <nav class="nav">
     <button class="active" data-view="today"><span>⌂</span><span>Heute</span></button>
@@ -90,7 +114,7 @@
     </section>
 
     <section class="view active" id="today">
-      <div class="grid-2">
+      <div class="dashboard-focus">
         <article class="card">
           <div class="head"><div><h2 class="title">Tages-Check</h2><p class="sub">Schnell tippen statt lange überlegen.</p></div><span class="badge">Start</span></div>
           <label>Wie geht es mir?</label><div class="emoji-grid" id="moodGrid"></div>
@@ -110,32 +134,30 @@
       </div>
 
       <div class="section"><h2>Heute wichtig</h2><p>Nur das, was dich wirklich führt.</p></div>
-      <div class="grid-3">
-        <article class="card compact">
-          <div class="head">
-            <div>
-              <h2 class="title">Top 3</h2>
-              <p class="sub">Aus deinem Tagesplan markiert.</p>
-            </div>
-            <span class="badge" id="top3Badge">0/3</span>
-          </div>
-          <div class="list" id="top3List"></div>
-          <p class="top3-hint">Im Bereich „Plan“ kannst du Punkte mit ⭐ als Top 3 markieren.</p>
-        </article>
+      <div class="dashboard-important">
+        <article class="card compact"><div class="head"><h2 class="title">Top 3</h2><span class="badge">Fokus</span></div><div class="list" id="priorityList"></div><input id="priorityInput" placeholder="Neue Priorität" style="margin-top:10px"><button class="btn full" id="addPriority">Hinzufügen</button></article>
         <article class="card compact"><div class="head"><h2 class="title">Satz des Tages</h2><button class="btn-soft" id="shuffleBelief">Neu</button></div><div class="affirmation"><blockquote id="todayBelief">Erst aktivieren, dann entscheiden.</blockquote></div></article>
-        <article class="card compact">
-          <div class="head">
-            <div>
-              <h2 class="title">Erfolge & Murmeln</h2>
-              <p class="sub">Was du heute geschafft hast, wird sichtbar.</p>
+        <div class="side-mini-stack">
+          <article class="card compact">
+            <div class="head">
+              <div><h2 class="title">Erfolge</h2><p class="sub">Was du heute geschafft hast.</p></div>
+              <span class="badge" id="successBadge">0</span>
             </div>
-            <span class="badge" id="marbleBadge">0/5</span>
-          </div>
-          <div class="progress" style="margin:12px 0"><span id="marbleProgress"></span></div>
-          <input id="successInput" placeholder="z. B. Altpapier weggebracht">
-          <button class="btn full" id="addSuccess">+ Erfolg / Murmel</button>
-          <div class="list" id="dashboardSuccessList" style="margin-top:12px"></div>
-        </article>
+            <input id="successInput" placeholder="z. B. Bewerbung geschrieben">
+            <button class="btn full" id="addSuccess">+ Erfolg speichern</button>
+            <div class="list success-list" id="dashboardSuccessList" style="margin-top:12px"></div>
+          </article>
+          <article class="card compact">
+            <div class="head">
+              <div><h2 class="title">Selbstliebe-Murmeln</h2><p class="sub">Nur für echte Selbstliebe-Momente.</p></div>
+              <span class="badge" id="marbleBadge">0/5</span>
+            </div>
+            <div class="progress" style="margin:12px 0"><span id="marbleProgress"></span></div>
+            <input id="selfLoveInput" placeholder="z. B. Pause gemacht statt gedrückt">
+            <button class="btn full" id="addSelfLove">+ Selbstliebe-Murmel</button>
+            <div class="list" id="selfLoveList" style="margin-top:12px"></div>
+          </article>
+        </div>
       </div>
 
       <div class="section"><h2>Micro Coach</h2><p>Kompakt. Nur öffnen, wenn du kurz Führung brauchst.</p></div>
@@ -182,7 +204,7 @@
       <article class="card" style="margin-top:14px"><div class="head"><div><h2 class="title">Tagebuch-Export</h2><p class="sub">Zum Kopieren in dein bestehendes Tagebuch.</p></div><button class="btn-soft" id="copyJournal">Kopieren</button></div><textarea id="journal" readonly></textarea></article>
     </section>
 
-    <footer class="footer">Mein Daily Life · v1.5 · lokal gespeichert</footer>
+    <footer class="footer">Mein Daily Life · v1.6 · lokal gespeichert</footer>
   </main>
 
   <script>
@@ -210,6 +232,7 @@
       beliefCat:"Selbstwert",todayBelief:"Erst aktivieren, dann entscheiden.",customBeliefs:[],
       checkSaved:false,
       top3Ids:[],
+      selfLove:[],
       priorities:[{text:"Morgenspaziergang machen",done:false},{text:"Eine kleine unangenehme Sache erledigen",done:false},{text:"Rechtzeitig ins Bett gehen",done:false}],
       routines:[
         {id:"wasser",time:"direkt nach dem Aufstehen",title:"Wasser trinken",type:"täglich",status:"offen",area:"Morgen",autoPlan:true},
@@ -233,14 +256,11 @@
       state.moods=Array.isArray(state.moods)?state.moods:["klar"];
       state.checkSaved=!!state.checkSaved || !!state.focus;
       state.removedRoutineIds=Array.isArray(state.removedRoutineIds)?state.removedRoutineIds:[];
-      state.reflection={morningStep:"",morningSupport:"",middayEnergy:"mittel",middayStep:"",eveningGood:"",eveningHonest:"",eveningLearned:"",eveningThanks:"",...(state.reflection||{})};
       state.top3Ids=Array.isArray(state.top3Ids)?state.top3Ids:[];
-      state.timeBlocks=(state.timeBlocks||[]).map((b,idx)=>({
-        ...b,
-        id:b.id || (b.sourceRoutineId ? "plan_routine_"+b.sourceRoutineId : "plan_todo_"+today+"_"+idx+"_"+Math.random().toString(16).slice(2)),
-        status:b.status || (b.done?"erledigt":"offen"),
-        kind:b.kind || (b.sourceRoutineId?"routine":"todo")
-      }));
+      state.selfLove=Array.isArray(state.selfLove)?state.selfLove:[];
+      state.successes=Array.isArray(state.successes)?state.successes:[];
+      state.marbles=Math.min(5,state.selfLove.length || Number(state.marbles||0));
+      state.reflection={morningStep:"",morningSupport:"",middayEnergy:"mittel",middayStep:"",eveningGood:"",eveningHonest:"",eveningLearned:"",eveningThanks:"",...(state.reflection||{})};
 
       // Bestehende ältere Routinen sauber auf neues Modell bringen und Duplikate vermeiden
       const desired=[
@@ -258,7 +278,7 @@
         return {...d, status: old?.status || d.status};
       }), ...custom.map(r=>({...r,id:r.id||("routine_"+Date.now()+"_"+Math.random().toString(16).slice(2)),autoPlan:r.autoPlan!==false}))];
 
-      state.timeBlocks=(state.timeBlocks||[]).map(b=>({...b,status:b.status || (b.done?"erledigt":"offen"),kind:b.kind||"todo"}));
+      state.timeBlocks=(state.timeBlocks||[]).map((b,idx)=>({...b,id:b.id || (b.sourceRoutineId ? "plan_routine_"+b.sourceRoutineId : "plan_todo_"+today+"_"+idx+"_"+Math.random().toString(16).slice(2)),status:b.status || (b.done?"erledigt":"offen"),kind:b.kind || (b.sourceRoutineId?"routine":"todo")}));
       syncRoutinePlan();
     }
 
@@ -294,14 +314,14 @@
       $$(".nav button").forEach(b=>b.onclick=()=>switchView(b.dataset.view));
       $("#themeBtn").onclick=()=>{settings.theme=settings.theme==="dark"?"light":"dark";localStorage.setItem(settingsKey,JSON.stringify(settings));document.documentElement.dataset.theme=settings.theme;render()};
       $("#saveCheck").onclick=()=>{state.focus=$("#focus").value.trim();state.checkSaved=true;save();toast("Tages-Check gespeichert.")};
-      const addPriorityBtn=$("#addPriority"); if(addPriorityBtn) addPriorityBtn.onclick=addPriority; $("#addSuccess").onclick=addSuccessFromInput; $("#toggleCoach").onclick=()=>{$("#coachBody").classList.toggle("open");$("#toggleCoach").textContent=$("#coachBody").classList.contains("open")?"Schließen":"Öffnen"};
+      $("#addPriority").onclick=addPriority; $("#addSuccess").onclick=addSuccessFromInput; const slBtn=$("#addSelfLove"); if(slBtn) slBtn.onclick=addSelfLoveFromInput; const topBtn=$("#addTop3FromDashboard"); if(topBtn) topBtn.onclick=addTop3FromDashboard; $("#toggleCoach").onclick=()=>{$("#coachBody").classList.toggle("open");$("#toggleCoach").textContent=$("#coachBody").classList.contains("open")?"Schließen":"Öffnen"};
       $("#runCoach").onclick=runCoach; $("#addTime").onclick=addTime; $("#addRoutine").onclick=addRoutine; $("#shuffleBelief").onclick=shuffleBelief; $("#addBelief").onclick=addBelief; $("#saveReflection").onclick=saveReflection;
       $("#copyJournal").onclick=()=>navigator.clipboard.writeText($("#journal").value).then(()=>toast("Tagebuch kopiert."));
       $$(".tab").forEach(t=>t.onclick=()=>switchPanel(t.dataset.panel));
     }
     function switchView(id){$$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));scrollTo({top:0,behavior:"smooth"})}
     function switchPanel(id){$$(".panel").forEach(p=>p.classList.toggle("active",p.id===id));$$(".tab").forEach(t=>t.classList.toggle("active",t.dataset.panel===id))}
-    function render(){renderButtons();renderInputs();renderStatus();renderTop3();renderRoutines();renderTimes();renderBeliefs();renderMicro();renderSuccesses();renderJournal();$("#themeBtn").textContent=settings.theme==="dark"?"☀":"☾"}
+    function render(){renderButtons();renderInputs();renderStatus();renderTop3();renderRoutines();renderTimes();renderBeliefs();renderMicro();renderSuccesses();renderSelfLove();renderJournal();$("#themeBtn").textContent=settings.theme==="dark"?"☀":"☾"}
 
     function emojiCards(container, arr, selected, multi, cb){$(container).innerHTML=arr.map(([e,t])=>`<button class="emoji-card ${(multi?selected.includes(t):selected===t)?"active":""}" data-val="${esc(t)}"><span class="e">${e}</span><span>${esc(t)}</span></button>`).join("");$$(container+" [data-val]").forEach(b=>b.onclick=()=>cb(b.dataset.val))}
     function renderButtons(){
@@ -314,7 +334,7 @@
       $$("[data-mf]").forEach(b=>b.onclick=()=>{const f=b.dataset.mf;state.micro.feelings=state.micro.feelings.includes(f)?state.micro.feelings.filter(x=>x!==f):[...state.micro.feelings,f];save()});
     }
     function renderInputs(){
-      $("#focus").value=state.focus; $("#todayBelief").textContent=state.todayBelief; $("#marbleBadge").textContent=state.marbles+"/5"; $("#marbleProgress").style.width=Math.min(100,state.marbles/5*100)+"%";
+      $("#focus").value=state.focus; $("#todayBelief").textContent=state.todayBelief; const sb=$("#successBadge"); if(sb) sb.textContent=state.successes.length; $("#marbleBadge").textContent=Math.min(5,state.selfLove.length)+"/5"; $("#marbleProgress").style.width=Math.min(100,state.selfLove.length/5*100)+"%";
       $("#morningStep").value=state.reflection.morningStep; $("#morningSupport").value=state.reflection.morningSupport; $("#middayEnergy").value=state.reflection.middayEnergy; $("#middayStep").value=state.reflection.middayStep;
       $("#eveningGood").value=state.reflection.eveningGood; $("#eveningHonest").value=state.reflection.eveningHonest; $("#eveningLearned").value=state.reflection.eveningLearned; $("#eveningThanks").value=state.reflection.eveningThanks;
     }
@@ -322,8 +342,8 @@
     function reflectionDone(k){const r=state.reflection; if(k==="morgen")return !!(r.morningStep||r.morningSupport); if(k==="mittag")return !!(r.middayStep); return !!(r.eveningGood||r.eveningHonest||r.eveningLearned||r.eveningThanks)}
     function renderStatus(){
       const totalR=state.routines.length||1, score=state.routines.reduce((s,r)=>s+routineScore(r),0), routinePct=Math.round(score/totalR*100);
-      const checks=[state.checkSaved, reflectionDone("morgen"), reflectionDone("mittag"), reflectionDone("abend"), state.successes.length>0];
-      const overall=Math.round(((routinePct/100)+checks.filter(Boolean).length)/6*100);
+      const checks=[state.checkSaved, reflectionDone("morgen"), reflectionDone("mittag"), reflectionDone("abend"), state.successes.length>0, state.selfLove.length>0];
+      const overall=Math.round(((routinePct/100)+checks.filter(Boolean).length)/7*100);
       $("#statusBadge").textContent=overall+"%"; $("#routineProgress").style.width=overall+"%";
       $("#statusText").textContent=overall===0?"Ein kleiner Start reicht.":overall<100?"Du siehst klar, was noch offen ist. Kein Druck.":"Rund. Dein Tag ist sauber abgeschlossen.";
       const planDone=state.timeBlocks.filter(b=>b.status==="erledigt").length;
@@ -335,40 +355,31 @@
         {label:"Morgen-Reflexion", meta:"Ausrichtung", done:reflectionDone("morgen")},
         {label:"Mittags-Check", meta:"neu ausrichten", done:reflectionDone("mittag")},
         {label:"Abend-Reflexion", meta:"Rückblick", done:reflectionDone("abend")},
-        {label:"Erfolg / Murmel", meta:`${state.marbles}/5 Murmeln`, done:state.successes.length>0, partial:state.marbles>0}
+        {label:"Erfolge", meta:`${state.successes.length} Einträge`, done:state.successes.length>0},
+        {label:"Selbstliebe-Murmeln", meta:`${Math.min(5,state.selfLove.length)}/5 Murmeln`, done:state.selfLove.length>0, partial:state.selfLove.length>0 && state.selfLove.length<5}
       ];
       $("#statusList").innerHTML=rows.map(x=>`<div class="status-row ${x.done?"done":x.partial?"partial":""}"><span class="dot"></span><div><div class="item-title">${esc(x.label)}</div><div class="item-meta">${esc(x.meta)}</div></div><span class="badge">${x.done?"erledigt":x.partial?"teilweise":"offen"}</span></div>`).join("");
     }
     function renderTop3(){
-      const list=$("#top3List");
-      if(!list) return;
+      const list=$("#top3List"); if(!list)return;
       state.top3Ids=Array.isArray(state.top3Ids)?state.top3Ids:[];
-      state.top3Ids=state.top3Ids.filter(id=>state.timeBlocks.some(b=>b.id===id));
+      state.top3Ids=state.top3Ids.filter(id=>state.timeBlocks.some(b=>b.id===id)).slice(0,3);
       const selected=state.top3Ids.map(id=>state.timeBlocks.find(b=>b.id===id)).filter(Boolean);
-      const badge=$("#top3Badge"); if(badge) badge.textContent=selected.length+"/3";
+      const badge=$("#top3Badge"); if(badge)badge.textContent=selected.length+"/3";
       if(selected.length===0){
-        list.innerHTML=`<div class="empty">Noch keine Top 3 markiert. Gehe in „Plan“ und tippe auf ⭐.</div>`;
-        return;
+        list.innerHTML=`<div class="empty">Noch keine Top 3 markiert. Wähle unten einen Punkt aus dem Tagesplan.</div>`;
+      }else{
+        list.innerHTML=selected.map((p,i)=>`<div class="item"><div class="row"><div class="left"><button class="check ${p.status==="erledigt"?"done":""}" data-top3-done="${esc(p.id)}">✓</button><div><div class="item-title">${i+1}. ${esc(p.title)}</div><div class="item-meta">${esc(p.time)} · ${p.kind==="routine"?"Routine":"To-do"} · ${esc(p.status)}</div></div></div><button class="chip" data-top3-remove="${esc(p.id)}">Entfernen</button></div></div>`).join("");
       }
-      list.innerHTML=selected.map((p,i)=>`
-        <div class="item">
-          <div class="row">
-            <div>
-              <div class="item-title">${i+1}. ${esc(p.title)}</div>
-              <div class="item-meta">${esc(p.time)} · ${p.kind==="routine"?"Routine":"To-do"} · ${esc(p.status)}</div>
-            </div>
-            <button class="chip" data-top3-remove="${esc(p.id)}">Entfernen</button>
-          </div>
-        </div>
-      `).join("");
-      $$("[data-top3-remove]").forEach(b=>b.onclick=()=>{
-        state.top3Ids=state.top3Ids.filter(id=>id!==b.dataset.top3Remove);
-        save();
-      });
+      const select=$("#top3Select");
+      if(select){
+        const options=state.timeBlocks.filter(b=>!state.top3Ids.includes(b.id));
+        select.innerHTML=options.length?options.map(b=>`<option value="${esc(b.id)}">${esc(b.time)} · ${esc(b.title)}</option>`).join(""):`<option value="">Alle Top 3 gewählt</option>`;
+      }
+      $$('[data-top3-remove]').forEach(b=>b.onclick=()=>{state.top3Ids=state.top3Ids.filter(id=>id!==b.dataset.top3Remove);save();});
+      $$('[data-top3-done]').forEach(b=>b.onclick=()=>{const item=state.timeBlocks.find(x=>x.id===b.dataset.top3Done);if(!item)return;item.status=item.status==="erledigt"?"offen":"erledigt";if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.status=item.status;}if(item.status==="erledigt"){recordSuccess("Top 3 erledigt: "+item.title);celebrate();}save();});
     }
-    function addPriority(){
-      toast("Top 3 markierst du jetzt im Tagesplan mit ⭐.");
-    }
+    function addTop3FromDashboard(){const sel=$("#top3Select"); if(!sel||!sel.value)return; if(state.top3Ids.length>=3){toast("Maximal drei Top 3.");return;} state.top3Ids.push(sel.value); save(); toast("Top 3 hinzugefügt.");}
     function renderRoutines(){
       $("#routineList").innerHTML=state.routines.map((r,i)=>`<div class="item">
         <div class="row">
@@ -417,42 +428,12 @@
       toast("Routine gespeichert und in den Tagesplan übernommen.");
     }
     function renderTimes(){
-      $("#timeList").innerHTML=state.timeBlocks.map((b,i)=>`
-      <div class="item">
-        <div class="row">
-          <div class="left">
-            <button class="star-btn ${state.top3Ids.includes(b.id)?"active":""}" data-top3-toggle="${esc(b.id)}">⭐</button>
-            <div>
-              <div class="item-title">${esc(b.title)} <span class="type-badge">${b.kind==="routine"?"Routine":"To-do"}</span></div>
-              <div class="item-meta">${esc(b.time)} · ${esc(b.status)} ${state.top3Ids.includes(b.id)?"· Top 3":""}</div>
-            </div>
-          </div>
-          <button class="chip" data-tr="${i}">${b.kind==="routine"?"heute raus":"Löschen"}</button>
-        </div>
-        <div class="edit-grid">
-          <input value="${esc(b.time)}" data-time-edit="${i}" placeholder="Zeit">
-          <input value="${esc(b.title)}" data-title-edit="${i}" placeholder="Punkt im Tagesplan">
-          <select data-time-status="${i}">
-            <option value="offen" ${b.status==="offen"?"selected":""}>offen</option>
-            <option value="erledigt" ${b.status==="erledigt"?"selected":""}>erledigt</option>
-            <option value="verschoben" ${b.status==="verschoben"?"selected":""}>verschoben</option>
-          </select>
-        </div>
-      </div>`).join("");
-      $$("[data-top3-toggle]").forEach(btn=>btn.onclick=()=>{
-        const id=btn.dataset.top3Toggle;
-        if(state.top3Ids.includes(id)){
-          state.top3Ids=state.top3Ids.filter(x=>x!==id);
-        } else {
-          if(state.top3Ids.length>=3){toast("Maximal drei Top 3.");return;}
-          state.top3Ids.push(id);
-        }
-        save();
-      });
-      $$("[data-time-edit]").forEach(inp=>inp.onchange=()=>{const item=state.timeBlocks[+inp.dataset.timeEdit];item.time=inp.value.trim();if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.time=item.time;}save()});
-      $$("[data-title-edit]").forEach(inp=>inp.onchange=()=>{const item=state.timeBlocks[+inp.dataset.titleEdit];item.title=inp.value.trim();if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.title=item.title;}save()});
-      $$("[data-time-status]").forEach(s=>s.onchange=()=>{const item=state.timeBlocks[+s.dataset.timeStatus];item.status=s.value;if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.status=s.value;}if(s.value==="erledigt")recordSuccess("Tagesplan erledigt: "+item.title,false);save()});
-      $$("[data-tr]").forEach(b=>b.onclick=()=>{const idx=+b.dataset.tr;const item=state.timeBlocks[idx];if(item.sourceRoutineId){state.removedRoutineIds=[...new Set([...state.removedRoutineIds,item.sourceRoutineId])]}state.top3Ids=state.top3Ids.filter(id=>id!==item.id);state.timeBlocks.splice(idx,1);save()});
+      $("#timeList").innerHTML=state.timeBlocks.map((b,i)=>`<div class="item"><div class="row"><div class="left"><button class="star-btn ${state.top3Ids.includes(b.id)?"active":""}" data-top3-toggle="${esc(b.id)}">⭐</button><div><div class="item-title">${esc(b.title)} <span class="type-badge">${b.kind==="routine"?"Routine":"To-do"}</span></div><div class="item-meta">${esc(b.time)} · ${esc(b.status)} ${state.top3Ids.includes(b.id)?"· Top 3":""}</div></div></div><button class="chip" data-tr="${i}">${b.kind==="routine"?"heute raus":"Löschen"}</button></div><div class="edit-grid"><input value="${esc(b.time)}" data-time-edit="${i}" placeholder="Zeit"><input value="${esc(b.title)}" data-title-edit="${i}" placeholder="Punkt im Tagesplan"><select data-time-status="${i}"><option value="offen" ${b.status==="offen"?"selected":""}>offen</option><option value="erledigt" ${b.status==="erledigt"?"selected":""}>erledigt</option><option value="verschoben" ${b.status==="verschoben"?"selected":""}>verschoben</option></select></div></div>`).join("");
+      $$('[data-top3-toggle]').forEach(btn=>btn.onclick=()=>{const id=btn.dataset.top3Toggle;if(state.top3Ids.includes(id)){state.top3Ids=state.top3Ids.filter(x=>x!==id);}else{if(state.top3Ids.length>=3){toast("Maximal drei Top 3.");return;}state.top3Ids.push(id);}save();});
+      $$('[data-time-edit]').forEach(inp=>inp.onchange=()=>{const item=state.timeBlocks[+inp.dataset.timeEdit];item.time=inp.value.trim();if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.time=item.time;}save()});
+      $$('[data-title-edit]').forEach(inp=>inp.onchange=()=>{const item=state.timeBlocks[+inp.dataset.titleEdit];item.title=inp.value.trim();if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.title=item.title;}save()});
+      $$('[data-time-status]').forEach(s=>s.onchange=()=>{const item=state.timeBlocks[+s.dataset.timeStatus];item.status=s.value;if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.status=s.value;}if(s.value==="erledigt"){recordSuccess("Tagesplan erledigt: "+item.title);celebrate();}save()});
+      $$('[data-tr]').forEach(b=>b.onclick=()=>{const idx=+b.dataset.tr;const item=state.timeBlocks[idx];if(item.sourceRoutineId){state.removedRoutineIds=[...new Set([...state.removedRoutineIds,item.sourceRoutineId])]}state.top3Ids=state.top3Ids.filter(id=>id!==item.id);state.timeBlocks.splice(idx,1);save()});
     }
     function addTime(){const title=$("#timeTitleInput").value.trim(); if(!title)return; state.timeBlocks.push({id:"plan_todo_"+Date.now()+"_"+Math.random().toString(16).slice(2),time:$("#timeInput").value.trim()||"flexibel",title,status:"offen",kind:"todo"}); $("#timeInput").value=""; $("#timeTitleInput").value=""; save()}
     function allBeliefs(){return [...(defaultBeliefs[state.beliefCat]||[]),...state.customBeliefs.filter(b=>b.cat===state.beliefCat).map(b=>b.text)]}
@@ -481,8 +462,10 @@
       else if(i==="weitergrübeln"||c==="zu viel im Kopf"){title="Gedanken auslagern.";detail="Eine Zeile schreiben: Was ist der nächste kleine Schritt? Dann 5 Minuten handeln."}
       state.micro.suggestion={title,detail}; recordSuccess("Micro Coach genutzt",false); save()
     }
-    function recordSuccess(text,marble=true){state.successes.unshift({text,time:now()});state.successes=state.successes.slice(0,30);if(marble)state.marbles=Math.min(5,state.marbles+1)}
-    function addSuccessFromInput(){const t=$("#successInput").value.trim(); if(!t)return; recordSuccess(t,true); $("#successInput").value=""; save(); toast("Erfolg gespeichert.")}
+    function recordSuccess(text){state.successes.unshift({text,time:now()});state.successes=state.successes.slice(0,50)}
+    function recordSelfLove(text){state.selfLove.unshift({text,time:now()});state.selfLove=state.selfLove.slice(0,50);state.marbles=Math.min(5,state.selfLove.length)}
+    function addSuccessFromInput(){const t=$("#successInput").value.trim(); if(!t)return; recordSuccess(t); $("#successInput").value=""; save(); toast("Erfolg gespeichert."); celebrate()}
+    function addSelfLoveFromInput(){const t=$("#selfLoveInput").value.trim(); if(!t)return; recordSelfLove(t); $("#selfLoveInput").value=""; save(); toast("Selbstliebe-Murmel gespeichert."); celebrate()}
     function saveReflection(){state.reflection={morningStep:$("#morningStep").value.trim(),morningSupport:$("#morningSupport").value.trim(),middayEnergy:$("#middayEnergy").value,middayStep:$("#middayStep").value.trim(),eveningGood:$("#eveningGood").value.trim(),eveningHonest:$("#eveningHonest").value.trim(),eveningLearned:$("#eveningLearned").value.trim(),eveningThanks:$("#eveningThanks").value.trim()}; if(state.reflection.eveningGood)recordSuccess("Abend: "+state.reflection.eveningGood,false); save(); toast("Reflexion gespeichert.")}
     function renderSuccesses(){
       const box=$("#dashboardSuccessList");
@@ -507,8 +490,19 @@
         save();
       });
     }
+    function renderSelfLove(){
+      const box=$("#selfLoveList"); if(!box)return;
+      if(!state.selfLove.length){box.innerHTML=`<div class="empty">Noch keine Selbstliebe-Murmel. Was war heute freundlich zu dir?</div>`;return;}
+      box.innerHTML=state.selfLove.slice(0,5).map((s,i)=>`<div class="item" style="padding:10px"><div class="row"><div><div class="item-title">🫶 ${esc(s.text)}</div><div class="item-meta">${esc(s.time||"heute")}</div></div><button class="chip" data-selflove-remove="${i}">Löschen</button></div></div>`).join("");
+      $$('[data-selflove-remove]').forEach(b=>b.onclick=()=>{state.selfLove.splice(+b.dataset.selfloveRemove,1);state.marbles=Math.min(5,state.selfLove.length);save();});
+    }
+    function celebrate(){
+      const wrap=$("#celebrate"); if(!wrap)return; wrap.innerHTML="";
+      const colors=["#557766","#8b6b4e","#d1ad86","#9fc6ad","#ffffff"];
+      for(let i=0;i<26;i++){const c=document.createElement("span");c.className="confetti";c.style.left=Math.random()*100+"vw";c.style.animationDelay=Math.random()*180+"ms";c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.transform=`rotate(${Math.random()*160}deg)`;wrap.appendChild(c);}setTimeout(()=>wrap.innerHTML="",1000);
+    }
     function renderJournal(){
-      $("#journal").value=["Mein Daily Life – "+$("#dateLine").textContent,"","Tages-Check:","Stimmung: "+state.moods.join(", "),"Energie: "+state.energy,"Nervensystem: "+state.nervous,"Bedürfnis: "+state.need,"Fokus: "+state.focus,"","Satz des Tages:","„"+state.todayBelief+"“","","Top 3:",...state.priorities.map((p,i)=>`${i+1}. ${p.done?"✓":"○"} ${p.text}`),"","Top 3:",...(state.top3Ids.length?state.top3Ids.map((id,i)=>{const p=state.timeBlocks.find(b=>b.id===id);return `${i+1}. ${p?p.title:"-"}`;}):["-"]),"","Plan:",...state.timeBlocks.map(b=>`- ${b.time} · ${b.title}: ${b.status}`),"","Routinen:",...state.routines.map(r=>`- ${r.time} · ${r.title}: ${r.status}`),"","Erfolge:",...(state.successes.length?state.successes.slice(0,10).map(s=>"- "+s.text):["-"]),"","Reflexion:","Morgens Schritt: "+(state.reflection.morningStep||"-"),"Morgens Stütze: "+(state.reflection.morningSupport||"-"),"Mittags Energie: "+(state.reflection.middayEnergy||"-"),"Mittags Schritt: "+(state.reflection.middayStep||"-"),"Abends gut gemacht: "+(state.reflection.eveningGood||"-"),"Ehrlich mit mir: "+(state.reflection.eveningHonest||"-"),"Gelernt: "+(state.reflection.eveningLearned||"-"),"Dankbar: "+(state.reflection.eveningThanks||"-")].join("\n");
+      $("#journal").value=["Mein Daily Life – "+$("#dateLine").textContent,"","Tages-Check:","Stimmung: "+state.moods.join(", "),"Energie: "+state.energy,"Nervensystem: "+state.nervous,"Bedürfnis: "+state.need,"Fokus: "+state.focus,"","Satz des Tages:","„"+state.todayBelief+"“","","Top 3:",...(state.top3Ids.length?state.top3Ids.map((id,i)=>{const p=state.timeBlocks.find(b=>b.id===id);return `${i+1}. ${p?p.title:"-"}`;}):["-"]),"","Plan:",...state.timeBlocks.map(b=>`- ${b.time} · ${b.title}: ${b.status}`),"","Routinen:",...state.routines.map(r=>`- ${r.time} · ${r.title}: ${r.status}`),"","Erfolge:",...(state.successes.length?state.successes.slice(0,12).map(s=>"- "+s.text):["-"]),"","Selbstliebe-Murmeln:",...(state.selfLove.length?state.selfLove.slice(0,8).map(s=>"- "+s.text):["-"]),"","Reflexion:","Morgens Schritt: "+(state.reflection.morningStep||"-"),"Morgens Stütze: "+(state.reflection.morningSupport||"-"),"Mittags Energie: "+(state.reflection.middayEnergy||"-"),"Mittags Schritt: "+(state.reflection.middayStep||"-"),"Abends gut gemacht: "+(state.reflection.eveningGood||"-"),"Ehrlich mit mir: "+(state.reflection.eveningHonest||"-"),"Gelernt: "+(state.reflection.eveningLearned||"-"),"Dankbar: "+(state.reflection.eveningThanks||"-")].join("\n");
     }
     init();
   </script>
