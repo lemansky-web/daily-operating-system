@@ -1,3 +1,3 @@
-# Daily Operating System v1.1
+# Mein Daily Life v1.3
 
-Aktualisierte Version mit Micro Coach, Mehrfach-Stimmung, Tagesstatus und Reflexionslogik.
+Persönlicher Tagesbegleiter mit Emoji-Check-in, Tagesstatus, Routinen, Micro Coach, Glaubenssätzen und Reflexion.
