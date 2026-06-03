@@ -1,3 +1,3 @@
-# Mein Daily Life v1.3
+# Mein Daily Life v1.5
 
-Persönlicher Tagesbegleiter mit Emoji-Check-in, Tagesstatus, Routinen, Micro Coach, Glaubenssätzen und Reflexion.
+Neu gebaut: Routinen werden automatisch in den Tagesplan übernommen, eigene To-dos ergänzbar, Top 3 werden direkt aus dem Tagesplan per Stern markiert, Erfolge und Murmeln im Dashboard sichtbar.

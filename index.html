@@ -43,7 +43,7 @@
     input,select,textarea{width:100%;min-height:46px;border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:15px;padding:12px;outline:none}
     textarea{min-height:100px;resize:vertical} label{display:block;font-size:13px;font-weight:850;color:var(--muted);margin:12px 0 7px}
     .btn,.btn-soft,.btn-light{border-radius:15px;padding:12px 14px;font-weight:900;display:inline-flex;justify-content:center;align-items:center;gap:8px}
-    .btn{background:var(--accent);color:white}.btn-soft{background:var(--soft);color:var(--accent)}.btn-light{background:var(--surface2);border:1px solid var(--line)}.full{width:100%;margin-top:12px}
+    .btn{background:var(--accent);color:white}.btn-soft{background:var(--soft);color:var(--accent)}.btn-light{background:var(--surface2);border:1px solid var(--line)}.full{width:100%;margin-top:12px}.star-btn{width:38px;height:38px;border-radius:14px;background:var(--surface2);border:1px solid var(--line);font-size:18px;display:grid;place-items:center;flex:0 0 auto}.star-btn.active{background:var(--accent);color:white;border-color:var(--accent)}.top3-hint{font-size:13px;color:var(--muted);margin-top:10px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:9px 11px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:850}.chip.active{background:var(--accent);color:white;border-color:var(--accent)}
     .emoji-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.emoji-card{min-height:72px;border-radius:17px;background:var(--surface2);border:1px solid var(--line);padding:10px;display:grid;place-items:center;text-align:center;gap:4px;font-weight:900;color:var(--muted)}
     .emoji-card .e{font-size:24px;line-height:1}.emoji-card.active{background:var(--accent);color:white;border-color:var(--accent)}
@@ -52,7 +52,7 @@
     .status-overview,.list{display:grid;gap:10px}.status-row,.item{background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:12px}
     .status-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}.dot{width:11px;height:11px;border-radius:999px;background:var(--muted)}
     .status-row.done .dot{background:var(--success)}.status-row.partial .dot{background:var(--warn)}
-    .item-title{font-weight:900;letter-spacing:-.15px}.item-meta{font-size:13px;color:var(--muted);margin-top:2px}
+    .item-title{font-weight:900;letter-spacing:-.15px}.type-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:900;background:var(--soft);color:var(--accent);margin-left:6px}.item-meta{font-size:13px;color:var(--muted);margin-top:2px}
     .row{display:flex;justify-content:space-between;align-items:center;gap:10px}.left{display:flex;align-items:center;gap:10px;min-width:0}
     .check{width:31px;height:31px;border-radius:11px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;color:transparent;font-weight:900;flex:0 0 auto}.check.done{background:var(--accent);color:white;border-color:var(--accent)}
     .time-grid{display:grid;grid-template-columns:90px 1fr;gap:8px;margin-top:10px}.edit-grid{display:grid;grid-template-columns:90px 1fr 110px;gap:8px;margin-top:10px}
@@ -111,9 +111,31 @@
 
       <div class="section"><h2>Heute wichtig</h2><p>Nur das, was dich wirklich führt.</p></div>
       <div class="grid-3">
-        <article class="card compact"><div class="head"><h2 class="title">Top 3</h2><span class="badge">Fokus</span></div><div class="list" id="priorityList"></div><input id="priorityInput" placeholder="Neue Priorität" style="margin-top:10px"><button class="btn full" id="addPriority">Hinzufügen</button></article>
+        <article class="card compact">
+          <div class="head">
+            <div>
+              <h2 class="title">Top 3</h2>
+              <p class="sub">Aus deinem Tagesplan markiert.</p>
+            </div>
+            <span class="badge" id="top3Badge">0/3</span>
+          </div>
+          <div class="list" id="top3List"></div>
+          <p class="top3-hint">Im Bereich „Plan“ kannst du Punkte mit ⭐ als Top 3 markieren.</p>
+        </article>
         <article class="card compact"><div class="head"><h2 class="title">Satz des Tages</h2><button class="btn-soft" id="shuffleBelief">Neu</button></div><div class="affirmation"><blockquote id="todayBelief">Erst aktivieren, dann entscheiden.</blockquote></div></article>
-        <article class="card compact"><div class="head"><h2 class="title">Erfolg</h2><span class="badge" id="marbleBadge">0/5</span></div><p class="sub">Murmel digital sammeln.</p><div class="progress" style="margin:12px 0"><span id="marbleProgress"></span></div><input id="successInput" placeholder="z. B. Altpapier weggebracht"><button class="btn full" id="addSuccess">+ Erfolg / Murmel</button></article>
+        <article class="card compact">
+          <div class="head">
+            <div>
+              <h2 class="title">Erfolge & Murmeln</h2>
+              <p class="sub">Was du heute geschafft hast, wird sichtbar.</p>
+            </div>
+            <span class="badge" id="marbleBadge">0/5</span>
+          </div>
+          <div class="progress" style="margin:12px 0"><span id="marbleProgress"></span></div>
+          <input id="successInput" placeholder="z. B. Altpapier weggebracht">
+          <button class="btn full" id="addSuccess">+ Erfolg / Murmel</button>
+          <div class="list" id="dashboardSuccessList" style="margin-top:12px"></div>
+        </article>
       </div>
 
       <div class="section"><h2>Micro Coach</h2><p>Kompakt. Nur öffnen, wenn du kurz Führung brauchst.</p></div>
@@ -134,12 +156,12 @@
     </section>
 
     <section class="view" id="plan">
-      <div class="section"><h2>Tagesplanung</h2><p>Uhrzeiten und Ablauf direkt anpassen.</p></div>
+      <div class="section"><h2>Mein Tagesplan</h2><p>Routinen werden automatisch übernommen. Ergänze hier deine eigenen To-dos und Termine.</p></div>
       <article class="card"><div class="list" id="timeList"></div><div class="time-grid"><input id="timeInput" placeholder="09:00"><input id="timeTitleInput" placeholder="Neuer Zeitblock"></div><button class="btn full" id="addTime">Zeitblock hinzufügen</button></article>
     </section>
 
     <section class="view" id="routine">
-      <div class="section"><h2>Routinen</h2><p>Zeiten ändern, Status setzen, ohne Schuldgefühl.</p></div>
+      <div class="section"><h2>Meine Routinen</h2><p>Deine Standards. Sie erscheinen automatisch im Tagesplan, außer du nimmst sie heute raus.</p></div>
       <article class="card"><div class="list" id="routineList"></div><div class="time-grid"><input id="routineTime" placeholder="08:00"><input id="routineTitle" placeholder="Neue Routine"></div><select id="routineType" style="margin-top:8px"><option>täglich</option><option>wöchentlich</option><option>flexibel</option></select><button class="btn full" id="addRoutine">Routine hinzufügen</button></article>
     </section>
 
@@ -160,7 +182,7 @@
       <article class="card" style="margin-top:14px"><div class="head"><div><h2 class="title">Tagebuch-Export</h2><p class="sub">Zum Kopieren in dein bestehendes Tagebuch.</p></div><button class="btn-soft" id="copyJournal">Kopieren</button></div><textarea id="journal" readonly></textarea></article>
     </section>
 
-    <footer class="footer">Mein Daily Life · v1.3 · lokal gespeichert</footer>
+    <footer class="footer">Mein Daily Life · v1.5 · lokal gespeichert</footer>
   </main>
 
   <script>
@@ -187,9 +209,18 @@
       moods:["klar"],energy:"mittel",nervous:"ruhig",need:"Struktur",focus:"Erst aktivieren, dann entscheiden",
       beliefCat:"Selbstwert",todayBelief:"Erst aktivieren, dann entscheiden.",customBeliefs:[],
       checkSaved:false,
+      top3Ids:[],
       priorities:[{text:"Morgenspaziergang machen",done:false},{text:"Eine kleine unangenehme Sache erledigen",done:false},{text:"Rechtzeitig ins Bett gehen",done:false}],
-      routines:[{time:"08:00",title:"Morgenspaziergang",type:"täglich",status:"offen"},{time:"08:15",title:"Wasser + kurzer Check-in",type:"täglich",status:"offen"},{time:"flexibel",title:"5-Minuten-Aktivierung",type:"flexibel",status:"offen"},{time:"10:00",title:"25 Min Fokuszeit",type:"täglich",status:"offen"},{time:"21:30",title:"Abendroutine / Bett vorbereiten",type:"täglich",status:"offen"}],
-      timeBlocks:[{time:"08:00",title:"Spaziergang + Check-in",status:"offen"},{time:"10:00",title:"Fokuszeit",status:"offen"},{time:"13:00",title:"Pause + Essen",status:"offen"},{time:"21:30",title:"Abendroutine",status:"offen"}],
+      routines:[
+        {id:"wasser",time:"direkt nach dem Aufstehen",title:"Wasser trinken",type:"täglich",status:"offen",area:"Morgen",autoPlan:true},
+        {id:"aktivierung",time:"direkt danach",title:"5 Minuten Aktivierung",type:"täglich",status:"offen",area:"Morgen",autoPlan:true},
+        {id:"spaziergang",time:"06:40",title:"Morgenspaziergang",type:"täglich",status:"offen",area:"Bewegung",autoPlan:true},
+        {id:"fokuszeit",time:"flexibel",title:"Fokuszeit",type:"flexibel",status:"offen",area:"Fokus",autoPlan:true},
+        {id:"abendroutine",time:"21:00",title:"Abendroutine vorbereiten: Zähne putzen, kein Handy mehr, lesen",type:"täglich",status:"offen",area:"Abend",autoPlan:true},
+        {id:"schlafziel",time:"22:00",title:"Ziel: schlafen",type:"täglich",status:"offen",area:"Abend",autoPlan:true}
+      ],
+      timeBlocks:[],
+      removedRoutineIds:[],
       successes:[],marbles:0,
       micro:{feelings:[],impulse:"",context:"",suggestion:""},
       reflection:{morningStep:"",morningSupport:"",middayEnergy:"mittel",middayStep:"",eveningGood:"",eveningHonest:"",eveningLearned:"",eveningThanks:""}
@@ -200,11 +231,60 @@
     function migrate(){
       if(state.mood && !state.moods) state.moods=[state.mood];
       state.moods=Array.isArray(state.moods)?state.moods:["klar"];
-      state.timeBlocks=(state.timeBlocks||[]).map(b=>({...b,status:b.status || (b.done?"erledigt":"offen")}));
       state.checkSaved=!!state.checkSaved || !!state.focus;
+      state.removedRoutineIds=Array.isArray(state.removedRoutineIds)?state.removedRoutineIds:[];
       state.reflection={morningStep:"",morningSupport:"",middayEnergy:"mittel",middayStep:"",eveningGood:"",eveningHonest:"",eveningLearned:"",eveningThanks:"",...(state.reflection||{})};
+      state.top3Ids=Array.isArray(state.top3Ids)?state.top3Ids:[];
+      state.timeBlocks=(state.timeBlocks||[]).map((b,idx)=>({
+        ...b,
+        id:b.id || (b.sourceRoutineId ? "plan_routine_"+b.sourceRoutineId : "plan_todo_"+today+"_"+idx+"_"+Math.random().toString(16).slice(2)),
+        status:b.status || (b.done?"erledigt":"offen"),
+        kind:b.kind || (b.sourceRoutineId?"routine":"todo")
+      }));
+
+      // Bestehende ältere Routinen sauber auf neues Modell bringen und Duplikate vermeiden
+      const desired=[
+        {id:"wasser",time:"direkt nach dem Aufstehen",title:"Wasser trinken",type:"täglich",status:"offen",area:"Morgen",autoPlan:true},
+        {id:"aktivierung",time:"direkt danach",title:"5 Minuten Aktivierung",type:"täglich",status:"offen",area:"Morgen",autoPlan:true},
+        {id:"spaziergang",time:"06:40",title:"Morgenspaziergang",type:"täglich",status:"offen",area:"Bewegung",autoPlan:true},
+        {id:"fokuszeit",time:"flexibel",title:"Fokuszeit",type:"flexibel",status:"offen",area:"Fokus",autoPlan:true},
+        {id:"abendroutine",time:"21:00",title:"Abendroutine vorbereiten: Zähne putzen, kein Handy mehr, lesen",type:"täglich",status:"offen",area:"Abend",autoPlan:true},
+        {id:"schlafziel",time:"22:00",title:"Ziel: schlafen",type:"täglich",status:"offen",area:"Abend",autoPlan:true}
+      ];
+      const current=Array.isArray(state.routines)?state.routines:[];
+      const custom=current.filter(r => r.id && !desired.some(d => d.id===r.id));
+      state.routines=[...desired.map(d=>{
+        const old=current.find(r=>r.id===d.id || r.title===d.title);
+        return {...d, status: old?.status || d.status};
+      }), ...custom.map(r=>({...r,id:r.id||("routine_"+Date.now()+"_"+Math.random().toString(16).slice(2)),autoPlan:r.autoPlan!==false}))];
+
+      state.timeBlocks=(state.timeBlocks||[]).map(b=>({...b,status:b.status || (b.done?"erledigt":"offen"),kind:b.kind||"todo"}));
+      syncRoutinePlan();
     }
-    function save(){localStorage.setItem(key,JSON.stringify(state));render()}
+
+    function syncRoutinePlan(){
+      state.routines.forEach(r=>{
+        if(r.autoPlan===false) return;
+        if(state.removedRoutineIds.includes(r.id)) return;
+        const exists=state.timeBlocks.some(b=>b.sourceRoutineId===r.id);
+        if(!exists){
+          state.timeBlocks.push({id:"plan_routine_"+r.id,time:r.time,title:r.title,status:r.status||"offen",kind:"routine",sourceRoutineId:r.id});
+        }
+      });
+      state.timeBlocks.sort((a,b)=>sortTime(a.time).localeCompare(sortTime(b.time)));
+    }
+
+    function sortTime(t){
+      if(!t) return "99:99";
+      if(String(t).startsWith("direkt nach")) return "05:50";
+      if(String(t).startsWith("direkt danach")) return "06:00";
+      if(String(t).toLowerCase()==="flexibel") return "18:00";
+      const m=String(t).match(/(\d{1,2}):(\d{2})/);
+      if(m) return m[1].padStart(2,"0")+":"+m[2];
+      return "99:99";
+    }
+
+    function save(){syncRoutinePlan();localStorage.setItem(key,JSON.stringify(state));render()}
     function toast(t){$("#toast").textContent=t;$("#toast").classList.add("show");setTimeout(()=>$("#toast").classList.remove("show"),1500)}
     function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
     function now(){return new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})}
@@ -214,14 +294,14 @@
       $$(".nav button").forEach(b=>b.onclick=()=>switchView(b.dataset.view));
       $("#themeBtn").onclick=()=>{settings.theme=settings.theme==="dark"?"light":"dark";localStorage.setItem(settingsKey,JSON.stringify(settings));document.documentElement.dataset.theme=settings.theme;render()};
       $("#saveCheck").onclick=()=>{state.focus=$("#focus").value.trim();state.checkSaved=true;save();toast("Tages-Check gespeichert.")};
-      $("#addPriority").onclick=addPriority; $("#addSuccess").onclick=addSuccessFromInput; $("#toggleCoach").onclick=()=>{$("#coachBody").classList.toggle("open");$("#toggleCoach").textContent=$("#coachBody").classList.contains("open")?"Schließen":"Öffnen"};
+      const addPriorityBtn=$("#addPriority"); if(addPriorityBtn) addPriorityBtn.onclick=addPriority; $("#addSuccess").onclick=addSuccessFromInput; $("#toggleCoach").onclick=()=>{$("#coachBody").classList.toggle("open");$("#toggleCoach").textContent=$("#coachBody").classList.contains("open")?"Schließen":"Öffnen"};
       $("#runCoach").onclick=runCoach; $("#addTime").onclick=addTime; $("#addRoutine").onclick=addRoutine; $("#shuffleBelief").onclick=shuffleBelief; $("#addBelief").onclick=addBelief; $("#saveReflection").onclick=saveReflection;
       $("#copyJournal").onclick=()=>navigator.clipboard.writeText($("#journal").value).then(()=>toast("Tagebuch kopiert."));
       $$(".tab").forEach(t=>t.onclick=()=>switchPanel(t.dataset.panel));
     }
     function switchView(id){$$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));scrollTo({top:0,behavior:"smooth"})}
     function switchPanel(id){$$(".panel").forEach(p=>p.classList.toggle("active",p.id===id));$$(".tab").forEach(t=>t.classList.toggle("active",t.dataset.panel===id))}
-    function render(){renderButtons();renderInputs();renderStatus();renderPriorities();renderRoutines();renderTimes();renderBeliefs();renderMicro();renderJournal();$("#themeBtn").textContent=settings.theme==="dark"?"☀":"☾"}
+    function render(){renderButtons();renderInputs();renderStatus();renderTop3();renderRoutines();renderTimes();renderBeliefs();renderMicro();renderSuccesses();renderJournal();$("#themeBtn").textContent=settings.theme==="dark"?"☀":"☾"}
 
     function emojiCards(container, arr, selected, multi, cb){$(container).innerHTML=arr.map(([e,t])=>`<button class="emoji-card ${(multi?selected.includes(t):selected===t)?"active":""}" data-val="${esc(t)}"><span class="e">${e}</span><span>${esc(t)}</span></button>`).join("");$$(container+" [data-val]").forEach(b=>b.onclick=()=>cb(b.dataset.val))}
     function renderButtons(){
@@ -246,10 +326,12 @@
       const overall=Math.round(((routinePct/100)+checks.filter(Boolean).length)/6*100);
       $("#statusBadge").textContent=overall+"%"; $("#routineProgress").style.width=overall+"%";
       $("#statusText").textContent=overall===0?"Ein kleiner Start reicht.":overall<100?"Du siehst klar, was noch offen ist. Kein Druck.":"Rund. Dein Tag ist sauber abgeschlossen.";
+      const planDone=state.timeBlocks.filter(b=>b.status==="erledigt").length;
+      const planTotal=state.timeBlocks.length;
       const rows=[
         {label:"Tages-Check", meta:state.moods.join(", ")||"offen", done:state.checkSaved},
         {label:"Routinen", meta:`${state.routines.filter(r=>r.status==="erledigt").length}/${state.routines.length} erledigt · ${routinePct}%`, done:routinePct===100, partial:routinePct>0},
-        {label:"Plan", meta:`${state.timeBlocks.filter(b=>b.status==="erledigt").length}/${state.timeBlocks.length} Zeitblöcke erledigt`, done:state.timeBlocks.length>0 && state.timeBlocks.every(b=>b.status==="erledigt"), partial:state.timeBlocks.some(b=>b.status==="erledigt")},
+        {label:"Tagesplan", meta:`${planDone}/${planTotal} Punkte erledigt`, done:planTotal>0 && state.timeBlocks.every(b=>b.status==="erledigt"), partial:state.timeBlocks.some(b=>b.status==="erledigt")},
         {label:"Morgen-Reflexion", meta:"Ausrichtung", done:reflectionDone("morgen")},
         {label:"Mittags-Check", meta:"neu ausrichten", done:reflectionDone("mittag")},
         {label:"Abend-Reflexion", meta:"Rückblick", done:reflectionDone("abend")},
@@ -257,27 +339,122 @@
       ];
       $("#statusList").innerHTML=rows.map(x=>`<div class="status-row ${x.done?"done":x.partial?"partial":""}"><span class="dot"></span><div><div class="item-title">${esc(x.label)}</div><div class="item-meta">${esc(x.meta)}</div></div><span class="badge">${x.done?"erledigt":x.partial?"teilweise":"offen"}</span></div>`).join("");
     }
-    function renderPriorities(){
-      $("#priorityList").innerHTML=state.priorities.map((p,i)=>`<div class="item"><div class="row"><div class="left"><button class="check ${p.done?"done":""}" data-pt="${i}">✓</button><div><div class="item-title">${esc(p.text)}</div><div class="item-meta">Top ${i+1}</div></div></div><button class="chip" data-pr="${i}">Löschen</button></div></div>`).join("")||`<div class="empty">Noch keine Priorität.</div>`;
-      $$("[data-pt]").forEach(b=>b.onclick=()=>{const i=+b.dataset.pt;state.priorities[i].done=!state.priorities[i].done;if(state.priorities[i].done)recordSuccess("Priorität erledigt: "+state.priorities[i].text,false);save()});
-      $$("[data-pr]").forEach(b=>b.onclick=()=>{state.priorities.splice(+b.dataset.pr,1);save()});
+    function renderTop3(){
+      const list=$("#top3List");
+      if(!list) return;
+      state.top3Ids=Array.isArray(state.top3Ids)?state.top3Ids:[];
+      state.top3Ids=state.top3Ids.filter(id=>state.timeBlocks.some(b=>b.id===id));
+      const selected=state.top3Ids.map(id=>state.timeBlocks.find(b=>b.id===id)).filter(Boolean);
+      const badge=$("#top3Badge"); if(badge) badge.textContent=selected.length+"/3";
+      if(selected.length===0){
+        list.innerHTML=`<div class="empty">Noch keine Top 3 markiert. Gehe in „Plan“ und tippe auf ⭐.</div>`;
+        return;
+      }
+      list.innerHTML=selected.map((p,i)=>`
+        <div class="item">
+          <div class="row">
+            <div>
+              <div class="item-title">${i+1}. ${esc(p.title)}</div>
+              <div class="item-meta">${esc(p.time)} · ${p.kind==="routine"?"Routine":"To-do"} · ${esc(p.status)}</div>
+            </div>
+            <button class="chip" data-top3-remove="${esc(p.id)}">Entfernen</button>
+          </div>
+        </div>
+      `).join("");
+      $$("[data-top3-remove]").forEach(b=>b.onclick=()=>{
+        state.top3Ids=state.top3Ids.filter(id=>id!==b.dataset.top3Remove);
+        save();
+      });
     }
-    function addPriority(){const t=$("#priorityInput").value.trim(); if(!t)return; if(state.priorities.length>=3){toast("Maximal drei Prioritäten.");return} state.priorities.push({text:t,done:false}); $("#priorityInput").value=""; save()}
+    function addPriority(){
+      toast("Top 3 markierst du jetzt im Tagesplan mit ⭐.");
+    }
     function renderRoutines(){
-      $("#routineList").innerHTML=state.routines.map((r,i)=>`<div class="item"><div class="row"><div><div class="item-title">${esc(r.title)}</div><div class="item-meta">${esc(r.time)} · ${esc(r.type)} · ${esc(r.status)}</div></div><select data-routine-status="${i}"><option value="offen" ${r.status==="offen"?"selected":""}>offen</option><option value="erledigt" ${r.status==="erledigt"?"selected":""}>erledigt</option><option value="teilweise" ${r.status==="teilweise"?"selected":""}>teilweise</option><option value="verschoben" ${r.status==="verschoben"?"selected":""}>verschoben</option></select></div><div class="time-grid"><input value="${esc(r.time)}" data-routine-time="${i}" placeholder="Zeit"><input value="${esc(r.title)}" data-routine-title="${i}" placeholder="Routine"></div></div>`).join("");
-      $$("[data-routine-status]").forEach(s=>s.onchange=()=>{state.routines[+s.dataset.routineStatus].status=s.value;save()});
-      $$("[data-routine-time]").forEach(inp=>inp.onchange=()=>{state.routines[+inp.dataset.routineTime].time=inp.value.trim();save()});
-      $$("[data-routine-title]").forEach(inp=>inp.onchange=()=>{state.routines[+inp.dataset.routineTitle].title=inp.value.trim();save()});
+      $("#routineList").innerHTML=state.routines.map((r,i)=>`<div class="item">
+        <div class="row">
+          <div>
+            <div class="item-title">${esc(r.title)}</div>
+            <div class="item-meta">${esc(r.time)} · ${esc(r.area||"Routine")} · ${esc(r.type)} ${r.autoPlan!==false?"· automatisch im Plan":"· nicht automatisch"}</div>
+          </div>
+          <select data-routine-status="${i}">
+            <option value="offen" ${r.status==="offen"?"selected":""}>offen</option>
+            <option value="erledigt" ${r.status==="erledigt"?"selected":""}>erledigt</option>
+            <option value="teilweise" ${r.status==="teilweise"?"selected":""}>teilweise</option>
+            <option value="verschoben" ${r.status==="verschoben"?"selected":""}>verschoben</option>
+          </select>
+        </div>
+        <div class="edit-grid">
+          <input value="${esc(r.time)}" data-routine-time="${i}" placeholder="Standard-Zeit">
+          <input value="${esc(r.title)}" data-routine-title="${i}" placeholder="Routine">
+          <select data-routine-auto="${i}">
+            <option value="true" ${r.autoPlan!==false?"selected":""}>im Plan</option>
+            <option value="false" ${r.autoPlan===false?"selected":""}>raus</option>
+          </select>
+        </div>
+      </div>`).join("");
+      $$("[data-routine-status]").forEach(s=>s.onchange=()=>{const idx=+s.dataset.routineStatus;state.routines[idx].status=s.value;const plan=state.timeBlocks.find(b=>b.sourceRoutineId===state.routines[idx].id);if(plan)plan.status=s.value;save()});
+      $$("[data-routine-time]").forEach(inp=>inp.onchange=()=>{const idx=+inp.dataset.routineTime;state.routines[idx].time=inp.value.trim();const plan=state.timeBlocks.find(b=>b.sourceRoutineId===state.routines[idx].id);if(plan)plan.time=state.routines[idx].time;save()});
+      $$("[data-routine-title]").forEach(inp=>inp.onchange=()=>{const idx=+inp.dataset.routineTitle;state.routines[idx].title=inp.value.trim();const plan=state.timeBlocks.find(b=>b.sourceRoutineId===state.routines[idx].id);if(plan)plan.title=state.routines[idx].title;save()});
+      $$("[data-routine-auto]").forEach(sel=>sel.onchange=()=>{const idx=+sel.dataset.routineAuto;const r=state.routines[idx];r.autoPlan=sel.value==="true";if(r.autoPlan){state.removedRoutineIds=state.removedRoutineIds.filter(id=>id!==r.id)}else{state.removedRoutineIds=[...new Set([...state.removedRoutineIds,r.id])];state.timeBlocks=state.timeBlocks.filter(b=>b.sourceRoutineId!==r.id)}save()});
     }
-    function addRoutine(){const title=$("#routineTitle").value.trim(); if(!title)return; state.routines.push({time:$("#routineTime").value.trim()||"flexibel",title,type:$("#routineType").value,status:"offen"}); $("#routineTitle").value=""; $("#routineTime").value=""; save()}
+    function addRoutine(){
+      const title=$("#routineTitle").value.trim(); 
+      if(!title)return; 
+      const id="routine_"+Date.now()+"_"+Math.random().toString(16).slice(2);
+      state.routines.push({
+        id,
+        time:$("#routineTime").value.trim()||"flexibel",
+        title,
+        type:$("#routineType").value,
+        status:"offen",
+        area:"Eigene Routine",
+        autoPlan:true
+      });
+      state.removedRoutineIds=state.removedRoutineIds.filter(x=>x!==id);
+      $("#routineTitle").value=""; 
+      $("#routineTime").value=""; 
+      save();
+      toast("Routine gespeichert und in den Tagesplan übernommen.");
+    }
     function renderTimes(){
-      $("#timeList").innerHTML=state.timeBlocks.map((b,i)=>`<div class="item"><div class="row"><div><div class="item-title">${esc(b.title)}</div><div class="item-meta">${esc(b.time)} · ${esc(b.status)}</div></div><button class="chip" data-tr="${i}">Löschen</button></div><div class="edit-grid"><input value="${esc(b.time)}" data-time-edit="${i}" placeholder="Zeit"><input value="${esc(b.title)}" data-title-edit="${i}" placeholder="Zeitblock"><select data-time-status="${i}"><option value="offen" ${b.status==="offen"?"selected":""}>offen</option><option value="erledigt" ${b.status==="erledigt"?"selected":""}>erledigt</option><option value="verschoben" ${b.status==="verschoben"?"selected":""}>verschoben</option></select></div></div>`).join("");
-      $$("[data-time-edit]").forEach(inp=>inp.onchange=()=>{state.timeBlocks[+inp.dataset.timeEdit].time=inp.value.trim();save()});
-      $$("[data-title-edit]").forEach(inp=>inp.onchange=()=>{state.timeBlocks[+inp.dataset.titleEdit].title=inp.value.trim();save()});
-      $$("[data-time-status]").forEach(s=>s.onchange=()=>{state.timeBlocks[+s.dataset.timeStatus].status=s.value;if(s.value==="erledigt")recordSuccess("Zeitblock erledigt: "+state.timeBlocks[+s.dataset.timeStatus].title,false);save()});
-      $$("[data-tr]").forEach(b=>b.onclick=()=>{state.timeBlocks.splice(+b.dataset.tr,1);save()});
+      $("#timeList").innerHTML=state.timeBlocks.map((b,i)=>`
+      <div class="item">
+        <div class="row">
+          <div class="left">
+            <button class="star-btn ${state.top3Ids.includes(b.id)?"active":""}" data-top3-toggle="${esc(b.id)}">⭐</button>
+            <div>
+              <div class="item-title">${esc(b.title)} <span class="type-badge">${b.kind==="routine"?"Routine":"To-do"}</span></div>
+              <div class="item-meta">${esc(b.time)} · ${esc(b.status)} ${state.top3Ids.includes(b.id)?"· Top 3":""}</div>
+            </div>
+          </div>
+          <button class="chip" data-tr="${i}">${b.kind==="routine"?"heute raus":"Löschen"}</button>
+        </div>
+        <div class="edit-grid">
+          <input value="${esc(b.time)}" data-time-edit="${i}" placeholder="Zeit">
+          <input value="${esc(b.title)}" data-title-edit="${i}" placeholder="Punkt im Tagesplan">
+          <select data-time-status="${i}">
+            <option value="offen" ${b.status==="offen"?"selected":""}>offen</option>
+            <option value="erledigt" ${b.status==="erledigt"?"selected":""}>erledigt</option>
+            <option value="verschoben" ${b.status==="verschoben"?"selected":""}>verschoben</option>
+          </select>
+        </div>
+      </div>`).join("");
+      $$("[data-top3-toggle]").forEach(btn=>btn.onclick=()=>{
+        const id=btn.dataset.top3Toggle;
+        if(state.top3Ids.includes(id)){
+          state.top3Ids=state.top3Ids.filter(x=>x!==id);
+        } else {
+          if(state.top3Ids.length>=3){toast("Maximal drei Top 3.");return;}
+          state.top3Ids.push(id);
+        }
+        save();
+      });
+      $$("[data-time-edit]").forEach(inp=>inp.onchange=()=>{const item=state.timeBlocks[+inp.dataset.timeEdit];item.time=inp.value.trim();if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.time=item.time;}save()});
+      $$("[data-title-edit]").forEach(inp=>inp.onchange=()=>{const item=state.timeBlocks[+inp.dataset.titleEdit];item.title=inp.value.trim();if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.title=item.title;}save()});
+      $$("[data-time-status]").forEach(s=>s.onchange=()=>{const item=state.timeBlocks[+s.dataset.timeStatus];item.status=s.value;if(item.sourceRoutineId){const r=state.routines.find(x=>x.id===item.sourceRoutineId);if(r)r.status=s.value;}if(s.value==="erledigt")recordSuccess("Tagesplan erledigt: "+item.title,false);save()});
+      $$("[data-tr]").forEach(b=>b.onclick=()=>{const idx=+b.dataset.tr;const item=state.timeBlocks[idx];if(item.sourceRoutineId){state.removedRoutineIds=[...new Set([...state.removedRoutineIds,item.sourceRoutineId])]}state.top3Ids=state.top3Ids.filter(id=>id!==item.id);state.timeBlocks.splice(idx,1);save()});
     }
-    function addTime(){const title=$("#timeTitleInput").value.trim(); if(!title)return; state.timeBlocks.push({time:$("#timeInput").value.trim()||"flexibel",title,status:"offen"}); $("#timeInput").value=""; $("#timeTitleInput").value=""; save()}
+    function addTime(){const title=$("#timeTitleInput").value.trim(); if(!title)return; state.timeBlocks.push({id:"plan_todo_"+Date.now()+"_"+Math.random().toString(16).slice(2),time:$("#timeInput").value.trim()||"flexibel",title,status:"offen",kind:"todo"}); $("#timeInput").value=""; $("#timeTitleInput").value=""; save()}
     function allBeliefs(){return [...(defaultBeliefs[state.beliefCat]||[]),...state.customBeliefs.filter(b=>b.cat===state.beliefCat).map(b=>b.text)]}
     function renderBeliefs(){
       $("#beliefCats").innerHTML=Object.keys(defaultBeliefs).map(c=>`<button class="chip ${state.beliefCat===c?"active":""}" data-bcat="${esc(c)}">${esc(c)}</button>`).join(""); $$("[data-bcat]").forEach(b=>b.onclick=()=>{state.beliefCat=b.dataset.bcat;save()});
@@ -307,8 +484,31 @@
     function recordSuccess(text,marble=true){state.successes.unshift({text,time:now()});state.successes=state.successes.slice(0,30);if(marble)state.marbles=Math.min(5,state.marbles+1)}
     function addSuccessFromInput(){const t=$("#successInput").value.trim(); if(!t)return; recordSuccess(t,true); $("#successInput").value=""; save(); toast("Erfolg gespeichert.")}
     function saveReflection(){state.reflection={morningStep:$("#morningStep").value.trim(),morningSupport:$("#morningSupport").value.trim(),middayEnergy:$("#middayEnergy").value,middayStep:$("#middayStep").value.trim(),eveningGood:$("#eveningGood").value.trim(),eveningHonest:$("#eveningHonest").value.trim(),eveningLearned:$("#eveningLearned").value.trim(),eveningThanks:$("#eveningThanks").value.trim()}; if(state.reflection.eveningGood)recordSuccess("Abend: "+state.reflection.eveningGood,false); save(); toast("Reflexion gespeichert.")}
+    function renderSuccesses(){
+      const box=$("#dashboardSuccessList");
+      if(!box) return;
+      if(!state.successes || state.successes.length===0){
+        box.innerHTML=`<div class="empty">Noch kein Erfolg eingetragen. Ein kleiner Schritt reicht.</div>`;
+        return;
+      }
+      box.innerHTML=state.successes.slice(0,8).map((s,i)=>`
+        <div class="item" style="padding:10px">
+          <div class="row">
+            <div>
+              <div class="item-title">✓ ${esc(s.text)}</div>
+              <div class="item-meta">${esc(s.time||"heute")}</div>
+            </div>
+            <button class="chip" data-success-remove="${i}">Löschen</button>
+          </div>
+        </div>
+      `).join("");
+      $$("[data-success-remove]").forEach(b=>b.onclick=()=>{
+        state.successes.splice(+b.dataset.successRemove,1);
+        save();
+      });
+    }
     function renderJournal(){
-      $("#journal").value=["Mein Daily Life – "+$("#dateLine").textContent,"","Tages-Check:","Stimmung: "+state.moods.join(", "),"Energie: "+state.energy,"Nervensystem: "+state.nervous,"Bedürfnis: "+state.need,"Fokus: "+state.focus,"","Satz des Tages:","„"+state.todayBelief+"“","","Top 3:",...state.priorities.map((p,i)=>`${i+1}. ${p.done?"✓":"○"} ${p.text}`),"","Plan:",...state.timeBlocks.map(b=>`- ${b.time} · ${b.title}: ${b.status}`),"","Routinen:",...state.routines.map(r=>`- ${r.time} · ${r.title}: ${r.status}`),"","Erfolge:",...(state.successes.length?state.successes.slice(0,10).map(s=>"- "+s.text):["-"]),"","Reflexion:","Morgens Schritt: "+(state.reflection.morningStep||"-"),"Morgens Stütze: "+(state.reflection.morningSupport||"-"),"Mittags Energie: "+(state.reflection.middayEnergy||"-"),"Mittags Schritt: "+(state.reflection.middayStep||"-"),"Abends gut gemacht: "+(state.reflection.eveningGood||"-"),"Ehrlich mit mir: "+(state.reflection.eveningHonest||"-"),"Gelernt: "+(state.reflection.eveningLearned||"-"),"Dankbar: "+(state.reflection.eveningThanks||"-")].join("\n");
+      $("#journal").value=["Mein Daily Life – "+$("#dateLine").textContent,"","Tages-Check:","Stimmung: "+state.moods.join(", "),"Energie: "+state.energy,"Nervensystem: "+state.nervous,"Bedürfnis: "+state.need,"Fokus: "+state.focus,"","Satz des Tages:","„"+state.todayBelief+"“","","Top 3:",...state.priorities.map((p,i)=>`${i+1}. ${p.done?"✓":"○"} ${p.text}`),"","Top 3:",...(state.top3Ids.length?state.top3Ids.map((id,i)=>{const p=state.timeBlocks.find(b=>b.id===id);return `${i+1}. ${p?p.title:"-"}`;}):["-"]),"","Plan:",...state.timeBlocks.map(b=>`- ${b.time} · ${b.title}: ${b.status}`),"","Routinen:",...state.routines.map(r=>`- ${r.time} · ${r.title}: ${r.status}`),"","Erfolge:",...(state.successes.length?state.successes.slice(0,10).map(s=>"- "+s.text):["-"]),"","Reflexion:","Morgens Schritt: "+(state.reflection.morningStep||"-"),"Morgens Stütze: "+(state.reflection.morningSupport||"-"),"Mittags Energie: "+(state.reflection.middayEnergy||"-"),"Mittags Schritt: "+(state.reflection.middayStep||"-"),"Abends gut gemacht: "+(state.reflection.eveningGood||"-"),"Ehrlich mit mir: "+(state.reflection.eveningHonest||"-"),"Gelernt: "+(state.reflection.eveningLearned||"-"),"Dankbar: "+(state.reflection.eveningThanks||"-")].join("\n");
     }
     init();
   </script>
