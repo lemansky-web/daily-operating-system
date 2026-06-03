@@ -1,3 +1,3 @@
-# Daily Operating System
+# Daily Operating System v1.1
 
-Persönliche Daily-OS-Web-App. Läuft als statische HTML-Datei über GitHub Pages.
+Aktualisierte Version mit Micro Coach, Mehrfach-Stimmung, Tagesstatus und Reflexionslogik.
