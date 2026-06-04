@@ -1,3 +1,3 @@
-# Mein Daily Life v3.1
+# Mein Daily Life v3.2
 
-Cockpit-Version mit Dashboard, Plan, Ziele, Selbstwert, Reflexion, Absprüngen, Top-3-Markierung, Eat the Frog und Murmelglas.
+Cockpit-Version verfeinert: Absprünge entfernt, Heute-zählt-Liste im Dashboard direkt erledigbar, Top 3 und Eat the Frog im Dashboard sichtbar, To-do/Aufgabe vereinfacht.
