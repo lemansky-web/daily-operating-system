@@ -1,3 +1,3 @@
-# Mein Daily Life v3.0
+# Mein Daily Life v3.1
 
-Geführter Tagesbegleiter mit modernem Dashboard, Jetzt-gerade-Coach, freundlichen Streaks, Selbstliebe-Murmeln, Erfolgsmanagement und Apple-Notes-Export.
+Cockpit-Version mit Dashboard, Plan, Ziele, Selbstwert, Reflexion, Absprüngen, Top-3-Markierung, Eat the Frog und Murmelglas.
