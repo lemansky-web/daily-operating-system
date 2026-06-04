@@ -1,3 +1,3 @@
-# Mein Daily Life v3.6
+# Mein Daily Life v3.7
 
-Gezielte Weiterentwicklung der bestehenden Daily-App: Routinen als eigener Bereich, Zwei-Gläser-Murmel-System, Ziele in drei Ebenen und kompakte Statusanzeige.
+Editierbare Produktversion: Routinen, Eat the Frog, Top 3, Ziele, Selbstliebe-Murmeln, Inbox und Vorlagen können angelegt, bearbeitet, gelöscht, übernommen und umgewandelt werden.

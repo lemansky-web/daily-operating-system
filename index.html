@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Mein Daily Life · v3.6</title>
+  <title>Mein Daily Life · v3.7</title>
   <style>
     :root{
       --bg:#f2f2f7;
@@ -24,11 +24,9 @@
       --shadow:0 12px 28px rgba(0,0,0,.045);
       --radius-xl:30px;
       --radius-lg:22px;
-      --radius-md:16px;
-      --nav-height:80px;
+      --nav-height:84px;
       --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;
     }
-
     html[data-theme="dark"]{
       --bg:#000000;
       --surface:#1c1c1e;
@@ -47,7 +45,6 @@
       --red:#d48787;
       --shadow:0 12px 28px rgba(0,0,0,.34);
     }
-
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
@@ -77,501 +74,114 @@
       box-shadow:0 0 0 4px var(--accent-soft);
       background:var(--surface);
     }
-    label{
-      display:block;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:650;
-      margin:14px 0 7px;
-    }
-
-    .shell{
-      max-width:1180px;
-      margin:0 auto;
-      padding:16px 14px calc(var(--nav-height) + 28px);
-    }
-
+    label{display:block;color:var(--muted);font-size:12px;font-weight:650;margin:14px 0 7px}
+    .shell{max-width:1180px;margin:0 auto;padding:16px 14px calc(var(--nav-height) + 28px)}
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:40;
-      margin:0 -14px 12px;
-      padding:10px 14px;
+      position:sticky;top:0;z-index:40;margin:0 -14px 12px;padding:10px 14px;
       background:color-mix(in srgb, var(--bg) 88%, transparent);
       border-bottom:1px solid var(--line-soft);
       backdrop-filter:saturate(180%) blur(18px);
       -webkit-backdrop-filter:saturate(180%) blur(18px);
     }
-    .topbar-inner{
-      max-width:1180px;
-      margin:0 auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-    }
-    .app-icon{
-      width:38px;
-      height:38px;
-      border-radius:11px;
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      color:var(--accent);
-      display:grid;
-      place-items:center;
-      font-weight:800;
-      flex:0 0 auto;
-    }
-    h1{
-      margin:0;
-      font-size:clamp(22px,3.3vw,32px);
-      line-height:1.05;
-      letter-spacing:-.75px;
-      font-weight:760;
-    }
-    .date-line{
-      color:var(--muted);
-      font-size:13px;
-      margin-top:2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .icon-button{
-      width:40px;height:40px;border-radius:999px;
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      display:grid;place-items:center;
-      transition:transform .16s ease, background .16s ease;
-    }
+    .topbar-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .app-icon{width:38px;height:38px;border-radius:11px;background:var(--surface);border:1px solid var(--line-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;flex:0 0 auto}
+    h1{margin:0;font-size:clamp(22px,3.3vw,32px);line-height:1.05;letter-spacing:-.75px;font-weight:760}
+    .date-line{color:var(--muted);font-size:13px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .icon-button{width:40px;height:40px;border-radius:999px;background:var(--surface);border:1px solid var(--line-soft);display:grid;place-items:center;transition:transform .16s ease, background .16s ease}
     .icon-button:active{transform:scale(.96)}
-
     .nav{
-      position:fixed;
-      left:10px;
-      right:10px;
-      bottom:10px;
-      z-index:50;
-      display:flex;
-      gap:4px;
-      padding:6px;
-      border-radius:24px;
+      position:fixed;left:10px;right:10px;bottom:10px;z-index:50;
+      display:flex;gap:4px;padding:6px;border-radius:24px;
       background:color-mix(in srgb, var(--surface) 88%, transparent);
       border:1px solid var(--line-soft);
       backdrop-filter:saturate(180%) blur(18px);
       -webkit-backdrop-filter:saturate(180%) blur(18px);
       box-shadow:0 12px 32px rgba(0,0,0,.12);
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
+      overflow:auto;-webkit-overflow-scrolling:touch;
     }
-    .nav button{
-      flex:1 0 auto;
-      min-width:78px;
-      border-radius:18px;
-      padding:9px 10px;
-      background:transparent;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:700;
-      transition:background .16s ease, color .16s ease, transform .16s ease;
-    }
-    .nav button.active{
-      background:var(--surface-3);
-      color:var(--text);
-    }
+    .nav button{flex:1 0 auto;min-width:78px;border-radius:18px;padding:9px 10px;background:transparent;color:var(--muted);font-size:12px;font-weight:700;transition:background .16s ease,color .16s ease,transform .16s ease}
+    .nav button.active{background:var(--surface-3);color:var(--text)}
     .nav button:active{transform:scale(.97)}
-
     .page{display:none}
     .page.active{display:block}
-    .grid{
-      display:grid;
-      grid-template-columns:minmax(0,1fr);
-      gap:14px;
-    }
+    .grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
     .stack{display:grid;gap:14px;align-content:start;min-width:0}
-    .card{
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      border-radius:var(--radius-lg);
-      padding:18px;
-      box-shadow:none;
-      min-width:0;
-    }
-    .focus-card{
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      border-radius:var(--radius-xl);
-      padding:24px;
-      box-shadow:var(--shadow);
-      display:grid;
-      gap:18px;
-    }
-    .kicker{
-      color:var(--muted);
-      font-size:13px;
-      font-weight:700;
-      margin-bottom:8px;
-    }
-    .focus-title{
-      margin:0;
-      font-size:clamp(34px,5.2vw,54px);
-      line-height:.98;
-      letter-spacing:-1.8px;
-      font-weight:790;
-    }
-    .focus-text{
-      color:var(--text-2);
-      font-size:16px;
-      margin:12px 0 0;
-      max-width:760px;
-    }
-    .card-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:14px;
-      margin-bottom:14px;
-    }
-    .card-title{
-      margin:0;
-      font-size:19px;
-      line-height:1.12;
-      letter-spacing:-.42px;
-      font-weight:740;
-    }
-    .card-subtitle{
-      color:var(--muted);
-      font-size:13px;
-      margin:5px 0 0;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      min-height:26px;
-      padding:5px 9px;
-      border-radius:999px;
-      background:var(--accent-soft);
-      color:var(--accent);
-      font-size:12px;
-      font-weight:720;
-      white-space:nowrap;
-    }
-
-    .status-strip{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px;
-      margin-bottom:14px;
-    }
-    .status-pill{
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:14px;
-      min-width:0;
-    }
-    .status-value{
-      font-size:27px;
-      line-height:1;
-      letter-spacing:-.75px;
-      font-weight:760;
-    }
-    .status-label{
-      color:var(--muted);
-      font-size:12px;
-      margin-top:5px;
-      font-weight:650;
-    }
-
-    .btn{
-      min-height:44px;
-      border-radius:999px;
-      padding:11px 16px;
-      background:var(--accent);
-      color:#fff;
-      font-size:14px;
-      font-weight:720;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      transition:transform .16s ease, opacity .16s ease, background .16s ease;
-    }
-    .btn.secondary{
-      background:var(--surface-2);
-      color:var(--text);
-      border:1px solid var(--line-soft);
-    }
-    .btn.ghost{
-      background:transparent;
-      color:var(--accent);
-      padding-left:4px;
-      padding-right:4px;
-    }
+    .card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:18px;box-shadow:none;min-width:0}
+    .focus-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow);display:grid;gap:18px}
+    .kicker{color:var(--muted);font-size:13px;font-weight:700;margin-bottom:8px}
+    .focus-title{margin:0;font-size:clamp(34px,5.2vw,54px);line-height:.98;letter-spacing:-1.8px;font-weight:790}
+    .focus-text{color:var(--text-2);font-size:16px;margin:12px 0 0;max-width:760px}
+    .card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
+    .card-title{margin:0;font-size:19px;line-height:1.12;letter-spacing:-.42px;font-weight:740}
+    .card-subtitle{color:var(--muted);font-size:13px;margin:5px 0 0}
+    .badge{display:inline-flex;align-items:center;min-height:26px;padding:5px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:720;white-space:nowrap}
+    .status-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+    .status-pill{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:14px;min-width:0}
+    .status-value{font-size:27px;line-height:1;letter-spacing:-.75px;font-weight:760}
+    .status-label{color:var(--muted);font-size:12px;margin-top:5px;font-weight:650}
+    .btn{min-height:44px;border-radius:999px;padding:11px 16px;background:var(--accent);color:#fff;font-size:14px;font-weight:720;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .16s ease,opacity .16s ease,background .16s ease}
+    .btn.secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--line-soft)}
+    .btn.ghost{background:transparent;color:var(--accent);padding-left:4px;padding-right:4px;min-height:36px}
+    .btn.danger{background:transparent;color:var(--red);padding-left:4px;padding-right:4px;min-height:36px}
     .btn:active{transform:scale(.97)}
     .btn:hover{opacity:.9}
     .button-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-
     .list{display:grid;gap:8px}
-    .list-item{
-      background:var(--surface-2);
-      border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:13px;
-      min-width:0;
-    }
+    .list-item{background:var(--surface-2);border:1px solid var(--line-soft);border-radius:18px;padding:13px;min-width:0}
     .item-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
     .item-left{display:flex;align-items:center;gap:11px;min-width:0}
-    .check{
-      width:34px;height:34px;border-radius:50%;
-      border:1px solid var(--line);
-      background:var(--surface);
-      color:transparent;
-      display:grid;
-      place-items:center;
-      font-weight:800;
-      flex:0 0 auto;
-      transition:transform .16s ease, background .16s ease, border-color .16s ease;
-    }
+    .check{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:transparent;display:grid;place-items:center;font-weight:800;flex:0 0 auto;transition:transform .16s ease,background .16s ease,border-color .16s ease}
     .check.done{background:var(--accent);border-color:var(--accent);color:white}
     .check:active{transform:scale(.92)}
-    .item-title{
-      font-size:15px;
-      font-weight:700;
-      letter-spacing:-.16px;
-      overflow-wrap:anywhere;
-    }
-    .item-meta{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:2px;
-    }
-    .type-pill{
-      display:inline-flex;
-      align-items:center;
-      margin-left:6px;
-      padding:3px 7px;
-      border-radius:999px;
-      background:var(--surface-3);
-      color:var(--muted);
-      font-size:11px;
-      font-weight:700;
-    }
-
+    .item-title{font-size:15px;font-weight:700;letter-spacing:-.16px;overflow-wrap:anywhere}
+    .item-meta{font-size:12px;color:var(--muted);margin-top:2px}
+    .type-pill{display:inline-flex;align-items:center;margin-left:6px;padding:3px 7px;border-radius:999px;background:var(--surface-3);color:var(--muted);font-size:11px;font-weight:700}
     .routine-list{display:grid;gap:10px}
-    .routine-item{
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      border-radius:20px;
-      padding:14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      position:relative;
-      overflow:hidden;
-    }
-    .routine-item:before{
-      content:"";
-      position:absolute;
-      left:0;top:0;bottom:0;
-      width:4px;
-      background:var(--accent);
-      opacity:.75;
-    }
-    .routine-item.done{
-      background:var(--surface-2);
-    }
-    .routine-title{
-      font-weight:740;
-      letter-spacing:-.18px;
-      font-size:15px;
-    }
-    .routine-meta{
-      color:var(--muted);
-      font-size:12px;
-      margin-top:2px;
-    }
-    .routine-check{
-      width:42px;height:42px;border-radius:50%;
-      background:var(--surface-2);
-      border:1px solid var(--line-soft);
-      color:transparent;
-      display:grid;place-items:center;
-      font-weight:800;
-      flex:0 0 auto;
-    }
-    .routine-check.done{
-      background:var(--accent);
-      color:#fff;
-      border-color:var(--accent);
-    }
-
+    .routine-item{background:var(--surface);border:1px solid var(--line-soft);border-radius:20px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;overflow:hidden}
+    .routine-item:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);opacity:.75}
+    .routine-item.inactive{opacity:.55}
+    .routine-title{font-weight:740;letter-spacing:-.18px;font-size:15px}
+    .routine-meta{color:var(--muted);font-size:12px;margin-top:2px}
+    .routine-check{width:42px;height:42px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line-soft);color:transparent;display:grid;place-items:center;font-weight:800;flex:0 0 auto}
+    .routine-check.done{background:var(--accent);color:#fff;border-color:var(--accent)}
     .form-grid{display:grid;grid-template-columns:1fr;gap:10px}
     .two-grid{display:grid;grid-template-columns:1fr;gap:12px}
     .three-grid{display:grid;grid-template-columns:1fr;gap:12px}
     .chip-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .chip{
-      min-height:34px;
-      border-radius:999px;
-      padding:8px 11px;
-      background:var(--surface-2);
-      border:1px solid var(--line-soft);
-      color:var(--muted);
-      font-size:13px;
-      font-weight:680;
-      transition:transform .16s ease, background .16s ease, color .16s ease;
-    }
-    .chip.active{
-      background:var(--accent);
-      color:white;
-      border-color:var(--accent);
-    }
+    .chip{min-height:34px;border-radius:999px;padding:8px 11px;background:var(--surface-2);border:1px solid var(--line-soft);color:var(--muted);font-size:13px;font-weight:680;transition:transform .16s ease,background .16s ease,color .16s ease}
+    .chip.active{background:var(--accent);color:white;border-color:var(--accent)}
     .chip:active{transform:scale(.97)}
-    .hidden{display:none!important}
-
-    .goal-card{
-      background:var(--surface-2);
-      border:1px solid var(--line-soft);
-      border-radius:20px;
-      padding:15px;
-    }
-    .goal-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:10px;
-    }
-    .goal-level{
-      color:var(--accent);
-      background:var(--accent-soft);
-      border-radius:999px;
-      padding:4px 8px;
-      font-size:11px;
-      font-weight:720;
-    }
-    .goal-progress{
-      height:7px;
-      border-radius:999px;
-      background:var(--surface-3);
-      overflow:hidden;
-      margin-top:12px;
-    }
-    .goal-progress span{
-      display:block;
-      height:100%;
-      width:0%;
-      background:var(--accent);
-      border-radius:999px;
-      transition:width .2s ease;
-    }
-
-    .marble-system{
-      display:grid;
-      gap:16px;
-    }
-    .jar-row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      align-items:stretch;
-    }
-    .jar{
-      min-height:235px;
-      border-radius:30px;
-      background:var(--surface-2);
-      border:1px solid var(--line-soft);
-      padding:18px;
-      position:relative;
-      overflow:hidden;
-    }
-    .jar-title{
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:720;
-      margin-bottom:18px;
-    }
-    .marble-grid{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-content:flex-end;
-      min-height:160px;
-      justify-content:center;
-    }
-    .marble{
-      width:35px;height:35px;border-radius:50%;
-      background:radial-gradient(circle at 30% 28%,#fff 0%,#f8fbfc 10%,var(--marble,#9bb8c2) 45%,#3c6471 100%);
-      box-shadow:inset -4px -6px 10px rgba(0,0,0,.16), inset 3px 4px 8px rgba(255,255,255,.52), 0 5px 10px rgba(0,0,0,.07);
-      animation:marbleIn .35s ease;
-    }
-    .marble.moving{
-      animation:marbleMove .75s cubic-bezier(.22,1,.36,1);
-    }
+    .goal-card{background:var(--surface-2);border:1px solid var(--line-soft);border-radius:20px;padding:15px}
+    .goal-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+    .goal-level{color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:720}
+    .goal-progress{height:7px;border-radius:999px;background:var(--surface-3);overflow:hidden;margin-top:12px}
+    .goal-progress span{display:block;height:100%;width:0%;background:var(--accent);border-radius:999px;transition:width .2s ease}
+    .marble-system{display:grid;gap:16px}
+    .jar-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}
+    .jar{min-height:235px;border-radius:30px;background:var(--surface-2);border:1px solid var(--line-soft);padding:18px;position:relative;overflow:hidden}
+    .jar-title{text-align:center;color:var(--muted);font-size:12px;font-weight:720;margin-bottom:18px}
+    .marble-grid{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-end;min-height:160px;justify-content:center}
+    .marble{width:35px;height:35px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fff 0%,#f8fbfc 10%,var(--marble,#9bb8c2) 45%,#3c6471 100%);box-shadow:inset -4px -6px 10px rgba(0,0,0,.16),inset 3px 4px 8px rgba(255,255,255,.52),0 5px 10px rgba(0,0,0,.07);animation:marbleIn .35s ease}
+    .marble.moving{animation:marbleMove .75s cubic-bezier(.22,1,.36,1)}
     @keyframes marbleIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
-    @keyframes marbleMove{
-      0%{transform:translateX(-92px) translateY(-16px) scale(.82);opacity:.2}
-      60%{transform:translateX(8px) translateY(0) scale(1.04);opacity:1}
-      100%{transform:translateX(0) translateY(0) scale(1)}
-    }
-
-    .notes-preview{
-      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
-      font-size:13px;
-      min-height:280px;
-      background:var(--surface-2);
-    }
-    .empty{
-      background:var(--surface-2);
-      border:1px dashed var(--line);
-      border-radius:18px;
-      padding:16px;
-      color:var(--muted);
-      font-size:14px;
-      text-align:center;
-    }
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:calc(var(--nav-height) + 14px);
-      transform:translateX(-50%) translateY(12px);
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      box-shadow:var(--shadow);
-      border-radius:999px;
-      padding:12px 16px;
-      font-size:14px;
-      font-weight:720;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .16s ease, transform .16s ease;
-      z-index:100;
-    }
+    @keyframes marbleMove{0%{transform:translateX(-92px) translateY(-16px) scale(.82);opacity:.2}60%{transform:translateX(8px) translateY(0) scale(1.04);opacity:1}100%{transform:translateX(0) translateY(0) scale(1)}}
+    .notes-preview{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:13px;min-height:280px;background:var(--surface-2)}
+    .empty{background:var(--surface-2);border:1px dashed var(--line);border-radius:18px;padding:16px;color:var(--muted);font-size:14px;text-align:center}
+    .toast{position:fixed;left:50%;bottom:calc(var(--nav-height) + 14px);transform:translateX(-50%) translateY(12px);background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--shadow);border-radius:999px;padding:12px 16px;font-size:14px;font-weight:720;opacity:0;pointer-events:none;transition:opacity .16s ease,transform .16s ease;z-index:100}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:120;display:none;align-items:flex-end;justify-content:center;padding:16px}
+    .modal-backdrop.show{display:flex}
+    .sheet{width:min(680px,100%);max-height:88vh;overflow:auto;background:var(--surface);border:1px solid var(--line-soft);border-radius:28px;padding:18px;box-shadow:0 18px 54px rgba(0,0,0,.18);animation:sheetUp .18s ease}
+    @keyframes sheetUp{from{transform:translateY(18px);opacity:.7}to{transform:translateY(0);opacity:1}}
+    .sheet-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+    .sheet-title{font-size:21px;font-weight:760;letter-spacing:-.5px;margin:0}
     .footer{text-align:center;color:var(--muted-2);font-size:12px;margin:24px 0 2px}
-
     @media(min-width:720px){
       :root{--nav-height:0px}
       .shell{padding:18px 22px 42px}
       .topbar{margin:0 -22px 14px;padding:10px 22px}
-      .nav{
-        position:sticky;
-        top:64px;
-        left:auto;right:auto;bottom:auto;
-        margin-bottom:16px;
-        box-shadow:none;
-        background:var(--surface-3);
-        border-radius:999px;
-        max-width:860px;
-      }
+      .nav{position:sticky;top:64px;left:auto;right:auto;bottom:auto;margin-bottom:16px;box-shadow:none;background:var(--surface-3);border-radius:999px;max-width:980px}
       .nav button{min-width:auto;padding:9px 14px}
       .grid{grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr)}
       .status-strip{grid-template-columns:repeat(4,1fr)}
@@ -581,7 +191,6 @@
       .form-grid.goal-form{grid-template-columns:minmax(0,1fr) 135px 135px auto}
       .form-grid.routine-form{grid-template-columns:minmax(0,1fr) 140px auto}
     }
-
     @media(max-width:719px){
       .focus-card{padding:22px 19px}
       .focus-title{font-size:34px}
@@ -596,6 +205,15 @@
 </head>
 <body>
   <div class="toast" id="toast">Gespeichert.</div>
+  <div class="modal-backdrop" id="modal">
+    <div class="sheet">
+      <div class="sheet-header">
+        <h2 class="sheet-title" id="modalTitle">Bearbeiten</h2>
+        <button class="icon-button" id="modalClose">×</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
 
   <main class="shell">
     <header class="topbar">
@@ -614,6 +232,7 @@
     <nav class="nav">
       <button class="active" data-page="heute">Heute</button>
       <button data-page="plan">Plan</button>
+      <button data-page="inbox">Inbox</button>
       <button data-page="routinen">Routinen</button>
       <button data-page="ziele">Ziele</button>
       <button data-page="selbstwert">Selbstwert</button>
@@ -640,6 +259,7 @@
             <div class="button-row">
               <button class="btn" id="completeNow">Erledigt</button>
               <button class="btn secondary" data-go-page="plan">Zum Plan</button>
+              <button class="btn ghost" id="editFrogFromNow">Frog ändern</button>
             </div>
           </section>
 
@@ -649,17 +269,22 @@
                 <h3 class="card-title">Heute zählt</h3>
                 <p class="card-subtitle">Aufgaben sind Tagesarbeit. Routinen sind Anker. Ziele sind Richtung.</p>
               </div>
+              <button class="btn ghost" id="editToday">Bearbeiten</button>
             </div>
 
-            <label for="mainTask">Wichtigste Aufgabe des Tages</label>
-            <input id="mainTask" placeholder="Was macht den Tag wirklich sinnvoll?">
-
-            <label for="selfCareStep">Kleiner Selbstfürsorge-Schritt</label>
-            <input id="selfCareStep" placeholder="z. B. Pause, Spaziergang, Handy weglegen">
-
-            <div class="button-row" style="margin-top:12px">
-              <button class="btn" id="saveToday">Heute speichern</button>
-              <button class="btn secondary" data-go-page="routinen">Routinen öffnen</button>
+            <div class="list">
+              <div class="list-item">
+                <div class="item-title">Wichtigste Aufgabe</div>
+                <div class="item-meta" id="mainTaskPreview">—</div>
+              </div>
+              <div class="list-item">
+                <div class="item-title">Eat the Frog</div>
+                <div class="item-meta" id="frogPreview">—</div>
+              </div>
+              <div class="list-item">
+                <div class="item-title">Selbstfürsorge</div>
+                <div class="item-meta" id="selfCarePreview">—</div>
+              </div>
             </div>
           </section>
 
@@ -667,8 +292,9 @@
             <div class="card-header">
               <div>
                 <h3 class="card-title">Top 3</h3>
-                <p class="card-subtitle">Aus deinen Aufgaben markiert. Direkt erledigbar.</p>
+                <p class="card-subtitle">Manuell festgelegt, sortierbar und direkt erledigbar.</p>
               </div>
+              <button class="btn ghost" id="addTop3FromToday">+ Top 3</button>
             </div>
             <div class="list" id="todayTop3List"></div>
           </section>
@@ -689,25 +315,32 @@
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Status sekundär</h3>
-                <p class="card-subtitle">Energie, Stimmung, Schlaf und Zielstatus.</p>
+                <h3 class="card-title">Quick Add</h3>
+                <p class="card-subtitle">Schnell erfassen und später umwandeln.</p>
               </div>
+            </div>
+            <textarea id="quickAddText" placeholder="Gedanke, Aufgabe, Idee oder Sorge"></textarea>
+            <div class="two-grid">
+              <select id="quickAddTag">
+                <option>#Privat</option><option>#Teutonia</option><option>#Karriere</option><option>#Gesundheit</option><option>#WartenAuf</option>
+              </select>
+              <button class="btn" id="quickAdd">Erfassen</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Status sekundär</h3>
+                <p class="card-subtitle">Energie, Stimmung und Schlaf.</p>
+              </div>
+              <button class="btn ghost" id="editStatus">Bearbeiten</button>
             </div>
             <div class="three-grid">
-              <div>
-                <label>Energie</label>
-                <select id="energySelect"><option value="">—</option><option>niedrig</option><option>mittel</option><option>hoch</option></select>
-              </div>
-              <div>
-                <label>Stimmung</label>
-                <select id="moodSelect"><option value="">—</option><option>ruhig</option><option>klar</option><option>unruhig</option><option>müde</option><option>motiviert</option></select>
-              </div>
-              <div>
-                <label>Schlaf</label>
-                <select id="sleepSelect"><option value="">—</option><option>schlecht</option><option>okay</option><option>gut</option></select>
-              </div>
+              <div class="list-item"><div class="item-title">Energie</div><div class="item-meta" id="energyPreview">—</div></div>
+              <div class="list-item"><div class="item-title">Stimmung</div><div class="item-meta" id="moodPreview">—</div></div>
+              <div class="list-item"><div class="item-title">Schlaf</div><div class="item-meta" id="sleepPreview">—</div></div>
             </div>
-            <button class="btn secondary" id="saveStatus" style="margin-top:12px">Status speichern</button>
           </section>
         </aside>
       </div>
@@ -725,31 +358,11 @@
               <span class="badge" id="taskOpenBadge">0 offen</span>
             </div>
 
-            <div class="form-grid task-form">
-              <input id="taskTitle" placeholder="Aufgabe, Termin oder Fokus">
-              <select id="taskType">
-                <option>Aufgabe</option>
-                <option>Termin</option>
-                <option>Fokus</option>
-              </select>
-              <select id="taskSchedule">
-                <option>Flexibel</option>
-                <option>Morgens</option>
-                <option>Mittags</option>
-                <option>Abends</option>
-              </select>
-              <select id="taskPriority">
-                <option value="normal">Normal</option>
-                <option value="hoch">Hoch</option>
-                <option value="kritisch">Kritisch</option>
-              </select>
-              <button class="btn" id="addTask">Hinzufügen</button>
+            <div class="button-row" style="margin-bottom:14px">
+              <button class="btn" id="addTaskOpen">+ Aufgabe</button>
+              <button class="btn secondary" id="addTaskFromInboxOpen">Aus Inbox übernehmen</button>
             </div>
-
-            <label for="taskNext">Nächster kleiner Schritt</label>
-            <input id="taskNext" placeholder="Was ist der erste kleine Schritt?">
-
-            <div class="list" id="taskList" style="margin-top:16px"></div>
+            <div class="list" id="taskList"></div>
           </section>
         </div>
 
@@ -768,6 +381,46 @@
       </div>
     </section>
 
+    <section class="page" id="page-inbox">
+      <div class="grid">
+        <div class="stack">
+          <section class="focus-card">
+            <div>
+              <div class="kicker">Inbox</div>
+              <h2 class="focus-title">Raus aus dem Kopf.</h2>
+              <p class="focus-text">Jeder Eintrag kann später bearbeitet, getaggt oder umgewandelt werden.</p>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Quick Add / Inbox</h3>
+                <p class="card-subtitle">Einträge bearbeiten, taggen, verschieben oder umwandeln.</p>
+              </div>
+              <button class="btn" id="addInboxOpen">+ Eintrag</button>
+            </div>
+            <div class="list" id="inboxList"></div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Umwandeln</h3>
+                <p class="card-subtitle">Aus Gedanken werden Aufgaben, Routinen oder Ziele.</p>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="item-title">Produktlogik</div>
+              <div class="item-meta">Inbox ist nur Eingang. Dauerhafte Dinge gehören danach in Plan, Routinen oder Ziele.</div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
     <section class="page" id="page-routinen">
       <div class="grid">
         <div class="stack">
@@ -775,7 +428,7 @@
             <div>
               <div class="kicker">Routinen</div>
               <h2 class="focus-title">Deine Tagesanker.</h2>
-              <p class="focus-text">Routinen sind keine Aufgaben. Sie halten deinen Tag stabil.</p>
+              <p class="focus-text">Routinen sind bearbeitbar, sortierbar und als Vorlage speicherbar.</p>
             </div>
           </section>
 
@@ -783,9 +436,13 @@
             <div class="card-header">
               <div>
                 <h3 class="card-title">Heute abhaken</h3>
-                <p class="card-subtitle">Schnell, ruhig, ohne Liste aufzublähen.</p>
+                <p class="card-subtitle">Schnell, ruhig, flexibel.</p>
               </div>
               <span class="badge" id="routineBadge">0/4</span>
+            </div>
+            <div class="button-row" style="margin-bottom:14px">
+              <button class="btn" id="addRoutineOpen">+ Routine</button>
+              <button class="btn secondary" id="takeTemplateOpen">Aus Vorlage</button>
             </div>
             <div class="routine-list" id="routineList"></div>
           </section>
@@ -796,20 +453,11 @@
             <div class="card-header">
               <div>
                 <h3 class="card-title">Routinen-Vorlagen</h3>
-                <p class="card-subtitle">Gelten für neue Tage.</p>
+                <p class="card-subtitle">Gelten für neue Tage oder können heute übernommen werden.</p>
               </div>
+              <button class="btn ghost" id="addRoutineTemplateOpen">+ Vorlage</button>
             </div>
             <div class="list" id="routineTemplateList"></div>
-            <div class="form-grid routine-form" style="margin-top:14px">
-              <input id="newRoutineTitle" placeholder="Neue Routine">
-              <select id="newRoutineAnchor">
-                <option>Morgens</option>
-                <option>Mittags</option>
-                <option>Abends</option>
-                <option>Flexibel</option>
-              </select>
-              <button class="btn" id="addRoutineTemplate">Vorlage hinzufügen</button>
-            </div>
           </section>
         </aside>
       </div>
@@ -822,40 +470,19 @@
             <div>
               <div class="kicker">Ziele</div>
               <h2 class="focus-title">Richtung statt nur Erledigung.</h2>
-              <p class="focus-text">Ziele zeigen, wofür deine heutigen Aufgaben wichtig sind.</p>
+              <p class="focus-text">Ziele sind bearbeitbare Richtungsebenen, keine Aufgabenlisten.</p>
             </div>
           </section>
 
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Ziel hinzufügen</h3>
-                <p class="card-subtitle">Kurzfristig, mittelfristig oder langfristig.</p>
+                <h3 class="card-title">Zielübersicht</h3>
+                <p class="card-subtitle">Kurzfristig, mittelfristig, langfristig.</p>
               </div>
+              <button class="btn" id="addGoalOpen">+ Ziel</button>
             </div>
-
-            <div class="form-grid goal-form">
-              <input id="goalTitle" placeholder="Ziel">
-              <select id="goalLevel">
-                <option value="kurzfristig">kurzfristig</option>
-                <option value="mittelfristig">mittelfristig</option>
-                <option value="langfristig">langfristig</option>
-              </select>
-              <select id="goalProgress">
-                <option value="0">0%</option>
-                <option value="25">25%</option>
-                <option value="50">50%</option>
-                <option value="75">75%</option>
-                <option value="100">100%</option>
-              </select>
-              <button class="btn" id="addGoal">Ziel hinzufügen</button>
-            </div>
-
-            <label for="goalWhy">Warum ist es wichtig?</label>
-            <input id="goalWhy" placeholder="Wofür zahlt dieses Ziel ein?">
-
-            <label for="goalNext">Nächster kleiner Schritt</label>
-            <input id="goalNext" placeholder="Was ist der nächste konkrete Schritt?">
+            <div class="list" id="goalList"></div>
           </section>
         </div>
 
@@ -863,11 +490,11 @@
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Zielübersicht</h3>
-                <p class="card-subtitle">Drei Ebenen, klar von Aufgaben getrennt.</p>
+                <h3 class="card-title">Zielstatus</h3>
+                <p class="card-subtitle">Was heute auf deine Richtung einzahlt.</p>
               </div>
             </div>
-            <div class="list" id="goalList"></div>
+            <div class="list" id="goalStatusList"></div>
           </section>
         </aside>
       </div>
@@ -880,7 +507,7 @@
             <div>
               <div class="kicker">Selbstliebe</div>
               <h2 class="focus-title">Murmeln sammeln.</h2>
-              <p class="focus-text">Jede Murmel steht für eine konkrete Handlung, mit der du gut für dich sorgst.</p>
+              <p class="focus-text">Murmeln hängen an echten Selbstliebe-Einträgen und sind bearbeitbar.</p>
             </div>
           </section>
 
@@ -892,28 +519,12 @@
               </div>
               <span class="badge" id="marbleBadge">0/5</span>
             </div>
-
             <div class="marble-system">
               <div class="jar-row">
-                <div class="jar">
-                  <div class="jar-title">offen</div>
-                  <div class="marble-grid" id="openMarbles"></div>
-                </div>
-                <div class="jar">
-                  <div class="jar-title">erreicht</div>
-                  <div class="marble-grid" id="doneMarbles"></div>
-                </div>
+                <div class="jar"><div class="jar-title">offen</div><div class="marble-grid" id="openMarbles"></div></div>
+                <div class="jar"><div class="jar-title">erreicht</div><div class="marble-grid" id="doneMarbles"></div></div>
               </div>
-
-              <input id="selfLoveText" placeholder="Selbstliebe-Handlung, z. B. Pause gemacht">
-              <select id="selfLoveType">
-                <option>Selbstfürsorge</option>
-                <option>Mut</option>
-                <option>Grenze</option>
-                <option>Körper</option>
-                <option>Nicht geflüchtet</option>
-              </select>
-              <button class="btn" id="addMarble">Murmel erreichen</button>
+              <button class="btn" id="addMarbleOpen">+ Selbstliebe-Eintrag</button>
             </div>
           </section>
         </div>
@@ -922,13 +533,22 @@
           <section class="card">
             <div class="card-header">
               <div>
+                <h3 class="card-title">Selbstliebe-Einträge</h3>
+                <p class="card-subtitle">Bearbeiten, löschen, nachvollziehen.</p>
+              </div>
+            </div>
+            <div class="list" id="marbleList"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
                 <h3 class="card-title">Erfolge</h3>
                 <p class="card-subtitle">Sichtbare Beweise für Selbstwert.</p>
               </div>
+              <button class="btn ghost" id="addSuccessOpen">+ Erfolg</button>
             </div>
-            <input id="successText" placeholder="Erfolg eintragen">
-            <button class="btn" id="addSuccess" style="margin-top:12px">Erfolg speichern</button>
-            <div class="list" id="successList" style="margin-top:14px"></div>
+            <div class="list" id="successList"></div>
           </section>
         </aside>
       </div>
@@ -943,22 +563,13 @@
                 <h3 class="card-title">Abendreflexion</h3>
                 <p class="card-subtitle">Kurz abschließen, nicht zerdenken.</p>
               </div>
+              <button class="btn ghost" id="editEveningOpen">Bearbeiten</button>
             </div>
-            <div class="two-grid">
-              <div>
-                <label for="eveningGood">Was war gut?</label>
-                <input id="eveningGood" placeholder="Ein Satz reicht">
-              </div>
-              <div>
-                <label for="eveningHard">Was war schwer?</label>
-                <input id="eveningHard" placeholder="Ehrlich und kurz">
-              </div>
-              <div>
-                <label for="eveningTomorrow">Was ist morgen wichtig?</label>
-                <input id="eveningTomorrow" placeholder="Eine Sache">
-              </div>
+            <div class="list">
+              <div class="list-item"><div class="item-title">Gut</div><div class="item-meta" id="eveningGoodPreview">—</div></div>
+              <div class="list-item"><div class="item-title">Schwer</div><div class="item-meta" id="eveningHardPreview">—</div></div>
+              <div class="list-item"><div class="item-title">Morgen wichtig</div><div class="item-meta" id="eveningTomorrowPreview">—</div></div>
             </div>
-            <button class="btn" id="saveEvening" style="margin-top:12px">Abend speichern</button>
           </section>
         </div>
 
@@ -984,8 +595,9 @@
             <div class="card-header">
               <div>
                 <h3 class="card-title">Routinen-Vorlagen</h3>
-                <p class="card-subtitle">Hier pflegst du wiederkehrende Tagesanker.</p>
+                <p class="card-subtitle">Anlegen, bearbeiten, aktivieren, löschen, übernehmen.</p>
               </div>
+              <button class="btn" id="settingsAddTemplate">+ Vorlage</button>
             </div>
             <div class="list" id="settingsRoutineList"></div>
           </section>
@@ -1008,41 +620,42 @@
       </div>
     </section>
 
-    <footer class="footer">Mein Daily Life · v3.6 · Produktlogik verbessert</footer>
+    <footer class="footer">Mein Daily Life · v3.7 · editierbare Produktversion</footer>
   </main>
 
   <script>
     const $ = s => document.querySelector(s);
     const $$ = s => Array.from(document.querySelectorAll(s));
     const today = new Date().toISOString().slice(0,10);
-    const stateKey = "mein_daily_life_v36_" + today;
-    const templateKey = "mein_daily_life_v36_templates";
-    const settingsKey = "mein_daily_life_v36_settings";
+    const stateKey = "mein_daily_life_v37_" + today;
+    const templateKey = "mein_daily_life_v37_templates";
+    const settingsKey = "mein_daily_life_v37_settings";
     const MARBLE_TARGET = 5;
 
     const defaultTemplates = [
-      {id:"morning", title:"Morgenstart", anchor:"Morgens", active:true},
-      {id:"frog", title:"Eat the Frog", anchor:"Morgens", active:true},
-      {id:"selflove", title:"Selbstliebe", anchor:"Flexibel", active:true},
-      {id:"evening", title:"Abendabschluss", anchor:"Abends", active:true}
+      {id:"morning", title:"Morgenstart", anchor:"Morgens", note:"Gefühl, Bedürfnis und Fokus klären", active:true},
+      {id:"frog", title:"Eat the Frog", anchor:"Morgens", note:"Die unangenehme wichtige Sache zuerst beginnen", active:true},
+      {id:"selflove", title:"Selbstliebe", anchor:"Flexibel", note:"Eine Handlung, die mich stärkt", active:true},
+      {id:"evening", title:"Abendabschluss", anchor:"Abends", note:"Tag sichtbar abschließen", active:true}
     ];
 
-    let templates = {routines: defaultTemplates};
+    let templates = {routines: structuredClone(defaultTemplates)};
     let settings = {theme:"light"};
     let movingMarble = false;
 
     let state = {
-      today:{mainTask:"", selfCareStep:"", energy:"", mood:"", sleep:""},
+      today:{mainTask:"", selfCareStep:"", energy:"", mood:"", sleep:"", frogId:""},
       routines:[],
       tasks:[
         {id:uid("task"), title:"10 Minuten an der Schiebe-Aufgabe beginnen", type:"Fokus", schedule:"Morgens", priority:"hoch", next:"Timer stellen", done:false, top3:true},
         {id:uid("task"), title:"2 km Spaziergang", type:"Aufgabe", schedule:"Morgens", priority:"normal", next:"Schuhe anziehen", done:false, top3:true},
         {id:uid("task"), title:"Teutonia kurz prüfen", type:"Aufgabe", schedule:"Mittags", priority:"normal", next:"Nachrichten checken", done:false, top3:false}
       ],
+      inbox:[],
       goals:[
-        {id:uid("goal"), title:"Stabiler Tagesrhythmus", level:"kurzfristig", why:"Mehr Ruhe, Energie und Selbstführung im Alltag.", next:"Morgenstart und Abendabschluss halten", progress:25},
-        {id:uid("goal"), title:"Berufliche Neuorientierung", level:"mittelfristig", why:"Sport, IT und Koordination sinnvoll verbinden.", next:"Eine passende Stelle recherchieren", progress:35},
-        {id:uid("goal"), title:"Selbstwert aufbauen", level:"langfristig", why:"Ich will mir selbst mehr vertrauen und liebevoller mit mir umgehen.", next:"Täglich eine Selbstliebe-Murmel", progress:20}
+        {id:uid("goal"), title:"Stabiler Tagesrhythmus", level:"kurzfristig", category:"Gesundheit", why:"Mehr Ruhe, Energie und Selbstführung im Alltag.", next:"Morgenstart und Abendabschluss halten", progress:25},
+        {id:uid("goal"), title:"Berufliche Neuorientierung", level:"mittelfristig", category:"Karriere", why:"Sport, IT und Koordination sinnvoll verbinden.", next:"Eine passende Stelle recherchieren", progress:35},
+        {id:uid("goal"), title:"Selbstwert aufbauen", level:"langfristig", category:"Persönlich", why:"Ich will mir selbst mehr vertrauen und liebevoller mit mir umgehen.", next:"Täglich eine Selbstliebe-Murmel", progress:20}
       ],
       marbles:[],
       successes:[],
@@ -1053,6 +666,8 @@
       return prefix + "_" + Date.now() + "_" + Math.random().toString(16).slice(2);
     }
 
+    function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+
     function esc(value){
       return String(value ?? "")
         .replaceAll("&","&amp;")
@@ -1060,6 +675,10 @@
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
+    }
+
+    function now(){
+      return new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
     }
 
     function load(){
@@ -1072,14 +691,12 @@
       const savedSettings = localStorage.getItem(settingsKey);
       if(savedSettings) settings = {...settings, ...JSON.parse(savedSettings)};
 
+      if(!state.inbox) state.inbox = [];
+      if(!state.today) state.today = {mainTask:"", selfCareStep:"", energy:"", mood:"", sleep:"", frogId:""};
+      if(!state.today.frogId) state.today.frogId = "";
+
       if(!state.routines.length){
-        state.routines = templates.routines.filter(r => r.active).map(r => ({
-          id:"routine_" + r.id,
-          templateId:r.id,
-          title:r.title,
-          anchor:r.anchor,
-          done:false
-        }));
+        state.routines = templates.routines.filter(r => r.active).map(routineFromTemplate);
       }
 
       document.documentElement.dataset.theme = settings.theme;
@@ -1090,6 +707,19 @@
       localStorage.setItem(templateKey, JSON.stringify(templates));
       localStorage.setItem(settingsKey, JSON.stringify(settings));
       render();
+    }
+
+    function routineFromTemplate(tpl){
+      return {
+        id:uid("routine"),
+        templateId:tpl.id,
+        title:tpl.title,
+        anchor:tpl.anchor,
+        note:tpl.note || "",
+        active:true,
+        done:false,
+        order:state.routines.length + 1
+      };
     }
 
     function setPage(page){
@@ -1111,46 +741,46 @@
         if(go){ e.preventDefault(); setPage(go.dataset.goPage); }
       });
 
-      $("#saveToday").onclick = saveToday;
-      $("#saveStatus").onclick = saveStatus;
+      $("#modalClose").onclick = closeModal;
+      $("#modal").onclick = e => { if(e.target.id === "modal") closeModal(); };
+
       $("#completeNow").onclick = completeNow;
-      $("#addTask").onclick = addTask;
-      $("#addGoal").onclick = addGoal;
-      $("#addMarble").onclick = addMarble;
-      $("#addSuccess").onclick = addSuccess;
-      $("#saveEvening").onclick = saveEvening;
+      $("#editFrogFromNow").onclick = openFrogEditor;
+      $("#editToday").onclick = openTodayEditor;
+      $("#editStatus").onclick = openStatusEditor;
+      $("#quickAdd").onclick = addQuickInline;
+      $("#addTop3FromToday").onclick = openTaskEditor;
+      $("#addTaskOpen").onclick = openTaskEditor;
+      $("#addTaskFromInboxOpen").onclick = () => setPage("inbox");
+      $("#addInboxOpen").onclick = openInboxEditor;
+      $("#addRoutineOpen").onclick = openRoutineEditor;
+      $("#takeTemplateOpen").onclick = openTakeTemplateSheet;
+      $("#addRoutineTemplateOpen").onclick = openTemplateEditor;
+      $("#settingsAddTemplate").onclick = openTemplateEditor;
+      $("#addGoalOpen").onclick = openGoalEditor;
+      $("#addMarbleOpen").onclick = openMarbleEditor;
+      $("#addSuccessOpen").onclick = openSuccessEditor;
+      $("#editEveningOpen").onclick = openEveningEditor;
       $("#copyExport").onclick = () => navigator.clipboard.writeText($("#exportText").value).then(() => toast("Export kopiert."));
-      $("#addRoutineTemplate").onclick = addRoutineTemplate;
     }
 
-    function progress(){
-      const totalTasks = state.tasks.length || 1;
-      const taskProgress = state.tasks.filter(t => t.done).length / totalTasks;
-      const routineProgress = state.routines.length ? state.routines.filter(r => r.done).length / state.routines.length : 0;
-      const marbleProgress = Math.min(state.marbles.length / MARBLE_TARGET, 1);
-      return Math.round(((taskProgress * .45) + (routineProgress * .40) + (marbleProgress * .15)) * 100);
+    function openModal(title, bodyHTML, onBind){
+      $("#modalTitle").textContent = title;
+      $("#modalBody").innerHTML = bodyHTML;
+      $("#modal").classList.add("show");
+      if(onBind) onBind();
     }
 
-    function top3Done(){
-      const top = state.tasks.filter(t => t.top3).slice(0,3);
-      return {done: top.filter(t => t.done).length, total: top.length || 3};
-    }
-
-    function currentFocus(){
-      const openRoutine = state.routines.find(r => !r.done);
-      if(openRoutine) return {kind:"routine", item:openRoutine, title:openRoutine.title, text:"Tagesanker: " + openRoutine.anchor};
-      const topOpen = state.tasks.find(t => t.top3 && !t.done);
-      if(topOpen) return {kind:"task", item:topOpen, title:topOpen.title, text:"Nächster Schritt: " + (topOpen.next || "klein anfangen")};
-      const openTask = state.tasks.find(t => !t.done);
-      if(openTask) return {kind:"task", item:openTask, title:openTask.title, text:"Nächster Schritt: " + (openTask.next || "klein anfangen")};
-      if(state.marbles.length < MARBLE_TARGET) return {kind:"selflove", item:null, title:"Eine Selbstliebe-Murmel sammeln", text:"Eine kleine Handlung, die dich stärkt."};
-      return {kind:"done", item:null, title:"Tag bewusst abschließen", text:"Reflexion öffnen und sichtbar machen, was gelungen ist."};
+    function closeModal(){
+      $("#modal").classList.remove("show");
+      $("#modalBody").innerHTML = "";
     }
 
     function render(){
       renderHeader();
       renderToday();
       renderPlan();
+      renderInbox();
       renderRoutines();
       renderGoals();
       renderSelfWorth();
@@ -1163,64 +793,112 @@
       $("#dateLine").textContent = new Date().toLocaleDateString("de-DE",{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
     }
 
+    function progress(){
+      const taskTotal = state.tasks.length || 1;
+      const taskProgress = state.tasks.filter(t => t.done).length / taskTotal;
+      const activeRoutines = state.routines.filter(r => r.active !== false);
+      const routineProgress = activeRoutines.length ? activeRoutines.filter(r => r.done).length / activeRoutines.length : 0;
+      const marbleProgress = Math.min(state.marbles.length / MARBLE_TARGET, 1);
+      return Math.round(((taskProgress * .42) + (routineProgress * .42) + (marbleProgress * .16)) * 100);
+    }
+
+    function top3Items(){ return state.tasks.filter(t => t.top3).slice(0,3); }
+    function top3Done(){ const top = top3Items(); return {done:top.filter(t=>t.done).length,total:top.length || 3}; }
+    function frogTask(){ return state.tasks.find(t => t.id === state.today.frogId) || null; }
+
+    function currentFocus(){
+      const openRoutine = orderedRoutines().find(r => r.active !== false && !r.done);
+      if(openRoutine) return {kind:"routine", item:openRoutine, title:openRoutine.title, text:(openRoutine.note || "Tagesanker") + " · " + openRoutine.anchor};
+
+      const frog = frogTask();
+      if(frog && !frog.done) return {kind:"task", item:frog, title:"Eat the Frog: " + frog.title, text:"Nächster Schritt: " + (frog.next || "10 Minuten beginnen")};
+
+      const topOpen = top3Items().find(t => !t.done);
+      if(topOpen) return {kind:"task", item:topOpen, title:topOpen.title, text:"Top 3 · " + (topOpen.next || "klein anfangen")};
+
+      const openTask = state.tasks.find(t => !t.done);
+      if(openTask) return {kind:"task", item:openTask, title:openTask.title, text:"Nächster Schritt: " + (openTask.next || "klein anfangen")};
+
+      if(state.marbles.length < MARBLE_TARGET) return {kind:"selflove", item:null, title:"Eine Selbstliebe-Murmel sammeln", text:"Eine echte Handlung, die dich stärkt."};
+      return {kind:"done", item:null, title:"Tag bewusst abschließen", text:"Reflexion öffnen und sichtbar machen, was gelungen ist."};
+    }
+
+    function orderedRoutines(){
+      return [...state.routines].sort((a,b)=>(a.order||0)-(b.order||0));
+    }
+
     function renderToday(){
       const top = top3Done();
-      const routineDone = state.routines.filter(r => r.done).length;
+      const activeRoutines = state.routines.filter(r => r.active !== false);
+      const routineDone = activeRoutines.filter(r => r.done).length;
 
       $("#statusProgress").textContent = progress() + "%";
       $("#statusTop3").textContent = top.done + "/" + top.total;
       $("#statusMarbles").textContent = Math.min(state.marbles.length, MARBLE_TARGET) + "/" + MARBLE_TARGET;
-      $("#statusRoutines").textContent = routineDone + "/" + state.routines.length;
-
-      $("#mainTask").value = state.today.mainTask || "";
-      $("#selfCareStep").value = state.today.selfCareStep || "";
-      $("#energySelect").value = state.today.energy || "";
-      $("#moodSelect").value = state.today.mood || "";
-      $("#sleepSelect").value = state.today.sleep || "";
+      $("#statusRoutines").textContent = routineDone + "/" + activeRoutines.length;
 
       const focus = currentFocus();
       $("#nowTitle").textContent = focus.title;
       $("#nowText").textContent = focus.text;
 
+      $("#mainTaskPreview").textContent = state.today.mainTask || "Noch nicht festgelegt";
+      $("#selfCarePreview").textContent = state.today.selfCareStep || "Noch nicht festgelegt";
+      $("#frogPreview").textContent = frogTask() ? frogTask().title : "Noch nicht festgelegt";
+
+      $("#energyPreview").textContent = state.today.energy || "—";
+      $("#moodPreview").textContent = state.today.mood || "—";
+      $("#sleepPreview").textContent = state.today.sleep || "—";
+
       $("#todayTop3List").innerHTML = top3Items().length ? top3Items().map(taskHTML).join("") : `<div class="empty">Noch keine Top 3 markiert.</div>`;
 
-      $("#routineBadgeToday").textContent = routineDone + "/" + state.routines.length;
-      $("#todayRoutineList").innerHTML = state.routines.map(routineHTML).join("");
+      $("#routineBadgeToday").textContent = routineDone + "/" + activeRoutines.length;
+      $("#todayRoutineList").innerHTML = orderedRoutines().filter(r => r.active !== false).map(routineHTML).join("");
+
       bindTaskActions();
       bindRoutineActions();
     }
 
-    function top3Items(){
-      return state.tasks.filter(t => t.top3).slice(0,3);
+    function openTodayEditor(){
+      openModal("Heute bearbeiten", `
+        <label>Wichtigste Aufgabe</label>
+        <input id="mMainTask" value="${esc(state.today.mainTask || "")}" placeholder="Was macht den Tag sinnvoll?">
+        <label>Selbstfürsorge-Schritt</label>
+        <input id="mSelfCare" value="${esc(state.today.selfCareStep || "")}" placeholder="z. B. Pause, Spaziergang, Handy weg">
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveToday">Speichern</button>
+        </div>
+      `, () => {
+        $("#mSaveToday").onclick = () => {
+          state.today.mainTask = $("#mMainTask").value.trim();
+          state.today.selfCareStep = $("#mSelfCare").value.trim();
+
+          if(state.today.mainTask && !state.tasks.some(t => t.source === "mainTask")){
+            state.tasks.unshift({id:uid("task"),title:state.today.mainTask,type:"Fokus",schedule:"Flexibel",priority:"hoch",next:"10 Minuten beginnen",done:false,top3:top3Items().length<3,source:"mainTask"});
+          }
+          closeModal(); toast("Heute gespeichert."); save();
+        };
+      });
     }
 
-    function saveToday(){
-      state.today.mainTask = $("#mainTask").value.trim();
-      state.today.selfCareStep = $("#selfCareStep").value.trim();
-
-      if(state.today.mainTask && !state.tasks.some(t => t.source === "mainTask")){
-        state.tasks.unshift({
-          id:uid("task"),
-          title:state.today.mainTask,
-          type:"Fokus",
-          schedule:"Flexibel",
-          priority:"hoch",
-          next:"10 Minuten beginnen",
-          done:false,
-          top3:true,
-          source:"mainTask"
-        });
-      }
-      toast("Heute gespeichert.");
-      save();
-    }
-
-    function saveStatus(){
-      state.today.energy = $("#energySelect").value;
-      state.today.mood = $("#moodSelect").value;
-      state.today.sleep = $("#sleepSelect").value;
-      toast("Status gespeichert.");
-      save();
+    function openStatusEditor(){
+      openModal("Status bearbeiten", `
+        <div class="three-grid">
+          <div><label>Energie</label><select id="mEnergy"><option value="">—</option><option>niedrig</option><option>mittel</option><option>hoch</option></select></div>
+          <div><label>Stimmung</label><select id="mMood"><option value="">—</option><option>ruhig</option><option>klar</option><option>unruhig</option><option>müde</option><option>motiviert</option></select></div>
+          <div><label>Schlaf</label><select id="mSleep"><option value="">—</option><option>schlecht</option><option>okay</option><option>gut</option></select></div>
+        </div>
+        <div class="button-row" style="margin-top:16px"><button class="btn" id="mSaveStatus">Speichern</button></div>
+      `, () => {
+        $("#mEnergy").value = state.today.energy || "";
+        $("#mMood").value = state.today.mood || "";
+        $("#mSleep").value = state.today.sleep || "";
+        $("#mSaveStatus").onclick = () => {
+          state.today.energy = $("#mEnergy").value;
+          state.today.mood = $("#mMood").value;
+          state.today.sleep = $("#mSleep").value;
+          closeModal(); toast("Status gespeichert."); save();
+        };
+      });
     }
 
     function completeNow(){
@@ -1230,10 +908,9 @@
         if(focus.item.templateId === "selflove") autoMarble("Selbstliebe-Routine erledigt", "Selbstfürsorge");
       } else if(focus.kind === "task"){
         focus.item.done = true;
-        state.successes.unshift({text:"Erledigt: " + focus.item.title, time:now()});
+        state.successes.unshift({id:uid("success"), text:"Erledigt: " + focus.item.title, time:now()});
       } else if(focus.kind === "selflove"){
-        setPage("selbstwert");
-        toast("Trage eine Selbstliebe-Handlung ein.");
+        openMarbleEditor();
         return;
       } else {
         setPage("reflexion");
@@ -1241,10 +918,6 @@
       }
       toast("Erledigt.");
       save();
-    }
-
-    function now(){
-      return new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
     }
 
     function renderPlan(){
@@ -1255,33 +928,6 @@
       bindTaskActions();
     }
 
-    function addTask(){
-      const title = $("#taskTitle").value.trim();
-      if(!title) return;
-
-      state.tasks.unshift({
-        id:uid("task"),
-        title,
-        type:$("#taskType").value,
-        schedule:$("#taskSchedule").value,
-        priority:$("#taskPriority").value,
-        next:$("#taskNext").value.trim(),
-        done:false,
-        top3:false
-      });
-
-      $("#taskTitle").value = "";
-      $("#taskNext").value = "";
-      toast("Aufgabe hinzugefügt.");
-      save();
-    }
-
-    function priorityLabel(priority){
-      if(priority === "kritisch") return "kritisch";
-      if(priority === "hoch") return "hoch";
-      return "normal";
-    }
-
     function taskHTML(task){
       return `
         <div class="list-item">
@@ -1289,13 +935,15 @@
             <div class="item-left">
               <button class="check ${task.done ? "done" : ""}" data-task-done="${task.id}">✓</button>
               <div>
-                <div class="item-title">${esc(task.title)} <span class="type-pill">${esc(task.type)}</span></div>
-                <div class="item-meta">${esc(task.schedule)} · ${esc(priorityLabel(task.priority))}${task.next ? " · " + esc(task.next) : ""}</div>
+                <div class="item-title">${task.id === state.today.frogId ? '<span class="type-pill">Frog</span>' : ''}${esc(task.title)} <span class="type-pill">${esc(task.type)}</span></div>
+                <div class="item-meta">${esc(task.schedule)} · ${esc(task.priority)}${task.next ? " · " + esc(task.next) : ""}</div>
               </div>
             </div>
             <div class="chip-row">
               <button class="chip ${task.top3 ? "active" : ""}" data-task-top="${task.id}">Top</button>
-              <button class="btn ghost" data-task-remove="${task.id}">Löschen</button>
+              <button class="chip ${task.id === state.today.frogId ? "active" : ""}" data-task-frog="${task.id}">Frog</button>
+              <button class="btn ghost" data-task-edit="${task.id}">Edit</button>
+              <button class="btn danger" data-task-remove="${task.id}">Löschen</button>
             </div>
           </div>
         </div>
@@ -1307,31 +955,209 @@
         const task = state.tasks.find(t => t.id === btn.dataset.taskDone);
         if(!task) return;
         task.done = !task.done;
-        if(task.done) state.successes.unshift({text:"Aufgabe erledigt: " + task.title, time:now()});
+        if(task.done) state.successes.unshift({id:uid("success"), text:"Aufgabe erledigt: " + task.title, time:now()});
         save();
       });
 
       $$("[data-task-top]").forEach(btn => btn.onclick = () => {
         const task = state.tasks.find(t => t.id === btn.dataset.taskTop);
         if(!task) return;
-        if(!task.top3 && top3Items().length >= 3){
-          toast("Maximal 3 Top-Aufgaben.");
-          return;
-        }
+        if(!task.top3 && top3Items().length >= 3){ toast("Maximal 3 Top-Aufgaben."); return; }
         task.top3 = !task.top3;
         save();
       });
 
+      $$("[data-task-frog]").forEach(btn => btn.onclick = () => {
+        state.today.frogId = state.today.frogId === btn.dataset.taskFrog ? "" : btn.dataset.taskFrog;
+        save();
+      });
+
+      $$("[data-task-edit]").forEach(btn => btn.onclick = () => {
+        const task = state.tasks.find(t => t.id === btn.dataset.taskEdit);
+        openTaskEditor(task);
+      });
+
       $$("[data-task-remove]").forEach(btn => btn.onclick = () => {
-        state.tasks = state.tasks.filter(t => t.id !== btn.dataset.taskRemove);
+        const id = btn.dataset.taskRemove;
+        state.tasks = state.tasks.filter(t => t.id !== id);
+        if(state.today.frogId === id) state.today.frogId = "";
         save();
       });
     }
 
+    function openTaskEditor(task=null){
+      const isEdit = !!task;
+      const item = task || {title:"",type:"Aufgabe",schedule:"Flexibel",priority:"normal",next:"",top3:false,done:false};
+      openModal(isEdit ? "Aufgabe bearbeiten" : "Aufgabe anlegen", `
+        <label>Titel</label><input id="mTaskTitle" value="${esc(item.title)}" placeholder="Aufgabe, Termin oder Fokus">
+        <div class="three-grid">
+          <div><label>Typ</label><select id="mTaskType"><option>Aufgabe</option><option>Termin</option><option>Fokus</option></select></div>
+          <div><label>Zeit</label><select id="mTaskSchedule"><option>Flexibel</option><option>Morgens</option><option>Mittags</option><option>Abends</option></select></div>
+          <div><label>Priorität</label><select id="mTaskPriority"><option value="normal">normal</option><option value="hoch">hoch</option><option value="kritisch">kritisch</option></select></div>
+        </div>
+        <label>Nächster kleiner Schritt</label><input id="mTaskNext" value="${esc(item.next||"")}" placeholder="Was ist der erste kleine Schritt?">
+        <div class="chip-row" style="margin-top:12px">
+          <button class="chip ${item.top3 ? "active" : ""}" id="mTaskTop">Top 3</button>
+          <button class="chip ${isEdit && item.id === state.today.frogId ? "active" : ""}" id="mTaskFrog">Eat the Frog</button>
+        </div>
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveTask">${isEdit ? "Speichern" : "Anlegen"}</button>
+          ${isEdit ? '<button class="btn danger" id="mDeleteTask">Löschen</button>' : ''}
+        </div>
+      `, () => {
+        $("#mTaskType").value = item.type || "Aufgabe";
+        $("#mTaskSchedule").value = item.schedule || "Flexibel";
+        $("#mTaskPriority").value = item.priority || "normal";
+        let top = !!item.top3;
+        let frog = isEdit && item.id === state.today.frogId;
+        $("#mTaskTop").onclick = () => { top = !top; $("#mTaskTop").classList.toggle("active", top); };
+        $("#mTaskFrog").onclick = () => { frog = !frog; $("#mTaskFrog").classList.toggle("active", frog); };
+        $("#mSaveTask").onclick = () => {
+          const title = $("#mTaskTitle").value.trim();
+          if(!title){ toast("Titel fehlt."); return; }
+          if(top && !item.top3 && top3Items().length >= 3){ toast("Maximal 3 Top-Aufgaben."); return; }
+          if(isEdit){
+            item.title = title;
+            item.type = $("#mTaskType").value;
+            item.schedule = $("#mTaskSchedule").value;
+            item.priority = $("#mTaskPriority").value;
+            item.next = $("#mTaskNext").value.trim();
+            item.top3 = top;
+            if(frog) state.today.frogId = item.id;
+            else if(state.today.frogId === item.id) state.today.frogId = "";
+          } else {
+            const newTask = {id:uid("task"),title,type:$("#mTaskType").value,schedule:$("#mTaskSchedule").value,priority:$("#mTaskPriority").value,next:$("#mTaskNext").value.trim(),done:false,top3:top};
+            state.tasks.unshift(newTask);
+            if(frog) state.today.frogId = newTask.id;
+          }
+          closeModal(); toast("Aufgabe gespeichert."); save();
+        };
+        const del = $("#mDeleteTask");
+        if(del) del.onclick = () => {
+          state.tasks = state.tasks.filter(t => t.id !== item.id);
+          if(state.today.frogId === item.id) state.today.frogId = "";
+          closeModal(); save();
+        };
+      });
+    }
+
+    function openFrogEditor(){
+      openModal("Eat the Frog festlegen", `
+        <p class="card-subtitle">Wähle eine bestehende Aufgabe oder lege eine neue Frog-Aufgabe an.</p>
+        <div class="list" style="margin-top:14px">
+          ${state.tasks.map(t => `<div class="list-item"><div class="item-row"><div><div class="item-title">${esc(t.title)}</div><div class="item-meta">${esc(t.type)} · ${esc(t.schedule)}</div></div><button class="chip ${t.id===state.today.frogId?'active':''}" data-frog-pick="${t.id}">Wählen</button></div></div>`).join("") || '<div class="empty">Noch keine Aufgaben.</div>'}
+        </div>
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn secondary" id="mNewFrog">Neue Frog-Aufgabe</button>
+          <button class="btn danger" id="mClearFrog">Frog entfernen</button>
+        </div>
+      `, () => {
+        $$("[data-frog-pick]").forEach(btn => btn.onclick = () => {
+          state.today.frogId = btn.dataset.frogPick;
+          closeModal(); save();
+        });
+        $("#mNewFrog").onclick = () => { closeModal(); openTaskEditor(); };
+        $("#mClearFrog").onclick = () => { state.today.frogId = ""; closeModal(); save(); };
+      });
+    }
+
+    function renderInbox(){
+      $("#inboxList").innerHTML = state.inbox.length ? state.inbox.map(inboxHTML).join("") : `<div class="empty">Noch nichts in der Inbox.</div>`;
+      bindInboxActions();
+    }
+
+    function inboxHTML(item){
+      return `
+        <div class="list-item">
+          <div class="item-row">
+            <div>
+              <div class="item-title">${esc(item.text)}</div>
+              <div class="item-meta">${esc(item.tag)} · ${esc(item.type)} · ${esc(item.created)}</div>
+            </div>
+            <div class="chip-row">
+              <button class="btn ghost" data-inbox-edit="${item.id}">Edit</button>
+              <button class="chip" data-inbox-task="${item.id}">Aufgabe</button>
+              <button class="chip" data-inbox-routine="${item.id}">Routine</button>
+              <button class="chip" data-inbox-goal="${item.id}">Ziel</button>
+              <button class="btn danger" data-inbox-remove="${item.id}">Löschen</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function addQuickInline(){
+      const text = $("#quickAddText").value.trim();
+      if(!text) return;
+      state.inbox.unshift({id:uid("inbox"), text, tag:$("#quickAddTag").value, type:"Gedanke", created:now()});
+      $("#quickAddText").value = "";
+      toast("In Inbox erfasst.");
+      save();
+    }
+
+    function openInboxEditor(item=null){
+      const isEdit = !!item;
+      const entry = item || {text:"", tag:"#Privat", type:"Gedanke"};
+      openModal(isEdit ? "Inbox-Eintrag bearbeiten" : "Inbox-Eintrag anlegen", `
+        <label>Text</label><textarea id="mInboxText">${esc(entry.text)}</textarea>
+        <div class="two-grid">
+          <div><label>Tag</label><select id="mInboxTag"><option>#Privat</option><option>#Teutonia</option><option>#Karriere</option><option>#Gesundheit</option><option>#WartenAuf</option></select></div>
+          <div><label>Typ</label><select id="mInboxType"><option>Gedanke</option><option>Aufgabe</option><option>Idee</option><option>Sorge</option><option>WartenAuf</option></select></div>
+        </div>
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveInbox">${isEdit ? "Speichern" : "Anlegen"}</button>
+          ${isEdit ? '<button class="btn danger" id="mDeleteInbox">Löschen</button>' : ''}
+        </div>
+      `, () => {
+        $("#mInboxTag").value = entry.tag || "#Privat";
+        $("#mInboxType").value = entry.type || "Gedanke";
+        $("#mSaveInbox").onclick = () => {
+          const text = $("#mInboxText").value.trim();
+          if(!text) return;
+          if(isEdit){
+            entry.text = text;
+            entry.tag = $("#mInboxTag").value;
+            entry.type = $("#mInboxType").value;
+          } else {
+            state.inbox.unshift({id:uid("inbox"), text, tag:$("#mInboxTag").value, type:$("#mInboxType").value, created:now()});
+          }
+          closeModal(); save();
+        };
+        const del = $("#mDeleteInbox");
+        if(del) del.onclick = () => { state.inbox = state.inbox.filter(i=>i.id!==entry.id); closeModal(); save(); };
+      });
+    }
+
+    function bindInboxActions(){
+      $$("[data-inbox-edit]").forEach(btn => btn.onclick = () => openInboxEditor(state.inbox.find(i => i.id === btn.dataset.inboxEdit)));
+      $$("[data-inbox-remove]").forEach(btn => btn.onclick = () => { state.inbox = state.inbox.filter(i => i.id !== btn.dataset.inboxRemove); save(); });
+      $$("[data-inbox-task]").forEach(btn => btn.onclick = () => convertInbox(btn.dataset.inboxTask, "task"));
+      $$("[data-inbox-routine]").forEach(btn => btn.onclick = () => convertInbox(btn.dataset.inboxRoutine, "routine"));
+      $$("[data-inbox-goal]").forEach(btn => btn.onclick = () => convertInbox(btn.dataset.inboxGoal, "goal"));
+    }
+
+    function convertInbox(id, target){
+      const item = state.inbox.find(i => i.id === id);
+      if(!item) return;
+      if(target === "task"){
+        state.tasks.unshift({id:uid("task"), title:item.text, type:"Aufgabe", schedule:"Flexibel", priority:"normal", next:"", done:false, top3:false});
+      }
+      if(target === "routine"){
+        state.routines.push({id:uid("routine"), templateId:"custom", title:item.text, anchor:"Flexibel", note:"Aus Inbox übernommen", active:true, done:false, order:state.routines.length+1});
+      }
+      if(target === "goal"){
+        state.goals.unshift({id:uid("goal"), title:item.text, level:"kurzfristig", category:item.tag.replace("#","") || "Privat", why:"Aus Inbox übernommen", next:"", progress:0});
+      }
+      state.inbox = state.inbox.filter(i => i.id !== id);
+      toast("Umgewandelt.");
+      save();
+    }
+
     function renderRoutines(){
-      const done = state.routines.filter(r => r.done).length;
-      $("#routineBadge").textContent = done + "/" + state.routines.length;
-      $("#routineList").innerHTML = state.routines.map(routineHTML).join("");
+      const active = state.routines.filter(r => r.active !== false);
+      const done = active.filter(r => r.done).length;
+      $("#routineBadge").textContent = done + "/" + active.length;
+      $("#routineList").innerHTML = orderedRoutines().map(routineHTML).join("");
       $("#routineTemplateList").innerHTML = templates.routines.map(templateHTML).join("");
       bindRoutineActions();
       bindTemplateActions();
@@ -1339,12 +1165,15 @@
 
     function routineHTML(routine){
       return `
-        <div class="routine-item ${routine.done ? "done" : ""}">
+        <div class="routine-item ${routine.done ? "done" : ""} ${routine.active===false ? "inactive" : ""}">
           <div>
             <div class="routine-title">${esc(routine.title)}</div>
-            <div class="routine-meta">${esc(routine.anchor)} · Tagesanker</div>
+            <div class="routine-meta">${esc(routine.anchor)} · ${esc(routine.note || "kein Hinweis")} · ${routine.active===false ? "inaktiv" : "aktiv"}</div>
           </div>
-          <button class="routine-check ${routine.done ? "done" : ""}" data-routine-done="${routine.id}">✓</button>
+          <div class="chip-row">
+            <button class="routine-check ${routine.done ? "done" : ""}" data-routine-done="${routine.id}">✓</button>
+            <button class="btn ghost" data-routine-edit="${routine.id}">Edit</button>
+          </div>
         </div>
       `;
     }
@@ -1355,10 +1184,78 @@
         if(!routine) return;
         routine.done = !routine.done;
         if(routine.done){
-          state.successes.unshift({text:"Routine erledigt: " + routine.title, time:now()});
+          state.successes.unshift({id:uid("success"), text:"Routine erledigt: " + routine.title, time:now()});
           if(routine.templateId === "selflove") autoMarble("Selbstliebe-Routine erledigt", "Selbstfürsorge");
         }
         save();
+      });
+      $$("[data-routine-edit]").forEach(btn => btn.onclick = () => openRoutineEditor(state.routines.find(r => r.id === btn.dataset.routineEdit)));
+    }
+
+    function openRoutineEditor(routine=null){
+      const isEdit = !!routine;
+      const item = routine || {title:"", anchor:"Morgens", note:"", active:true, done:false, order:state.routines.length+1};
+      openModal(isEdit ? "Routine bearbeiten" : "Routine hinzufügen", `
+        <label>Titel</label><input id="mRoutineTitle" value="${esc(item.title)}" placeholder="z. B. Morgenspaziergang">
+        <div class="two-grid">
+          <div><label>Anker</label><select id="mRoutineAnchor"><option>Morgens</option><option>Mittags</option><option>Abends</option><option>Flexibel</option></select></div>
+          <div><label>Reihenfolge</label><input id="mRoutineOrder" type="number" value="${Number(item.order || 1)}"></div>
+        </div>
+        <label>Beschreibung / Hinweis</label><input id="mRoutineNote" value="${esc(item.note || "")}" placeholder="Warum ist diese Routine wichtig?">
+        <div class="chip-row" style="margin-top:12px">
+          <button class="chip ${item.active!==false ? "active" : ""}" id="mRoutineActive">aktiv</button>
+          <button class="chip ${item.done ? "active" : ""}" id="mRoutineDone">erledigt</button>
+        </div>
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveRoutine">${isEdit ? "Speichern" : "Hinzufügen"}</button>
+          <button class="btn secondary" id="mSaveRoutineTemplate">Als Vorlage speichern</button>
+          ${isEdit ? '<button class="btn danger" id="mDeleteRoutine">Löschen</button>' : ''}
+        </div>
+      `, () => {
+        $("#mRoutineAnchor").value = item.anchor || "Morgens";
+        let active = item.active !== false;
+        let done = !!item.done;
+        $("#mRoutineActive").onclick = () => { active = !active; $("#mRoutineActive").classList.toggle("active", active); $("#mRoutineActive").textContent = active ? "aktiv" : "inaktiv"; };
+        $("#mRoutineDone").onclick = () => { done = !done; $("#mRoutineDone").classList.toggle("active", done); };
+        $("#mSaveRoutine").onclick = () => {
+          const title = $("#mRoutineTitle").value.trim();
+          if(!title) return;
+          if(isEdit){
+            item.title = title;
+            item.anchor = $("#mRoutineAnchor").value;
+            item.note = $("#mRoutineNote").value.trim();
+            item.order = Number($("#mRoutineOrder").value || 1);
+            item.active = active;
+            item.done = done;
+          } else {
+            state.routines.push({id:uid("routine"), templateId:"custom", title, anchor:$("#mRoutineAnchor").value, note:$("#mRoutineNote").value.trim(), active, done, order:Number($("#mRoutineOrder").value || state.routines.length+1)});
+          }
+          closeModal(); save();
+        };
+        $("#mSaveRoutineTemplate").onclick = () => {
+          const title = $("#mRoutineTitle").value.trim();
+          if(!title) return;
+          templates.routines.push({id:uid("tpl"), title, anchor:$("#mRoutineAnchor").value, note:$("#mRoutineNote").value.trim(), active:true});
+          toast("Als Vorlage gespeichert.");
+          closeModal(); save();
+        };
+        const del = $("#mDeleteRoutine");
+        if(del) del.onclick = () => { state.routines = state.routines.filter(r => r.id !== item.id); closeModal(); save(); };
+      });
+    }
+
+    function openTakeTemplateSheet(){
+      openModal("Routine aus Vorlage übernehmen", `
+        <div class="list">
+          ${templates.routines.map(t => `<div class="list-item"><div class="item-row"><div><div class="item-title">${esc(t.title)}</div><div class="item-meta">${esc(t.anchor)} · ${esc(t.note || "")}</div></div><button class="chip" data-take-template="${t.id}">Übernehmen</button></div></div>`).join("")}
+        </div>
+      `, () => {
+        $$("[data-take-template]").forEach(btn => btn.onclick = () => {
+          const tpl = templates.routines.find(t => t.id === btn.dataset.takeTemplate);
+          if(!tpl) return;
+          state.routines.push(routineFromTemplate(tpl));
+          closeModal(); save();
+        });
       });
     }
 
@@ -1368,9 +1265,13 @@
           <div class="item-row">
             <div>
               <div class="item-title">${esc(template.title)}</div>
-              <div class="item-meta">${esc(template.anchor)} · ${template.active ? "aktiv" : "inaktiv"}</div>
+              <div class="item-meta">${esc(template.anchor)} · ${esc(template.note || "kein Hinweis")} · ${template.active ? "aktiv" : "inaktiv"}</div>
             </div>
-            <button class="chip ${template.active ? "active" : ""}" data-template-toggle="${template.id}">${template.active ? "aktiv" : "inaktiv"}</button>
+            <div class="chip-row">
+              <button class="chip ${template.active ? "active" : ""}" data-template-toggle="${template.id}">${template.active ? "aktiv" : "inaktiv"}</button>
+              <button class="btn ghost" data-template-edit="${template.id}">Edit</button>
+              <button class="chip" data-template-take="${template.id}">Heute</button>
+            </div>
           </div>
         </div>
       `;
@@ -1378,30 +1279,64 @@
 
     function bindTemplateActions(){
       $$("[data-template-toggle]").forEach(btn => btn.onclick = () => {
-        const template = templates.routines.find(t => t.id === btn.dataset.templateToggle);
-        if(!template) return;
-        template.active = !template.active;
-        toast("Vorlage geändert. Gilt für neue Tage.");
+        const tpl = templates.routines.find(t => t.id === btn.dataset.templateToggle);
+        if(!tpl) return;
+        tpl.active = !tpl.active;
+        save();
+      });
+      $$("[data-template-edit]").forEach(btn => btn.onclick = () => openTemplateEditor(templates.routines.find(t => t.id === btn.dataset.templateEdit)));
+      $$("[data-template-take]").forEach(btn => btn.onclick = () => {
+        const tpl = templates.routines.find(t => t.id === btn.dataset.templateTake);
+        if(!tpl) return;
+        state.routines.push(routineFromTemplate(tpl));
         save();
       });
     }
 
-    function addRoutineTemplate(){
-      const title = $("#newRoutineTitle").value.trim();
-      if(!title) return;
-      templates.routines.push({
-        id:uid("tpl"),
-        title,
-        anchor:$("#newRoutineAnchor").value,
-        active:true
+    function openTemplateEditor(template=null){
+      const isEdit = !!template;
+      const item = template || {title:"", anchor:"Morgens", note:"", active:true};
+      openModal(isEdit ? "Vorlage bearbeiten" : "Vorlage anlegen", `
+        <label>Titel</label><input id="mTplTitle" value="${esc(item.title)}" placeholder="Routine-Vorlage">
+        <label>Anker</label><select id="mTplAnchor"><option>Morgens</option><option>Mittags</option><option>Abends</option><option>Flexibel</option></select>
+        <label>Beschreibung / Hinweis</label><input id="mTplNote" value="${esc(item.note || "")}">
+        <div class="chip-row" style="margin-top:12px">
+          <button class="chip ${item.active ? "active" : ""}" id="mTplActive">aktiv</button>
+        </div>
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveTpl">${isEdit ? "Speichern" : "Anlegen"}</button>
+          ${isEdit ? '<button class="btn danger" id="mDeleteTpl">Löschen</button>' : ''}
+        </div>
+      `, () => {
+        $("#mTplAnchor").value = item.anchor || "Morgens";
+        let active = item.active !== false;
+        $("#mTplActive").onclick = () => { active = !active; $("#mTplActive").classList.toggle("active", active); $("#mTplActive").textContent = active ? "aktiv" : "inaktiv"; };
+        $("#mSaveTpl").onclick = () => {
+          const title = $("#mTplTitle").value.trim();
+          if(!title) return;
+          if(isEdit){
+            item.title = title;
+            item.anchor = $("#mTplAnchor").value;
+            item.note = $("#mTplNote").value.trim();
+            item.active = active;
+          } else {
+            templates.routines.push({id:uid("tpl"), title, anchor:$("#mTplAnchor").value, note:$("#mTplNote").value.trim(), active});
+          }
+          closeModal(); save();
+        };
+        const del = $("#mDeleteTpl");
+        if(del) del.onclick = () => { templates.routines = templates.routines.filter(t => t.id !== item.id); closeModal(); save(); };
       });
-      $("#newRoutineTitle").value = "";
-      toast("Routine-Vorlage hinzugefügt.");
-      save();
     }
 
     function renderGoals(){
       $("#goalList").innerHTML = state.goals.length ? state.goals.map(goalHTML).join("") : `<div class="empty">Noch keine Ziele.</div>`;
+      $("#goalStatusList").innerHTML = state.goals.slice(0,5).map(g => `
+        <div class="list-item">
+          <div class="item-title">${esc(g.title)}</div>
+          <div class="item-meta">${esc(g.category || "ohne Kategorie")} · ${esc(g.level)} · ${Number(g.progress||0)}%</div>
+        </div>
+      `).join("") || `<div class="empty">Noch keine Ziele.</div>`;
       bindGoalActions();
     }
 
@@ -1411,35 +1346,18 @@
           <div class="goal-header">
             <div>
               <div class="item-title">${esc(goal.title)}</div>
-              <div class="item-meta">${esc(goal.why || "Warum noch offen")} · Nächster Schritt: ${esc(goal.next || "—")}</div>
+              <div class="item-meta">${esc(goal.category || "ohne Kategorie")} · ${esc(goal.why || "Warum noch offen")} · Nächster Schritt: ${esc(goal.next || "—")}</div>
             </div>
             <span class="goal-level">${esc(goal.level)}</span>
           </div>
           <div class="goal-progress"><span style="width:${Number(goal.progress || 0)}%"></span></div>
           <div class="button-row" style="margin-top:12px">
             <button class="chip" data-goal-progress="${goal.id}">+25%</button>
-            <button class="btn ghost" data-goal-remove="${goal.id}">Löschen</button>
+            <button class="btn ghost" data-goal-edit="${goal.id}">Edit</button>
+            <button class="btn danger" data-goal-remove="${goal.id}">Löschen</button>
           </div>
         </div>
       `;
-    }
-
-    function addGoal(){
-      const title = $("#goalTitle").value.trim();
-      if(!title) return;
-      state.goals.unshift({
-        id:uid("goal"),
-        title,
-        level:$("#goalLevel").value,
-        why:$("#goalWhy").value.trim(),
-        next:$("#goalNext").value.trim(),
-        progress:Number($("#goalProgress").value)
-      });
-      $("#goalTitle").value = "";
-      $("#goalWhy").value = "";
-      $("#goalNext").value = "";
-      toast("Ziel hinzugefügt.");
-      save();
     }
 
     function bindGoalActions(){
@@ -1449,20 +1367,59 @@
         goal.progress = Math.min(100, Number(goal.progress || 0) + 25);
         save();
       });
+      $$("[data-goal-edit]").forEach(btn => btn.onclick = () => openGoalEditor(state.goals.find(g => g.id === btn.dataset.goalEdit)));
       $$("[data-goal-remove]").forEach(btn => btn.onclick = () => {
         state.goals = state.goals.filter(g => g.id !== btn.dataset.goalRemove);
         save();
       });
     }
 
+    function openGoalEditor(goal=null){
+      const isEdit = !!goal;
+      const item = goal || {title:"", level:"kurzfristig", category:"Persönlich", why:"", next:"", progress:0};
+      openModal(isEdit ? "Ziel bearbeiten" : "Ziel anlegen", `
+        <label>Titel</label><input id="mGoalTitle" value="${esc(item.title)}" placeholder="Ziel">
+        <div class="three-grid">
+          <div><label>Ebene</label><select id="mGoalLevel"><option>kurzfristig</option><option>mittelfristig</option><option>langfristig</option></select></div>
+          <div><label>Kategorie</label><select id="mGoalCategory"><option>Persönlich</option><option>Karriere</option><option>Gesundheit</option><option>Teutonia</option><option>Privat</option><option>Finanzen</option></select></div>
+          <div><label>Status</label><select id="mGoalProgress"><option value="0">0%</option><option value="25">25%</option><option value="50">50%</option><option value="75">75%</option><option value="100">100%</option></select></div>
+        </div>
+        <label>Warum ist es wichtig?</label><textarea id="mGoalWhy">${esc(item.why || "")}</textarea>
+        <label>Nächster kleiner Schritt</label><input id="mGoalNext" value="${esc(item.next || "")}">
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveGoal">${isEdit ? "Speichern" : "Anlegen"}</button>
+          ${isEdit ? '<button class="btn danger" id="mDeleteGoal">Löschen</button>' : ''}
+        </div>
+      `, () => {
+        $("#mGoalLevel").value = item.level || "kurzfristig";
+        $("#mGoalCategory").value = item.category || "Persönlich";
+        $("#mGoalProgress").value = String(item.progress || 0);
+        $("#mSaveGoal").onclick = () => {
+          const title = $("#mGoalTitle").value.trim();
+          if(!title) return;
+          if(isEdit){
+            item.title = title;
+            item.level = $("#mGoalLevel").value;
+            item.category = $("#mGoalCategory").value;
+            item.progress = Number($("#mGoalProgress").value);
+            item.why = $("#mGoalWhy").value.trim();
+            item.next = $("#mGoalNext").value.trim();
+          } else {
+            state.goals.unshift({id:uid("goal"), title, level:$("#mGoalLevel").value, category:$("#mGoalCategory").value, progress:Number($("#mGoalProgress").value), why:$("#mGoalWhy").value.trim(), next:$("#mGoalNext").value.trim()});
+          }
+          closeModal(); save();
+        };
+        const del = $("#mDeleteGoal");
+        if(del) del.onclick = () => { state.goals = state.goals.filter(g => g.id !== item.id); closeModal(); save(); };
+      });
+    }
+
     function renderSelfWorth(){
       renderMarbles();
-      $("#successList").innerHTML = state.successes.length ? state.successes.slice(0,10).map(s => `
-        <div class="list-item">
-          <div class="item-title">${esc(s.text)}</div>
-          <div class="item-meta">${esc(s.time)}</div>
-        </div>
-      `).join("") : `<div class="empty">Noch keine Erfolge sichtbar.</div>`;
+      $("#marbleList").innerHTML = state.marbles.length ? state.marbles.map(marbleEntryHTML).join("") : `<div class="empty">Noch keine Selbstliebe-Einträge.</div>`;
+      $("#successList").innerHTML = state.successes.length ? state.successes.slice(0,10).map(successHTML).join("") : `<div class="empty">Noch keine Erfolge sichtbar.</div>`;
+      bindMarbleActions();
+      bindSuccessActions();
     }
 
     function marbleColor(type){
@@ -1481,51 +1438,127 @@
       movingMarble = false;
     }
 
-    function addMarble(){
-      const text = $("#selfLoveText").value.trim();
-      if(!text) return;
-      autoMarble(text, $("#selfLoveType").value);
-      $("#selfLoveText").value = "";
-      toast("Murmel erreicht.");
-      save();
+    function marbleEntryHTML(m){
+      return `
+        <div class="list-item">
+          <div class="item-row">
+            <div>
+              <div class="item-title">${esc(m.text)}</div>
+              <div class="item-meta">${esc(m.type)} · ${esc(m.time)}</div>
+            </div>
+            <div class="chip-row">
+              <button class="btn ghost" data-marble-edit="${m.id}">Edit</button>
+              <button class="btn danger" data-marble-remove="${m.id}">Löschen</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openMarbleEditor(marble=null){
+      const isEdit = !!marble;
+      const item = marble || {text:"", type:"Selbstfürsorge"};
+      openModal(isEdit ? "Selbstliebe-Eintrag bearbeiten" : "Selbstliebe-Eintrag anlegen", `
+        <label>Handlung</label><input id="mMarbleText" value="${esc(item.text)}" placeholder="z. B. Pause gemacht">
+        <label>Typ</label><select id="mMarbleType"><option>Selbstfürsorge</option><option>Mut</option><option>Grenze</option><option>Körper</option><option>Nicht geflüchtet</option></select>
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveMarble">${isEdit ? "Speichern" : "Murmel erreichen"}</button>
+          ${isEdit ? '<button class="btn danger" id="mDeleteMarble">Löschen</button>' : ''}
+        </div>
+      `, () => {
+        $("#mMarbleType").value = item.type || "Selbstfürsorge";
+        $("#mSaveMarble").onclick = () => {
+          const text = $("#mMarbleText").value.trim();
+          if(!text) return;
+          if(isEdit){
+            item.text = text;
+            item.type = $("#mMarbleType").value;
+          } else {
+            autoMarble(text, $("#mMarbleType").value);
+          }
+          closeModal(); save();
+        };
+        const del = $("#mDeleteMarble");
+        if(del) del.onclick = () => { state.marbles = state.marbles.filter(m => m.id !== item.id); closeModal(); save(); };
+      });
+    }
+
+    function bindMarbleActions(){
+      $$("[data-marble-edit]").forEach(btn => btn.onclick = () => openMarbleEditor(state.marbles.find(m => m.id === btn.dataset.marbleEdit)));
+      $$("[data-marble-remove]").forEach(btn => btn.onclick = () => { state.marbles = state.marbles.filter(m => m.id !== btn.dataset.marbleRemove); save(); });
     }
 
     function autoMarble(text,type){
       if(state.marbles.length >= MARBLE_TARGET){
-        state.successes.unshift({text:"Selbstliebe: " + text, time:now()});
+        state.successes.unshift({id:uid("success"), text:"Selbstliebe: " + text, time:now()});
         return;
       }
-      state.marbles.unshift({text,type,time:now()});
-      state.successes.unshift({text:"Selbstliebe: " + text, time:now()});
+      state.marbles.unshift({id:uid("marble"), text, type, time:now()});
+      state.successes.unshift({id:uid("success"), text:"Selbstliebe: " + text, time:now()});
       movingMarble = true;
     }
 
-    function addSuccess(){
-      const text = $("#successText").value.trim();
-      if(!text) return;
-      state.successes.unshift({text,time:now()});
-      $("#successText").value = "";
-      toast("Erfolg gespeichert.");
-      save();
+    function successHTML(s){
+      return `
+        <div class="list-item">
+          <div class="item-row">
+            <div><div class="item-title">${esc(s.text)}</div><div class="item-meta">${esc(s.time)}</div></div>
+            <div class="chip-row"><button class="btn ghost" data-success-edit="${s.id}">Edit</button><button class="btn danger" data-success-remove="${s.id}">Löschen</button></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openSuccessEditor(success=null){
+      const isEdit = !!success;
+      const item = success || {text:""};
+      openModal(isEdit ? "Erfolg bearbeiten" : "Erfolg eintragen", `
+        <label>Erfolg</label><input id="mSuccessText" value="${esc(item.text)}" placeholder="Was ist gelungen?">
+        <div class="button-row" style="margin-top:16px">
+          <button class="btn" id="mSaveSuccess">${isEdit ? "Speichern" : "Eintragen"}</button>
+          ${isEdit ? '<button class="btn danger" id="mDeleteSuccess">Löschen</button>' : ''}
+        </div>
+      `, () => {
+        $("#mSaveSuccess").onclick = () => {
+          const text = $("#mSuccessText").value.trim();
+          if(!text) return;
+          if(isEdit) item.text = text;
+          else state.successes.unshift({id:uid("success"), text, time:now()});
+          closeModal(); save();
+        };
+        const del = $("#mDeleteSuccess");
+        if(del) del.onclick = () => { state.successes = state.successes.filter(s => s.id !== item.id); closeModal(); save(); };
+      });
+    }
+
+    function bindSuccessActions(){
+      $$("[data-success-edit]").forEach(btn => btn.onclick = () => openSuccessEditor(state.successes.find(s => s.id === btn.dataset.successEdit)));
+      $$("[data-success-remove]").forEach(btn => btn.onclick = () => { state.successes = state.successes.filter(s => s.id !== btn.dataset.successRemove); save(); });
     }
 
     function renderReflection(){
-      $("#eveningGood").value = state.evening.good || "";
-      $("#eveningHard").value = state.evening.hard || "";
-      $("#eveningTomorrow").value = state.evening.tomorrow || "";
+      $("#eveningGoodPreview").textContent = state.evening.good || "—";
+      $("#eveningHardPreview").textContent = state.evening.hard || "—";
+      $("#eveningTomorrowPreview").textContent = state.evening.tomorrow || "—";
       renderExport();
     }
 
-    function saveEvening(){
-      state.evening = {
-        good:$("#eveningGood").value.trim(),
-        hard:$("#eveningHard").value.trim(),
-        tomorrow:$("#eveningTomorrow").value.trim()
-      };
-      const routine = state.routines.find(r => r.templateId === "evening");
-      if(routine) routine.done = true;
-      toast("Abend gespeichert.");
-      save();
+    function openEveningEditor(){
+      openModal("Abendreflexion bearbeiten", `
+        <label>Was war gut?</label><input id="mEveningGood" value="${esc(state.evening.good || "")}">
+        <label>Was war schwer?</label><input id="mEveningHard" value="${esc(state.evening.hard || "")}">
+        <label>Was ist morgen wichtig?</label><input id="mEveningTomorrow" value="${esc(state.evening.tomorrow || "")}">
+        <div class="button-row" style="margin-top:16px"><button class="btn" id="mSaveEvening">Speichern</button></div>
+      `, () => {
+        $("#mSaveEvening").onclick = () => {
+          state.evening.good = $("#mEveningGood").value.trim();
+          state.evening.hard = $("#mEveningHard").value.trim();
+          state.evening.tomorrow = $("#mEveningTomorrow").value.trim();
+          const routine = state.routines.find(r => r.templateId === "evening");
+          if(routine) routine.done = true;
+          closeModal(); save();
+        };
+      });
     }
 
     function renderExport(){
@@ -1537,23 +1570,27 @@
         "Tagesfortschritt: " + progress() + "%",
         "Top 3: " + top.done + "/" + top.total,
         "Murmeln: " + Math.min(state.marbles.length, MARBLE_TARGET) + "/" + MARBLE_TARGET,
-        "Routinen: " + state.routines.filter(r => r.done).length + "/" + state.routines.length,
+        "Routinen: " + state.routines.filter(r => r.active !== false && r.done).length + "/" + state.routines.filter(r => r.active !== false).length,
         "",
         "HEUTE ZÄHLT",
         "Wichtigste Aufgabe: " + (state.today.mainTask || "—"),
+        "Eat the Frog: " + (frogTask()?.title || "—"),
         "Selbstfürsorge: " + (state.today.selfCareStep || "—"),
         "",
         "ROUTINEN",
-        ...state.routines.map(r => (r.done ? "✓ " : "○ ") + r.title),
+        ...orderedRoutines().filter(r => r.active !== false).map(r => (r.done ? "✓ " : "○ ") + r.title + " – " + (r.note || "")),
         "",
         "TOP 3",
         ...(top3Items().length ? top3Items().map(t => (t.done ? "✓ " : "○ ") + t.title) : ["—"]),
         "",
         "ZIELE",
-        ...state.goals.map(g => "• " + g.title + " (" + g.level + ", " + g.progress + "%) – " + (g.next || "kein Schritt")),
+        ...state.goals.map(g => "• " + g.title + " (" + g.level + ", " + (g.category || "ohne Kategorie") + ", " + g.progress + "%) – " + (g.next || "kein Schritt")),
         "",
         "MURMELN",
         ...(state.marbles.length ? state.marbles.map(m => "• " + m.text + " (" + m.type + ")") : ["—"]),
+        "",
+        "INBOX",
+        ...(state.inbox.length ? state.inbox.map(i => "• " + i.text + " " + i.tag) : ["—"]),
         "",
         "ERFOLGE",
         ...(state.successes.length ? state.successes.slice(0,12).map(s => "• " + s.text + " · " + s.time) : ["—"]),
