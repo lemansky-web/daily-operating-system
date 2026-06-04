@@ -1,61 +1,1048 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de" data-theme="light">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mein Daily Life v2.1</title>
-<style>
-:root{--bg:#f7f2ea;--bg2:#efe6d8;--card:#fff;--softcard:#fbf8f2;--text:#222621;--muted:#68746d;--line:#e6ddd0;--accent:#557766;--accent2:#8b6b4e;--soft:#eaf2ec;--ok:#3d7a57;--warn:#a66a2f;--bad:#a65050;--shadow:0 14px 38px rgba(62,46,30,.1);--r:24px;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-html[data-theme=dark]{--bg:#151916;--bg2:#1b211c;--card:#222922;--softcard:#1b211c;--text:#f5f1eb;--muted:#aeb8b0;--line:#354038;--accent:#9fc6ad;--accent2:#d1ad86;--soft:rgba(159,198,173,.14);--shadow:0 14px 38px rgba(0,0,0,.25)}
-*{box-sizing:border-box}body{margin:0;font-family:var(--font);color:var(--text);background:radial-gradient(circle at 15% -5%,rgba(85,119,102,.18),transparent 34%),radial-gradient(circle at 90% 0,rgba(139,107,78,.12),transparent 30%),linear-gradient(145deg,var(--bg),var(--bg2));line-height:1.42}button,input,select,textarea{font:inherit}button{border:0;cursor:pointer;color:inherit}input,select,textarea{width:100%;min-height:46px;border:1px solid var(--line);background:var(--softcard);color:var(--text);border-radius:15px;padding:12px;outline:none}textarea{min-height:115px;resize:vertical}label{display:block;font-size:13px;font-weight:850;color:var(--muted);margin:12px 0 7px}.app{max-width:1180px;margin:auto;padding:18px 16px 38px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.brand{display:flex;gap:12px;align-items:center}.mark{width:44px;height:44px;border-radius:17px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--shadow)}h1{font-size:clamp(24px,4vw,36px);letter-spacing:-.9px;margin:0;line-height:1}.date{color:var(--muted);font-size:14px;margin-top:4px}.icon{width:44px;height:44px;border-radius:15px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.hero{background:linear-gradient(135deg,rgba(85,119,102,.96),rgba(139,107,78,.82));color:white;border-radius:30px;padding:22px;box-shadow:0 18px 58px rgba(62,46,30,.14);margin-bottom:14px}.hero h2{font-size:clamp(30px,5vw,48px);letter-spacing:-1.4px;line-height:1.02;margin:0 0 6px}.hero p{margin:0;color:rgba(255,255,255,.88);max-width:760px}.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.pill{display:inline-flex;gap:7px;background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 11px;font-size:13px;font-weight:850}.nav{position:sticky;top:0;z-index:10;display:flex;gap:8px;overflow:auto;padding:9px 0 12px;backdrop-filter:blur(18px)}.nav a{text-decoration:none;color:var(--muted);white-space:nowrap;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.75);border-radius:999px;padding:9px 12px;font-weight:850;font-size:13px;box-shadow:0 8px 24px rgba(62,46,30,.06)}html[data-theme=dark] .nav a{background:rgba(34,41,34,.75);border-color:rgba(255,255,255,.1)}.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);gap:14px;align-items:start}.stack{display:grid;gap:14px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card,details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}.compact{padding:15px}.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.title{margin:0;font-size:19px;letter-spacing:-.35px;font-weight:930}.sub{font-size:13px;color:var(--muted);margin:4px 0 0}.badge{display:inline-flex;background:var(--soft);color:var(--accent);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900;white-space:nowrap}.btn,.soft,.light,.danger{border-radius:15px;padding:12px 14px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn{background:var(--accent);color:white}.soft{background:var(--soft);color:var(--accent)}.light{background:var(--softcard);border:1px solid var(--line)}.danger{background:rgba(166,80,80,.12);color:var(--bad)}.full{width:100%;margin-top:12px}.progress{height:10px;border-radius:999px;background:rgba(127,127,127,.14);overflow:hidden}.progress span{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .25s}.item,.guide{background:var(--softcard);border:1px solid var(--line);border-radius:17px;padding:12px}.list{display:grid;gap:9px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.left{display:flex;align-items:center;gap:10px;min-width:0}.check{width:34px;height:34px;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;color:transparent;font-weight:950;flex:0 0 auto}.check.done{background:var(--accent);color:white;border-color:var(--accent)}.it{font-weight:930;letter-spacing:-.15px;overflow-wrap:anywhere}.meta{font-size:13px;color:var(--muted);margin-top:2px}.emojiGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.emojiRow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.emoji{min-height:64px;border-radius:16px;background:var(--softcard);border:1px solid var(--line);display:grid;place-items:center;gap:3px;padding:9px;text-align:center;font-size:13px;font-weight:900;color:var(--muted)}.emoji .e{font-size:22px;line-height:1}.emoji.active{background:var(--accent);color:white;border-color:var(--accent)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px;box-shadow:var(--shadow)}.stat strong{display:block;font-size:24px;letter-spacing:-.7px;line-height:1}.stat span{display:block;margin-top:4px;color:var(--muted);font-size:12px;font-weight:850}.form{display:grid;grid-template-columns:1fr 150px auto;gap:8px;align-items:end;margin-top:10px}.type{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:900;background:var(--soft);color:var(--accent);margin-left:6px}.affirm{background:linear-gradient(135deg,var(--soft),rgba(139,107,78,.09));border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:10px}.affirm strong{font-size:clamp(21px,3vw,30px);line-height:1.15;letter-spacing:-.7px}.log{max-height:260px;overflow:auto;display:grid;gap:8px}.coach{background:linear-gradient(135deg,var(--soft),rgba(139,107,78,.1));border:1px solid var(--line);border-radius:18px;padding:15px;display:grid;gap:8px;margin-top:12px}.empty{border:1px dashed var(--line);background:var(--softcard);border-radius:16px;padding:14px;text-align:center;color:var(--muted);font-size:14px}summary{cursor:pointer;font-weight:930}.footer{text-align:center;color:var(--muted);font-size:12px;margin:24px 0 4px}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(12px);background:var(--card);border:1px solid var(--line);box-shadow:0 18px 58px rgba(0,0,0,.18);border-radius:999px;padding:11px 15px;font-weight:900;opacity:0;pointer-events:none;transition:.18s;z-index:50}.toast.show{opacity:1;transform:translateX(-50%)}.celebrate{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:60}.confetti{position:absolute;top:-20px;width:9px;height:14px;border-radius:4px;background:var(--accent);animation:fall 900ms ease-in forwards}@keyframes fall{to{transform:translateY(110vh) rotate(460deg);opacity:0}}
-@media(max-width:980px){.layout,.grid2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.app{padding:14px 12px 28px}.emojiGrid,.emojiRow{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:1fr}.hero{padding:18px}.stats{grid-template-columns:1fr 1fr}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mein Daily Life v3.0</title>
+  <style>
+    :root{
+      --bg:#f6efe6;
+      --bg2:#e9f0e8;
+      --card:#ffffff;
+      --card2:#fbf7f0;
+      --text:#20251f;
+      --muted:#68756c;
+      --line:#e7ded2;
+      --green:#4f7a63;
+      --green2:#8fb79d;
+      --brown:#957251;
+      --peach:#f0c9a5;
+      --blue:#7895a7;
+      --soft:#edf5ef;
+      --success:#3d7a57;
+      --warn:#a66a2f;
+      --danger:#9e5656;
+      --shadow:0 16px 48px rgba(58,45,30,.10);
+      --shadowSoft:0 8px 26px rgba(58,45,30,.07);
+      --radius:26px;
+      --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+    html[data-theme="dark"]{
+      --bg:#121714;
+      --bg2:#1d261f;
+      --card:#202720;
+      --card2:#192019;
+      --text:#f5f1eb;
+      --muted:#aeb8b0;
+      --line:#344038;
+      --green:#9fc6ad;
+      --green2:#7aa589;
+      --brown:#d1ad86;
+      --peach:#d1ad86;
+      --blue:#95b2c2;
+      --soft:rgba(159,198,173,.14);
+      --shadow:0 16px 48px rgba(0,0,0,.28);
+      --shadowSoft:0 8px 26px rgba(0,0,0,.22);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% -4%,rgba(79,122,99,.22),transparent 34%),
+        radial-gradient(circle at 92% 0%,rgba(240,201,165,.28),transparent 30%),
+        linear-gradient(145deg,var(--bg),var(--bg2));
+      -webkit-font-smoothing:antialiased;
+      line-height:1.42;
+    }
+    button,input,select,textarea{font:inherit}
+    button{border:0;cursor:pointer;color:inherit}
+    input,select,textarea{
+      width:100%;
+      min-height:46px;
+      border:1px solid var(--line);
+      background:var(--card2);
+      color:var(--text);
+      border-radius:16px;
+      padding:12px 13px;
+      outline:none;
+    }
+    textarea{min-height:170px;resize:vertical;line-height:1.48}
+    label{display:block;font-size:13px;font-weight:850;color:var(--muted);margin:12px 0 7px}
+    .app{max-width:1120px;margin:0 auto;padding:16px 14px 36px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:46px;height:46px;border-radius:18px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--green),var(--brown));
+      color:white;
+      box-shadow:var(--shadowSoft);
+      font-size:22px;
+    }
+    h1{font-size:clamp(24px,4vw,36px);letter-spacing:-.95px;margin:0;line-height:1}
+    .date{font-size:14px;color:var(--muted);margin-top:4px}
+    .icon-btn{
+      width:44px;height:44px;border-radius:16px;background:var(--card);
+      border:1px solid var(--line);box-shadow:var(--shadowSoft);
+    }
+    .hero{
+      border-radius:32px;
+      padding:22px;
+      color:white;
+      background:
+        linear-gradient(135deg,rgba(79,122,99,.96),rgba(149,114,81,.88)),
+        radial-gradient(circle at 80% 0%,rgba(255,255,255,.20),transparent 30%);
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .hero h2{font-size:clamp(32px,6vw,56px);line-height:1.02;letter-spacing:-1.6px;margin:0}
+    .hero p{margin:0;color:rgba(255,255,255,.88);font-size:15px;max-width:760px}
+    .hero-pills{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{
+      display:inline-flex;align-items:center;gap:7px;
+      padding:8px 11px;border-radius:999px;
+      background:rgba(255,255,255,.17);
+      border:1px solid rgba(255,255,255,.22);
+      font-weight:900;font-size:13px;
+    }
+    .nav{
+      position:sticky;top:0;z-index:20;
+      display:flex;gap:8px;overflow:auto;
+      padding:9px 0 12px;
+      backdrop-filter:blur(18px);
+      -webkit-overflow-scrolling:touch;
+    }
+    .nav a{
+      flex:0 0 auto;
+      text-decoration:none;color:var(--muted);
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(255,255,255,.80);
+      border-radius:999px;
+      padding:9px 12px;
+      font-weight:900;font-size:13px;
+      box-shadow:var(--shadowSoft);
+    }
+    html[data-theme="dark"] .nav a{background:rgba(32,39,32,.78);border-color:rgba(255,255,255,.08)}
+    .dashboard{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    .main,.side{display:grid;gap:14px;min-width:0}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:17px;
+      box-shadow:var(--shadowSoft);
+      min-width:0;
+    }
+    .card.focus{
+      background:linear-gradient(135deg,var(--card),var(--soft));
+      box-shadow:var(--shadow);
+    }
+    .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:13px}
+    .title{margin:0;font-size:19px;font-weight:950;letter-spacing:-.35px}
+    .sub{font-size:13px;color:var(--muted);margin:4px 0 0}
+    .badge{
+      display:inline-flex;align-items:center;gap:5px;
+      border-radius:999px;background:var(--soft);color:var(--green);
+      padding:7px 10px;font-size:12px;font-weight:950;white-space:nowrap;
+    }
+    .btn,.soft,.light,.danger{
+      border-radius:16px;
+      padding:12px 14px;
+      font-weight:950;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .btn{background:var(--green);color:white}
+    .soft{background:var(--soft);color:var(--green)}
+    .light{background:var(--card2);border:1px solid var(--line)}
+    .danger{background:rgba(158,86,86,.12);color:var(--danger)}
+    .full{width:100%;margin-top:12px}
+    .grid2,.grid3{display:grid;gap:12px}
+    .grid2{grid-template-columns:1fr}
+    .grid3{grid-template-columns:1fr}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .stat{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:14px;
+      box-shadow:var(--shadowSoft);
+    }
+    .stat strong{display:block;font-size:28px;line-height:1;letter-spacing:-.9px}
+    .stat span{display:block;margin-top:4px;color:var(--muted);font-size:12px;font-weight:850}
+    .progress{height:10px;border-radius:999px;background:rgba(127,127,127,.15);overflow:hidden}
+    .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--peach));border-radius:inherit;transition:.22s ease}
+    .now-card{
+      display:grid;gap:12px;
+      background:linear-gradient(135deg,var(--soft),rgba(240,201,165,.16));
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:18px;
+    }
+    .now-card strong{font-size:clamp(24px,4vw,36px);line-height:1.08;letter-spacing:-.9px}
+    .item,.routine-item{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:12px;
+      min-width:0;
+    }
+    .list{display:grid;gap:9px}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .left{display:flex;align-items:center;gap:10px;min-width:0}
+    .check{
+      width:36px;height:36px;border-radius:13px;
+      border:1px solid var(--line);
+      background:var(--bg);
+      color:transparent;
+      display:grid;place-items:center;
+      font-weight:950;flex:0 0 auto;
+    }
+    .check.done{background:var(--green);border-color:var(--green);color:white}
+    .item-title{font-weight:950;letter-spacing:-.2px;overflow-wrap:anywhere}
+    .item-meta{font-size:13px;color:var(--muted);margin-top:2px}
+    .emoji-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .emoji-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .emoji-card{
+      min-height:64px;
+      border-radius:17px;
+      background:var(--card2);
+      border:1px solid var(--line);
+      display:grid;place-items:center;gap:3px;text-align:center;
+      color:var(--muted);font-weight:950;font-size:13px;
+      padding:9px;
+    }
+    .emoji-card .e{font-size:22px;line-height:1}
+    .emoji-card.active{background:var(--green);border-color:var(--green);color:white}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      border-radius:999px;
+      padding:9px 11px;
+      background:var(--card2);
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+      font-weight:900;
+    }
+    .chip.active{background:var(--green);border-color:var(--green);color:white}
+    .form{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
+    .schedule-row{display:grid;grid-template-columns:1fr;gap:8px;margin-top:9px}
+    .timeField.hidden{display:none}
+    .type{
+      display:inline-flex;align-items:center;
+      border-radius:999px;
+      padding:4px 8px;
+      font-size:11px;font-weight:950;
+      background:var(--soft);color:var(--green);
+      margin-left:6px;
+    }
+    .section{scroll-margin-top:72px}
+    .section-title{margin:24px 2px 12px}
+    .section-title h2{font-size:28px;letter-spacing:-.8px;margin:0}
+    .section-title p{color:var(--muted);font-size:14px;margin:4px 0 0}
+    .affirmation{
+      background:linear-gradient(135deg,var(--soft),rgba(240,201,165,.16));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      display:grid;gap:10px;
+    }
+    .affirmation strong{font-size:clamp(22px,4vw,34px);line-height:1.12;letter-spacing:-.8px}
+    .coach{
+      background:linear-gradient(135deg,rgba(79,122,99,.12),rgba(240,201,165,.16));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      display:grid;gap:10px;
+    }
+    .coach strong{font-size:clamp(22px,4vw,32px);line-height:1.1;letter-spacing:-.8px}
+    .streak-row{display:grid;grid-template-columns:1fr;gap:10px}
+    .streak{
+      border-radius:20px;
+      padding:14px;
+      border:1px solid var(--line);
+      background:var(--card);
+      box-shadow:var(--shadowSoft);
+    }
+    .streak strong{display:block;font-size:28px;letter-spacing:-.8px}
+    .empty{
+      border:1px dashed var(--line);
+      background:var(--card2);
+      color:var(--muted);
+      border-radius:18px;
+      padding:14px;
+      text-align:center;
+    }
+    .notesPreview{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      line-height:1.55;
+      min-height:300px;
+    }
+    details{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:15px 17px;
+      box-shadow:var(--shadowSoft);
+    }
+    summary{font-weight:950;cursor:pointer}
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(12px);
+      background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);
+      border-radius:999px;padding:11px 15px;font-weight:950;opacity:0;pointer-events:none;transition:.18s;z-index:100;
+    }
+    .toast.show{opacity:1;transform:translateX(-50%)}
+    .celebrate{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:120}
+    .confetti{position:absolute;top:-20px;width:9px;height:14px;border-radius:4px;background:var(--green);animation:fall 900ms ease-in forwards}
+    @keyframes fall{to{transform:translateY(110vh) rotate(460deg);opacity:0}}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin:24px 0 4px}
+    @media(min-width:720px){
+      .app{padding:20px 18px 42px}
+      .grid2{grid-template-columns:1fr 1fr}
+      .grid3{grid-template-columns:repeat(3,1fr)}
+      .emoji-grid{grid-template-columns:repeat(3,1fr)}
+      .emoji-row{grid-template-columns:repeat(4,1fr)}
+      .stats{grid-template-columns:repeat(4,1fr)}
+      .streak-row{grid-template-columns:repeat(3,1fr)}
+      .form.taskForm{grid-template-columns:minmax(0,1fr) 140px 135px 120px auto}
+      .form.routineForm{grid-template-columns:minmax(0,1fr) 140px 130px auto}
+      .schedule-row{grid-template-columns:1fr 135px 120px}
+    }
+    @media(min-width:1060px){
+      .dashboard{grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr)}
+    }
+  </style>
 </head>
 <body>
-<div class="celebrate" id="celebrate"></div><div class="toast" id="toast">Gespeichert.</div>
-<main class="app">
-<header class="top"><div class="brand"><div class="mark">🌿</div><div><h1>Mein Daily Life</h1><div class="date" id="dateLine"></div></div></div><button class="icon" id="themeBtn">☾</button></header>
-<section class="hero"><h2 id="greeting">Guten Morgen, Peer.</h2><p>Heute geht es nicht um perfekt. Heute geht es um einen ehrlichen, lebendigen Tag.</p><div class="pills"><span class="pill" id="progressPill">0% geführt</span><span class="pill" id="stepsPill">0 Schritte</span><span class="pill" id="marblePill">0/5 Murmeln</span></div></section>
-<nav class="nav"><a href="#morning">Morgenstart</a><a href="#plan">Heute gestalten</a><a href="#coach">Coach</a>
-      <a href="#flow">Durch den Tag</a><a href="#selflove">Selbstliebe</a><a href="#evening">Abend</a><a href="#settings">Einstellungen</a></nav>
-<div class="stats"><div class="stat"><strong id="statDone">0</strong><span>erledigt</span></div><div class="stat"><strong id="statGoals">0/0</strong><span>Ziele</span></div><div class="stat"><strong id="statSuccess">0</strong><span>Erfolge</span></div><div class="stat"><strong id="statSelf">0</strong><span>Murmeln</span></div></div>
-<div class="layout"><div class="stack">
-<section class="card" id="morning"><div class="head"><div><h2 class="title">1. Morgenstart</h2><p class="sub">Körper, Gefühl, Klarheit.</p></div><span class="badge" id="morningBadge">0/0</span></div><div class="list" id="morningList"></div><div class="grid2" style="margin-top:14px"><div><label>Was fühle ich gerade?</label><div class="emojiGrid" id="moodGrid"></div></div><div><label>Was brauche ich heute?</label><div class="emojiRow" id="needGrid"></div></div></div><label for="smallThing">Was ist heute eine kleine Sache, die ich erledige?</label><input id="smallThing" placeholder="z. B. 10 Minuten Bewerbungen, Küche, eine Mail"><button class="btn full" id="saveMorning">Morgenstart speichern</button></section>
-<section class="card" id="plan"><div class="head"><div><h2 class="title">2. Heute gestalten</h2><p class="sub">Mindestens eine Sache, die du sonst schiebst.</p></div><span class="badge" id="planBadge">0 offen</span></div><div class="grid2"><div><label for="avoidTask">Schiebe-Aufgabe</label><input id="avoidTask" placeholder="Was schiebe ich gerade vor mir her?"></div><div><label for="dayIntention">Tagesziel / Haltung</label><input id="dayIntention" placeholder="z. B. ruhig bleiben, ehrlich handeln, Fokus"></div></div><div class="form"><input id="taskInput" placeholder="Aufgabe, Termin oder Ziel hinzufügen"><select id="taskType"><option value="todo">To-do</option><option value="ziel">Ziel</option><option value="termin">Termin</option><option value="fokus">Fokus</option></select><button class="btn" id="addTask">Hinzufügen</button></div><div class="list" id="taskList" style="margin-top:12px"></div></section>
-<section class="card" id="flow"><div class="head"><div><h2 class="title">3. Durch den Tag</h2><p class="sub">Kurz checken, statt wegzudriften.</p></div><span class="badge">Check-in</span></div><div class="grid2"><div><label>Wie ist meine Energie jetzt?</label><div class="emojiRow" id="energyGrid"></div></div><div><label for="nextStep">Was ist jetzt der nächste kleine Schritt?</label><input id="nextStep" placeholder="Eine Sache. Nicht fünf."></div></div><button class="btn full" id="saveMidday">Kurz-Check speichern</button><div class="coach" id="microCoach"><strong>Micro Coach</strong><span class="sub">Wenn du unruhig wirst: Erst 5 Minuten aktivieren, dann entscheiden.</span></div></section>
-<section class="card" id="selflove"><div class="head"><div><h2 class="title">4. Selbstliebe-Murmeln</h2><p class="sub">Nur echte Selbstfürsorge, nicht jede Aufgabe.</p></div><span class="badge" id="selfBadge">0/5</span></div><div class="progress"><span id="selfProgress"></span></div><div class="form"><input id="selfInput" placeholder="z. B. Pause gemacht, Handy liegen gelassen"><select id="selfType"><option>Selbstfürsorge</option><option>Mut</option><option>Grenze</option><option>Körper</option><option>Nicht geflüchtet</option></select><button class="btn" id="addSelf">+ Murmel</button></div><div class="list" id="selfList" style="margin-top:12px"></div></section>
-<section class="card" id="evening"><div class="head"><div><h2 class="title">5. Abendabschluss</h2><p class="sub">Sehen, was gelungen ist. Selbstwert sichtbar machen.</p></div><span class="badge">Reflexion</span></div><div class="grid2"><div><label for="eveningGood">Was war heute erfolgreich?</label><input id="eveningGood" placeholder="Ein Satz reicht."></div><div><label for="eveningLearned">Was habe ich über mich gelernt?</label><input id="eveningLearned" placeholder="z. B. Bewegung bringt Klarheit."></div><div><label for="eveningProud">Worauf bin ich stolz?</label><input id="eveningProud" placeholder="Auch klein zählt."></div><div><label for="tomorrowPrep">Was ist morgen wichtig?</label><input id="tomorrowPrep" placeholder="Optional für morgen vorbereiten."></div></div><button class="btn full" id="saveEvening">Abendabschluss speichern</button><div style="margin-top:14px"><div class="head"><div><h2 class="title">Tagebuch-Export</h2><p class="sub">Kopieren und in Apple Notes einfügen.</p></div><button class="soft" id="copyJournal">Kopieren</button></div><textarea id="journal" readonly></textarea></div></section>
-<details id="settings"><summary>Einstellungen & Vorlagen</summary><p class="sub">Routinen gelten ab morgen. Heute bleibt stabil.</p><div class="list" id="routineSettings" style="margin-top:12px"></div><div class="form"><input id="newRoutineTitle" placeholder="Neue Routine"><input id="newRoutineTime" placeholder="Zeit"><button class="btn" id="addRoutine">Routine</button></div></details>
-</div><aside class="stack"><section class="card compact"><div class="head"><div><h2 class="title">Heute auf einen Blick</h2><p class="sub">Das steht jetzt an.</p></div><span class="badge" id="overviewBadge">0%</span></div><div class="progress"><span id="overviewProgress"></span></div><div class="list" id="overviewList" style="margin-top:12px"></div></section><section class="card compact"><div class="head"><div><h2 class="title">Satz des Tages</h2><p class="sub">Neu wählen, wenn es nicht passt.</p></div><button class="soft" id="shuffleAff">Neu</button></div><div class="affirm"><strong id="affirmText">Ich baue Vertrauen durch kleine Beweise auf.</strong></div></section><section class="card compact"><div class="head"><div><h2 class="title">Schritte</h2><p class="sub">8.000 Mindestziel, 10.000 Wunschziel.</p></div><span class="badge" id="stepBadge">0%</span></div><input id="stepsInput" type="number" inputmode="numeric" placeholder="Schritte eintragen"><button class="btn full" id="saveSteps">Schritte speichern</button><div class="progress" style="margin-top:12px"><span id="stepProgress"></span></div></section><section class="card compact"><div class="head"><div><h2 class="title">Erfolge</h2><p class="sub">Für dein Selbstbewusstsein.</p></div><span class="badge" id="successBadge">0</span></div><input id="successInput" placeholder="Erfolg eintragen"><button class="btn full" id="addSuccess">+ Erfolg</button><div class="list" id="successList" style="margin-top:12px"></div></section><section class="card compact"><div class="head"><div><h2 class="title">Stimmungsverlauf</h2><p class="sub">Heute gesammelt. Morgen frisch.</p></div></div><div class="log" id="moodLog"></div></section></aside></div><footer class="footer">Mein Daily Life · v2.1 · lokal im Browser gespeichert</footer></main>
-<script>
-const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));const today=new Date().toISOString().slice(0,10),dailyKey="mdl2_"+today,tplKey="mdl2_templates",settingsKey="mdl2_settings";
-const affirmations=["Ich baue Vertrauen durch kleine Beweise auf.","Ein kleiner ehrlicher Schritt reicht.","Ich darf fühlen und trotzdem handeln.","Bewegung bringt Klarheit.","Ich handle freundlich mit mir, nicht hart gegen mich.","Heute zählt Richtung, nicht Perfektion.","Ich darf meine Bedürfnisse ernst nehmen.","Ich bleibe bei mir und mache den nächsten kleinen Schritt."];
-const opts={moods:[["🙂","ruhig"],["🎯","klar"],["😴","müde"],["⚡","unruhig"],["🔥","motiviert"],["😵‍💫","überfordert"],["😔","traurig"],["😟","ängstlich"],["🌫","leer"]],needs:[["🧭","Struktur"],["🌿","Ruhe"],["💪","Mut"],["🚶","Bewegung"],["🔍","Klarheit"],["🤝","Nähe"],["🫶","Selbstfürsorge"]],energy:[["🔋","niedrig"],["🔋🔋","mittel"],["🔋🔋🔋","hoch"]]};
-let templates={routines:[{id:"wasser",title:"Wasser trinken",time:"direkt nach dem Aufstehen",active:true},{id:"journal",title:"Tagebuch in Apple Notes",time:"morgens",active:true},{id:"activation",title:"5–15 Minuten Aktivierung",time:"morgens",active:true},{id:"walk",title:"2 km Spaziergang",time:"06:40 / flexibel",active:true}]};
-let state={mood:[],need:"",energy:"mittel",smallThing:"",dayIntention:"",avoidTask:"",steps:0,affirmation:"",routines:[],tasks:[],goals:[],successes:[],selfLove:[],moodChecks:[],nextStep:"",evening:{good:"",learned:"",proud:"",tomorrow:""},
-      coach:{title:"",text:"",step:"",tips:[]},morningSaved:false,middaySaved:false,eveningSaved:false};let settings={theme:"light"};
-function uid(p){return p+"_"+Date.now()+"_"+Math.random().toString(16).slice(2)}function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}function now(){return new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})}
-function load(){const t=localStorage.getItem(tplKey);if(t)templates={...templates,...JSON.parse(t)};const d=localStorage.getItem(dailyKey);if(d)state={...state,...JSON.parse(d)};const st=localStorage.getItem(settingsKey);if(st)settings={...settings,...JSON.parse(st)};document.documentElement.dataset.theme=settings.theme;initDay()}
-function initDay(){if(!state.affirmation)state.affirmation=affirmations[Math.floor(Math.random()*affirmations.length)];if(!state.routines.length)state.routines=templates.routines.filter(r=>r.active).map(r=>({id:"routine_"+r.id,templateId:r.id,title:r.title,time:r.time,done:false,type:"Routine"}));if(!state.goals.length)state.goals=[{id:"g8000",title:"8.000 Schritte Mindestziel",done:false,type:"Schritte",target:8000},{id:"g10000",title:"10.000 Schritte Wunschziel",done:false,type:"Schritte",target:10000}];syncSteps()}
-function save(){syncSteps();localStorage.setItem(dailyKey,JSON.stringify(state));localStorage.setItem(tplKey,JSON.stringify(templates));render()}function syncSteps(){state.goals.forEach(g=>{if(g.type==="Schritte")g.done=Number(state.steps||0)>=Number(g.target||0)})}
-function bind(){$("#themeBtn").onclick=()=>{settings.theme=settings.theme==="dark"?"light":"dark";localStorage.setItem(settingsKey,JSON.stringify(settings));document.documentElement.dataset.theme=settings.theme;render()};$("#saveMorning").onclick=saveMorning;$("#addTask").onclick=addTask;$("#saveMidday").onclick=saveMidday;$("#addSelf").onclick=addSelf;$("#saveEvening").onclick=saveEvening;$("#shuffleAff").onclick=shuffleAff;$("#saveSteps").onclick=saveSteps;$("#addSuccess").onclick=addSuccess;$("#copyJournal").onclick=()=>navigator.clipboard.writeText($("#journal").value).then(()=>toast("Tagebuch kopiert."));$("#addRoutine").onclick=addRoutineTemplate}
-function progress(){const all=[...state.routines,...state.tasks,...state.goals],done=all.filter(x=>x.done).length,total=all.length;return{done,total,pct:total?Math.round(done/total*100):0}}
-function render(){renderDate();renderHero();renderMorning();renderPlan();renderFlow();renderSelf();renderEvening();renderOverview();renderAff();renderSteps();renderSuccesses();renderMoodLog();renderSettings();renderJournal();$("#themeBtn").textContent=settings.theme==="dark"?"☀":"☾"}
-function renderDate(){$("#dateLine").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"})}function renderHero(){const h=new Date().getHours();$("#greeting").textContent=h<10?"Guten Morgen, Peer.":h>=18?"Guten Abend, Peer.":"Guten Tag, Peer.";const p=progress();$("#progressPill").textContent=p.pct+"% geführt";$("#stepsPill").textContent=Number(state.steps||0).toLocaleString("de-DE")+" Schritte";$("#marblePill").textContent=Math.min(5,state.selfLove.length)+"/5 Murmeln";$("#statDone").textContent=p.done;$("#statGoals").textContent=state.goals.filter(g=>g.done).length+"/"+state.goals.length;$("#statSuccess").textContent=state.successes.length;$("#statSelf").textContent=state.selfLove.length}
-function emojiCards(sel,arr,selected,multi,cb){$(sel).innerHTML=arr.map(([e,t])=>`<button class="emoji ${(multi?selected.includes(t):selected===t)?"active":""}" data-v="${esc(t)}"><span class="e">${e}</span><span>${esc(t)}</span></button>`).join("");$$(sel+" [data-v]").forEach(b=>b.onclick=()=>cb(b.dataset.v))}
-function renderMorning(){$("#morningList").innerHTML=state.routines.map((r,i)=>`<div class="guide"><div class="row"><div class="left"><button class="check ${r.done?"done":""}" data-rt="${i}">✓</button><div><div class="it">${esc(r.title)}</div><div class="meta">${esc(r.time)}</div></div></div></div></div>`).join("");$$('[data-rt]').forEach(b=>b.onclick=()=>{const r=state.routines[+b.dataset.rt];r.done=!r.done;if(r.done){recordSuccess("Routine erledigt: "+r.title);celebrate()}save()});emojiCards("#moodGrid",opts.moods,state.mood,true,v=>{state.mood=state.mood.includes(v)?state.mood.filter(x=>x!==v):[...state.mood,v];addMood("Morgen",state.mood.join(", "));save()});emojiCards("#needGrid",opts.needs,state.need,false,v=>{state.need=v;save()});$("#smallThing").value=state.smallThing;$("#morningBadge").textContent=state.routines.filter(r=>r.done).length+"/"+state.routines.length}
-function saveMorning(){state.smallThing=$("#smallThing").value.trim();state.morningSaved=true;if(state.smallThing&&!state.tasks.some(t=>t.source==="smallThing"))state.tasks.unshift({id:uid("task"),title:state.smallThing,type:"kleine Sache",done:false,source:"smallThing",important:true});addMood("Morgen gespeichert",state.mood.join(", ")||"ohne Auswahl");save();toast("Morgenstart gespeichert.")}
-function renderPlan(){$("#avoidTask").value=state.avoidTask;$("#dayIntention").value=state.dayIntention;const all=[...state.goals.map(x=>({...x,kind:"goal"})),...state.tasks.map(x=>({...x,kind:"task"}))];$("#taskList").innerHTML=all.length?all.map(t=>{const idx=t.kind==="goal"?state.goals.findIndex(x=>x.id===t.id):state.tasks.findIndex(x=>x.id===t.id);return `<div class="item"><div class="row"><div class="left"><button class="check ${t.done?"done":""}" data-${t.kind}="${idx}">✓</button><div><div class="it">${esc(t.title)} <span class="type">${esc(t.type||t.kind)}</span></div><div class="meta">${t.important?"wichtig · ":""}${t.kind==="goal"?"Ziel":"Aufgabe"}</div></div></div>${t.kind==="task"?`<button class="chip" data-rmt="${idx}">Löschen</button>`:""}</div></div>`}).join(""):`<div class="empty">Noch keine Aufgaben. Starte mit deiner Schiebe-Aufgabe.</div>`;$$('[data-goal]').forEach(b=>b.onclick=()=>{const g=state.goals[+b.dataset.goal];if(g.type==="Schritte"){toast("Schritte-Ziele laufen über die Schrittzahl.");return}g.done=!g.done;if(g.done){recordSuccess("Ziel erreicht: "+g.title);celebrate()}save()});$$('[data-task]').forEach(b=>b.onclick=()=>{const t=state.tasks[+b.dataset.task];t.done=!t.done;if(t.done){recordSuccess("Aufgabe erledigt: "+t.title);celebrate()}save()});$$('[data-rmt]').forEach(b=>b.onclick=()=>{state.tasks.splice(+b.dataset.rmt,1);save()});$("#planBadge").textContent=state.tasks.filter(t=>!t.done).length+" offen"}
-function addTask(){state.avoidTask=$("#avoidTask").value.trim();state.dayIntention=$("#dayIntention").value.trim();if(state.avoidTask&&!state.tasks.some(t=>t.source==="avoidTask"))state.tasks.unshift({id:uid("task"),title:state.avoidTask,type:"Schiebe-Aufgabe",done:false,source:"avoidTask",important:true});const title=$("#taskInput").value.trim();if(title){state.tasks.push({id:uid("task"),title,type:$("#taskType").value,done:false,important:false});$("#taskInput").value=""}save();toast("Tagesplanung gespeichert.")}
-function renderFlow(){emojiCards("#energyGrid",opts.energy,state.energy,false,v=>{state.energy=v;addMood("Energie",v);save()});$("#nextStep").value=state.nextStep;const s=micro();$("#microCoach").innerHTML=`<strong>${esc(s.title)}</strong><span class="sub">${esc(s.detail)}</span>`}function saveMidday(){state.nextStep=$("#nextStep").value.trim();state.middaySaved=true;if(state.nextStep)state.tasks.push({id:uid("task"),title:state.nextStep,type:"nächster Schritt",done:false});addMood("Kurz-Check","Energie: "+state.energy);save();toast("Kurz-Check gespeichert.")}function micro(){if(state.energy==="niedrig")return{title:"Erst aktivieren, dann entscheiden.",detail:"5 Minuten bewegen. Wenn du danach noch müde bist: Powernap."};if(state.mood.includes("unruhig")||state.mood.includes("ängstlich"))return{title:"Körper zuerst.",detail:"Wasser, kurz gehen, danach nur den nächsten kleinen Schritt wählen."};if(state.mood.includes("überfordert"))return{title:"Auf 10 Minuten verkleinern.",detail:"Nicht fertig werden. Nur anfangen."};return{title:"Ein kleiner ehrlicher Schritt reicht.",detail:"Wähle eine Sache aus deinem Plan und mache sie klein genug."}}
-function renderSelf(){$("#selfBadge").textContent=Math.min(5,state.selfLove.length)+"/5";$("#selfProgress").style.width=Math.min(100,state.selfLove.length/5*100)+"%";$("#selfList").innerHTML=state.selfLove.length?state.selfLove.slice(0,8).map((m,i)=>`<div class="item"><div class="row"><div><div class="it">🫶 ${esc(m.text)}</div><div class="meta">${esc(m.type)} · ${esc(m.time)}</div></div><button class="chip" data-rms="${i}">Löschen</button></div></div>`).join(""):`<div class="empty">Noch keine Murmel. Was war heute freundlich zu dir?</div>`;$$('[data-rms]').forEach(b=>b.onclick=()=>{state.selfLove.splice(+b.dataset.rms,1);save()})}function addSelf(){const text=$("#selfInput").value.trim();if(!text)return;state.selfLove.unshift({text,type:$("#selfType").value,time:now()});$("#selfInput").value="";celebrate();save();toast("Selbstliebe-Murmel gespeichert.")}
-function renderEvening(){$("#eveningGood").value=state.evening.good;$("#eveningLearned").value=state.evening.learned;$("#eveningProud").value=state.evening.proud;$("#tomorrowPrep").value=state.evening.tomorrow}function saveEvening(){state.evening={good:$("#eveningGood").value.trim(),learned:$("#eveningLearned").value.trim(),proud:$("#eveningProud").value.trim(),tomorrow:$("#tomorrowPrep").value.trim()};state.eveningSaved=true;if(state.evening.good)recordSuccess("Abend: "+state.evening.good);save();toast("Abendabschluss gespeichert.")}
-function renderOverview(){const p=progress();$("#overviewBadge").textContent=p.pct+"%";$("#overviewProgress").style.width=p.pct+"%";const all=[...state.routines.map(x=>({...x,kind:"Routine"})),...state.goals.map(x=>({...x,kind:"Ziel"})),...state.tasks.map(x=>({...x,kind:"Aufgabe"}))];$("#overviewList").innerHTML=all.length?all.slice(0,12).map(x=>`<div class="item"><div class="row"><div class="left"><span class="check ${x.done?"done":""}">✓</span><div><div class="it">${esc(x.title)}</div><div class="meta">${esc(x.kind)} ${x.time?"· "+esc(x.time):""}</div></div></div></div></div>`).join(""):`<div class="empty">Noch nichts geplant.</div>`}
-function renderAff(){$("#affirmText").textContent=state.affirmation}function shuffleAff(){state.affirmation=affirmations[Math.floor(Math.random()*affirmations.length)];save()}
-function renderSteps(){$("#stepsInput").value=state.steps||"";const pct=Math.min(100,Math.round(Number(state.steps||0)/10000*100));$("#stepBadge").textContent=pct+"%";$("#stepProgress").style.width=pct+"%"}function saveSteps(){state.steps=Number($("#stepsInput").value||0);syncSteps();if(state.steps>=8000)recordSuccess("Schritte-Ziel erreicht: "+state.steps.toLocaleString("de-DE")+" Schritte");if(state.steps>=10000)celebrate();save();toast("Schritte gespeichert.")}
-function recordSuccess(text){state.successes.unshift({text,time:now()});state.successes=state.successes.slice(0,50)}function addSuccess(){const text=$("#successInput").value.trim();if(!text)return;recordSuccess(text);$("#successInput").value="";celebrate();save();toast("Erfolg gespeichert.")}function renderSuccesses(){$("#successBadge").textContent=state.successes.length;$("#successList").innerHTML=state.successes.length?state.successes.slice(0,8).map((s,i)=>`<div class="item"><div class="row"><div><div class="it">✓ ${esc(s.text)}</div><div class="meta">${esc(s.time)}</div></div><button class="chip" data-rme="${i}">Löschen</button></div></div>`).join(""):`<div class="empty">Noch kein Erfolg. Erledigte Aufgaben erscheinen hier.</div>`;$$('[data-rme]').forEach(b=>b.onclick=()=>{state.successes.splice(+b.dataset.rme,1);save()})}
-function addMood(label,value){if(!value)return;state.moodChecks.unshift({label,value,time:now()});state.moodChecks=state.moodChecks.slice(0,20)}function renderMoodLog(){$("#moodLog").innerHTML=state.moodChecks.length?state.moodChecks.map(m=>`<div class="item"><div class="it">${esc(m.label)}</div><div class="meta">${esc(m.value)} · ${esc(m.time)}</div></div>`).join(""):`<div class="empty">Noch kein Check-in gespeichert.</div>`}
-function renderSettings(){$("#routineSettings").innerHTML=templates.routines.map((r,i)=>`<div class="item"><div class="row"><div><div class="it">${esc(r.title)}</div><div class="meta">${esc(r.time)} · ${r.active?"aktiv":"inaktiv"}</div></div><button class="chip" data-tpl="${i}">${r.active?"deaktivieren":"aktivieren"}</button></div></div>`).join("");$$('[data-tpl]').forEach(b=>b.onclick=()=>{const r=templates.routines[+b.dataset.tpl];r.active=!r.active;localStorage.setItem(tplKey,JSON.stringify(templates));toast("Routine-Vorlage geändert. Wirkt ab morgen.");renderSettings()})}function addRoutineTemplate(){const title=$("#newRoutineTitle").value.trim();if(!title)return;templates.routines.push({id:uid("tpl"),title,time:$("#newRoutineTime").value.trim()||"flexibel",active:true});$("#newRoutineTitle").value="";$("#newRoutineTime").value="";localStorage.setItem(tplKey,JSON.stringify(templates));toast("Routine-Vorlage gespeichert. Wirkt ab morgen.");renderSettings()}
-function renderJournal(){const p=progress();$("#journal").value=["Mein Daily Life – "+$("#dateLine").textContent,"","Stand:",`${p.done}/${p.total} Punkte erledigt (${p.pct}%)`,"Schritte: "+Number(state.steps||0).toLocaleString("de-DE"),"","Morgenstart:","Stimmung: "+(state.mood.join(", ")||"-"),"Bedürfnis: "+(state.need||"-"),"Kleine Sache: "+(state.smallThing||"-"),"","Tageshaltung:",state.dayIntention||"-","","Schiebe-Aufgabe:",state.avoidTask||"-","","Routinen:",...state.routines.map(r=>`- ${r.done?"✓":"○"} ${r.title}`),"","Ziele:",...state.goals.map(g=>`- ${g.done?"✓":"○"} ${g.title}`),"","Aufgaben:",...(state.tasks.length?state.tasks.map(t=>`- ${t.done?"✓":"○"} ${t.title}`):["-"]),"","Satz des Tages:","„"+state.affirmation+"“","","Selbstliebe-Murmeln:",...(state.selfLove.length?state.selfLove.map(m=>`- ${m.text} (${m.type})`):["-"]),"","Erfolge:",...(state.successes.length?state.successes.slice(0,12).map(s=>"- "+s.text):["-"]),"","Abendreflexion:","Erfolgreich: "+(state.evening.good||"-"),"Gelernt: "+(state.evening.learned||"-"),"Stolz: "+(state.evening.proud||"-"),"Morgen wichtig: "+(state.evening.tomorrow||"-")].join("\n")}
-function toast(text){$("#toast").textContent=text;$("#toast").classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>$("#toast").classList.remove("show"),1600)}function celebrate(){const wrap=$("#celebrate");wrap.innerHTML="";const colors=["#557766","#8b6b4e","#d1ad86","#9fc6ad","#fff"];for(let i=0;i<26;i++){const c=document.createElement("span");c.className="confetti";c.style.left=Math.random()*100+"vw";c.style.animationDelay=Math.random()*180+"ms";c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.transform=`rotate(${Math.random()*160}deg)`;wrap.appendChild(c)}setTimeout(()=>wrap.innerHTML="",1000)}
-load();bind();render();
-</script></body></html>
+  <div class="celebrate" id="celebrate"></div>
+  <div class="toast" id="toast">Gespeichert.</div>
+
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">🌱</div>
+        <div>
+          <h1>Mein Daily Life</h1>
+          <div class="date" id="dateLine"></div>
+        </div>
+      </div>
+      <button class="icon-btn" id="themeBtn">☾</button>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h2 id="greeting">Guten Morgen, Peer.</h2>
+        <p id="coachLine">Heute reicht ein ehrlicher Schritt. Nicht alles tracken. Dich führen.</p>
+      </div>
+      <div class="hero-pills">
+        <span class="pill" id="progressPill">0% geführt</span>
+        <span class="pill" id="streakPill">🔥 0 Tage</span>
+        <span class="pill" id="marblePill">🫶 0/5 Murmeln</span>
+      </div>
+    </section>
+
+    <nav class="nav">
+      <a href="#now">Jetzt</a>
+      <a href="#morning">Morgenstart</a>
+      <a href="#counts">Heute zählt</a>
+      <a href="#evidence">Beweise</a>
+      <a href="#evening">Abend</a>
+      <a href="#settings">Einstellungen</a>
+    </nav>
+
+    <section id="now" class="section card focus">
+      <div class="head">
+        <div>
+          <h2 class="title">Jetzt gerade</h2>
+          <p class="sub">Dein persönlicher Assistent zeigt dir den nächsten guten Schritt.</p>
+        </div>
+        <span class="badge" id="phaseBadge">Start</span>
+      </div>
+      <div class="now-card">
+        <strong id="nowTitle">Wasser trinken und kurz ankommen.</strong>
+        <span class="sub" id="nowText">Starte körperlich. Dann erst planen.</span>
+        <button class="btn" id="doNow">Als erledigt markieren</button>
+      </div>
+    </section>
+
+    <div class="stats" style="margin-top:14px">
+      <div class="stat"><strong id="statDone">0</strong><span>erledigt</span></div>
+      <div class="stat"><strong id="statGoals">0/0</strong><span>Ziele</span></div>
+      <div class="stat"><strong id="statSuccess">0</strong><span>Erfolge</span></div>
+      <div class="stat"><strong id="statSelf">0</strong><span>Murmeln</span></div>
+    </div>
+
+    <div class="dashboard" style="margin-top:14px">
+      <div class="main">
+        <section id="morning" class="section card">
+          <div class="head">
+            <div>
+              <h2 class="title">1. Morgenstart</h2>
+              <p class="sub">Dein Ankommen: Körper, Gefühl, Klarheit.</p>
+            </div>
+            <span class="badge" id="morningBadge">0/0</span>
+          </div>
+
+          <div class="list" id="routineList"></div>
+
+          <div class="grid2" style="margin-top:14px">
+            <div>
+              <label>Was fühle ich gerade?</label>
+              <div class="emoji-grid" id="moodGrid"></div>
+            </div>
+            <div>
+              <label>Was brauche ich heute?</label>
+              <div class="emoji-row" id="needGrid"></div>
+            </div>
+          </div>
+
+          <label for="smallThing">Was ist heute eine kleine Sache, die ich erledige?</label>
+          <input id="smallThing" placeholder="z. B. 10 Minuten Bewerbungen, Küche, eine Mail">
+
+          <button class="btn full" id="saveMorning">Morgenstart speichern</button>
+        </section>
+
+        <section id="counts" class="section card">
+          <div class="head">
+            <div>
+              <h2 class="title">2. Heute zählt</h2>
+              <p class="sub">Weniger Liste, mehr Richtung.</p>
+            </div>
+            <span class="badge" id="taskBadge">0 offen</span>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label for="avoidTask">Was vermeide ich gerade?</label>
+              <input id="avoidTask" placeholder="Schiebe-Aufgabe">
+            </div>
+            <div>
+              <label for="selfCareGoal">Was ist heute Selbstfürsorge?</label>
+              <input id="selfCareGoal" placeholder="z. B. Pause, Handy weg, früh schlafen">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label for="dayGoal">Was ist mein Tagesziel?</label>
+              <input id="dayGoal" placeholder="z. B. 8.000 Schritte, Bewerbungen, Training vorbereiten">
+            </div>
+            <div>
+              <label for="stepsInput">Schritte heute</label>
+              <input id="stepsInput" type="number" inputmode="numeric" placeholder="0">
+            </div>
+          </div>
+
+          <button class="btn full" id="saveCore">Heute zählt speichern</button>
+
+          <div class="form taskForm">
+            <input id="taskInput" placeholder="Aufgabe, Ziel oder Termin ergänzen">
+            <select id="taskType">
+              <option value="todo">To-do</option>
+              <option value="ziel">Ziel</option>
+              <option value="termin">Termin</option>
+              <option value="fokus">Fokus</option>
+            </select>
+            <select id="taskScheduleMode" class="scheduleMode">
+              <option value="flexibel">Flexibel</option>
+              <option value="morgens">Morgens</option>
+              <option value="mittags">Mittags</option>
+              <option value="abends">Abends</option>
+              <option value="zeit">Uhrzeit</option>
+            </select>
+            <input id="taskTime" class="timeField hidden" type="time">
+            <button class="btn" id="addTask">Hinzufügen</button>
+          </div>
+
+          <div class="list" id="taskList" style="margin-top:12px"></div>
+        </section>
+
+        <section id="evidence" class="section card">
+          <div class="head">
+            <div>
+              <h2 class="title">3. Beweise sammeln</h2>
+              <p class="sub">Selbstwert wächst durch sichtbare Beweise.</p>
+            </div>
+            <span class="badge">Erfolge</span>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label for="successInput">Erfolg eintragen</label>
+              <input id="successInput" placeholder="z. B. Aufgabe begonnen, Spaziergang gemacht">
+              <button class="btn full" id="addSuccess">+ Erfolg</button>
+            </div>
+            <div>
+              <label for="selfLoveInput">Selbstliebe-Murmel</label>
+              <input id="selfLoveInput" placeholder="z. B. Pause gemacht, Handy liegen gelassen">
+              <select id="selfLoveType" style="margin-top:8px">
+                <option>Selbstfürsorge</option>
+                <option>Mut</option>
+                <option>Grenze</option>
+                <option>Körper</option>
+                <option>Nicht geflüchtet</option>
+              </select>
+              <button class="btn full" id="addSelfLove">+ Murmel</button>
+            </div>
+          </div>
+
+          <div class="grid2" style="margin-top:14px">
+            <div>
+              <h3 class="title" style="font-size:17px">Erfolge</h3>
+              <div class="list" id="successList" style="margin-top:10px"></div>
+            </div>
+            <div>
+              <h3 class="title" style="font-size:17px">Selbstliebe</h3>
+              <div class="progress" style="margin:10px 0"><span id="selfProgress"></span></div>
+              <div class="list" id="selfLoveList"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="evening" class="section card">
+          <div class="head">
+            <div>
+              <h2 class="title">4. Abendabschluss</h2>
+              <p class="sub">Schön exportieren und in Apple Notes sichern.</p>
+            </div>
+            <span class="badge">Notes</span>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label for="eveningGood">Was war heute erfolgreich?</label>
+              <input id="eveningGood" placeholder="Ein Satz reicht.">
+            </div>
+            <div>
+              <label for="eveningLearned">Was habe ich gelernt?</label>
+              <input id="eveningLearned" placeholder="z. B. Bewegung hilft mir.">
+            </div>
+            <div>
+              <label for="eveningProud">Worauf bin ich stolz?</label>
+              <input id="eveningProud" placeholder="Auch klein zählt.">
+            </div>
+            <div>
+              <label for="tomorrow">Was ist morgen wichtig?</label>
+              <input id="tomorrow" placeholder="Optional.">
+            </div>
+          </div>
+
+          <button class="btn full" id="saveEvening">Abendabschluss speichern</button>
+
+          <div style="margin-top:14px">
+            <div class="head">
+              <div>
+                <h3 class="title">Apple-Notes-Export</h3>
+                <p class="sub">Kopieren und in Apple Notes einfügen.</p>
+              </div>
+              <button class="soft" id="copyJournal">Export kopieren</button>
+            </div>
+            <textarea id="journal" class="notesPreview" readonly></textarea>
+          </div>
+        </section>
+      </div>
+
+      <aside class="side">
+        <section class="card">
+          <div class="head">
+            <div>
+              <h2 class="title">Tageskompass</h2>
+              <p class="sub">Dein Fokus, nicht deine ganze Welt.</p>
+            </div>
+            <span class="badge" id="overviewBadge">0%</span>
+          </div>
+          <div class="progress"><span id="overviewProgress"></span></div>
+          <div class="list" id="overviewList" style="margin-top:12px"></div>
+        </section>
+
+        <section class="card">
+          <div class="head">
+            <div>
+              <h2 class="title">Satz des Tages</h2>
+              <p class="sub">Passend zu deinem Zustand.</p>
+            </div>
+            <div class="chips">
+              <button class="chip" id="smartAffirmation">Passend</button>
+              <button class="chip" id="shuffleAffirmation">Neu</button>
+            </div>
+          </div>
+          <div class="affirmation">
+            <strong id="affirmationText">Ein kleiner ehrlicher Schritt reicht.</strong>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="head">
+            <div>
+              <h2 class="title">Freundliche Streaks</h2>
+              <p class="sub">Motivation ohne Schuldgefühl.</p>
+            </div>
+          </div>
+          <div class="streak-row">
+            <div class="streak"><strong id="startStreak">0</strong><span class="sub">Morgenstarts</span></div>
+            <div class="streak"><strong id="selfStreak">0</strong><span class="sub">Selbstliebe</span></div>
+            <div class="streak"><strong id="closeStreak">0</strong><span class="sub">Abendabschluss</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="head">
+            <div>
+              <h2 class="title">Coach</h2>
+              <p class="sub">KI-light, lokal und privat.</p>
+            </div>
+          </div>
+          <div class="coach">
+            <strong id="coachTitle">Mach es kleiner.</strong>
+            <span class="sub" id="coachText">Wähle einen nächsten Schritt.</span>
+            <button class="btn" id="addCoachTask">Coach-Schritt übernehmen</button>
+          </div>
+        </section>
+
+        <details id="settings">
+          <summary>Einstellungen & Routinen</summary>
+          <div style="margin-top:12px">
+            <p class="sub">Vorlagen gelten ab dem nächsten neuen Tag.</p>
+            <div class="list" id="routineSettings"></div>
+            <div class="form routineForm">
+              <input id="newRoutineTitle" placeholder="Neue Routine">
+              <select id="newRoutineScheduleMode" class="scheduleMode">
+                <option value="morgens">Morgens</option>
+                <option value="mittags">Mittags</option>
+                <option value="abends">Abends</option>
+                <option value="flexibel">Flexibel</option>
+                <option value="zeit">Uhrzeit</option>
+              </select>
+              <input id="newRoutineTime" class="timeField hidden" type="time">
+              <button class="btn" id="addRoutine">Routine</button>
+            </div>
+          </div>
+        </details>
+      </aside>
+    </div>
+
+    <footer class="footer">Mein Daily Life · v3.0 · lokal im Browser gespeichert</footer>
+  </main>
+
+  <script>
+    const $=s=>document.querySelector(s);
+    const $$=s=>Array.from(document.querySelectorAll(s));
+    const today=new Date().toISOString().slice(0,10);
+    const dayKey="mdl_v3_day_"+today;
+    const templateKey="mdl_v3_templates";
+    const historyKey="mdl_v3_history";
+    const settingsKey="mdl_v3_settings";
+
+    const affirmations=[
+      "Ein kleiner ehrlicher Schritt reicht.",
+      "Ich handle, bevor ich mich bewerte.",
+      "Ich darf fühlen und trotzdem handeln.",
+      "Bewegung bringt Klarheit.",
+      "Selbstliebe ist eine kleine Handlung.",
+      "Ich baue Vertrauen durch kleine Beweise auf.",
+      "Heute zählt Richtung, nicht Perfektion.",
+      "Ich bleibe bei mir und mache den nächsten Schritt."
+    ];
+
+    const opts={
+      moods:[["🙂","ruhig"],["🎯","klar"],["😴","müde"],["⚡","unruhig"],["🔥","motiviert"],["😵‍💫","überfordert"],["😔","traurig"],["😟","ängstlich"],["🌫","leer"]],
+      needs:[["🧭","Struktur"],["🌿","Ruhe"],["💪","Mut"],["🚶","Bewegung"],["🔍","Klarheit"],["🤝","Nähe"],["🫶","Selbstfürsorge"]]
+    };
+
+    let templates={
+      routines:[
+        {id:"water",title:"Wasser trinken",scheduleMode:"morgens",time:"",active:true},
+        {id:"journal",title:"Tagebuch in Apple Notes",scheduleMode:"morgens",time:"",active:true},
+        {id:"activation",title:"5–15 Minuten Aktivierung",scheduleMode:"morgens",time:"",active:true},
+        {id:"walk",title:"2 km Spaziergang",scheduleMode:"morgens",time:"06:40",active:true}
+      ]
+    };
+
+    let state={
+      mood:[], need:"", smallThing:"",
+      avoidTask:"", selfCareGoal:"", dayGoal:"", steps:0,
+      routines:[], tasks:[],
+      successes:[], selfLove:[],
+      affirmation:"", coachStep:"",
+      evening:{good:"",learned:"",proud:"",tomorrow:""},
+      morningSaved:false, coreSaved:false, eveningSaved:false
+    };
+
+    let history={};
+    let settings={theme:"light"};
+
+    function uid(p){return p+"_"+Date.now()+"_"+Math.random().toString(16).slice(2)}
+    function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+    function now(){return new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})}
+    function scheduleLabel(o){ if(o.scheduleMode==="zeit") return o.time?o.time+" Uhr":"Uhrzeit"; return ({morgens:"Morgens",mittags:"Mittags",abends:"Abends",flexibel:"Flexibel"}[o.scheduleMode]||"Flexibel") }
+    function scheduleOptions(mode){return [["flexibel","Flexibel"],["morgens","Morgens"],["mittags","Mittags"],["abends","Abends"],["zeit","Uhrzeit"]].map(([v,l])=>`<option value="${v}" ${mode===v?"selected":""}>${l}</option>`).join("")}
+    function normalize(x){x.scheduleMode=x.scheduleMode||"flexibel"; if(x.scheduleMode!=="zeit") x.time=x.time||""; return x}
+
+    function load(){
+      const tpl=localStorage.getItem(templateKey); if(tpl) templates={...templates,...JSON.parse(tpl)};
+      const saved=localStorage.getItem(dayKey); if(saved) state={...state,...JSON.parse(saved)};
+      const hist=localStorage.getItem(historyKey); if(hist) history=JSON.parse(hist);
+      const st=localStorage.getItem(settingsKey); if(st) settings={...settings,...JSON.parse(st)};
+      document.documentElement.dataset.theme=settings.theme;
+      initDay();
+    }
+    function initDay(){
+      templates.routines=(templates.routines||[]).map(normalize);
+      if(!state.affirmation) state.affirmation=affirmations[Math.floor(Math.random()*affirmations.length)];
+      if(!state.routines.length){
+        state.routines=templates.routines.filter(r=>r.active).map(r=>({id:"r_"+r.id,templateId:r.id,title:r.title,scheduleMode:r.scheduleMode,time:r.time,done:false,type:"Routine"}));
+      }
+      state.routines=state.routines.map(normalize);
+      state.tasks=(state.tasks||[]).map(normalize);
+      updateHistory();
+    }
+    function save(){
+      updateHistory();
+      localStorage.setItem(dayKey,JSON.stringify(state));
+      localStorage.setItem(templateKey,JSON.stringify(templates));
+      localStorage.setItem(historyKey,JSON.stringify(history));
+      render();
+    }
+    function updateHistory(){
+      history[today]={
+        morning:!!state.morningSaved,
+        self:state.selfLove.length>0,
+        close:!!state.eveningSaved,
+        progress:progress().pct
+      };
+    }
+    function progress(){
+      const all=[...state.routines,...state.tasks, ...goals()];
+      const done=all.filter(x=>x.done).length;
+      const total=all.length;
+      return {done,total,pct:total?Math.round(done/total*100):0};
+    }
+    function goals(){
+      return [
+        {id:"g_steps_8000",title:"8.000 Schritte Mindestziel",done:Number(state.steps||0)>=8000,type:"Ziel",scheduleMode:"flexibel"},
+        {id:"g_steps_10000",title:"10.000 Schritte Wunschziel",done:Number(state.steps||0)>=10000,type:"Ziel",scheduleMode:"flexibel"},
+        ...(state.dayGoal?[{id:"g_day",title:state.dayGoal,done:false,type:"Tagesziel",scheduleMode:"flexibel"}]:[])
+      ];
+    }
+    function streak(type){
+      let count=0;
+      const d=new Date(today+"T12:00:00");
+      for(let i=0;i<365;i++){
+        const key=d.toISOString().slice(0,10);
+        if(history[key] && history[key][type]) count++;
+        else break;
+        d.setDate(d.getDate()-1);
+      }
+      return count;
+    }
+
+    function bind(){
+      $("#themeBtn").onclick=()=>{settings.theme=settings.theme==="dark"?"light":"dark";localStorage.setItem(settingsKey,JSON.stringify(settings));document.documentElement.dataset.theme=settings.theme;render()};
+      $("#saveMorning").onclick=saveMorning;
+      $("#saveCore").onclick=saveCore;
+      $("#addTask").onclick=addTask;
+      $("#addSuccess").onclick=addSuccess;
+      $("#addSelfLove").onclick=addSelfLove;
+      $("#saveEvening").onclick=saveEvening;
+      $("#copyJournal").onclick=()=>navigator.clipboard.writeText($("#journal").value).then(()=>toast("Apple-Notes-Export kopiert."));
+      $("#smartAffirmation").onclick=smartAffirmation;
+      $("#shuffleAffirmation").onclick=()=>{state.affirmation=affirmations[Math.floor(Math.random()*affirmations.length)];save()};
+      $("#addCoachTask").onclick=()=>{const step=coach().step; state.tasks.unshift({id:uid("t"),title:step,type:"Coach",done:false,scheduleMode:"flexibel",time:""});save();toast("Coach-Schritt übernommen.")};
+      $("#doNow").onclick=doNow;
+      $("#addRoutine").onclick=addRoutineTemplate;
+      bindScheduleVisibility();
+    }
+    function bindScheduleVisibility(){
+      $$(".scheduleMode").forEach(sel=>sel.onchange=()=>{updateTimeFields()});
+      updateTimeFields();
+    }
+    function updateTimeFields(){
+      $$(".scheduleMode").forEach(sel=>{
+        const parent=sel.parentElement;
+        const input=parent?parent.querySelector(".timeField"):null;
+        if(input) input.classList.toggle("hidden", sel.value!=="zeit");
+      });
+    }
+
+    function render(){
+      renderDate(); renderHero(); renderStats(); renderNow(); renderMorning(); renderCounts(); renderEvidence(); renderEvening(); renderSide(); renderSettings(); renderJournal();
+      $("#themeBtn").textContent=settings.theme==="dark"?"☀":"☾";
+      updateTimeFields();
+    }
+    function renderDate(){
+      $("#dateLine").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+      const h=new Date().getHours();
+      $("#greeting").textContent=h<10?"Guten Morgen, Peer.":h>=18?"Guten Abend, Peer.":"Guten Tag, Peer.";
+    }
+    function renderHero(){
+      const p=progress();
+      $("#progressPill").textContent=p.pct+"% geführt";
+      $("#streakPill").textContent="🔥 "+streak("morning")+" Tage";
+      $("#marblePill").textContent="🫶 "+Math.min(5,state.selfLove.length)+"/5 Murmeln";
+      $("#coachLine").textContent=coach().line;
+    }
+    function renderStats(){
+      const p=progress();
+      $("#statDone").textContent=p.done;
+      $("#statGoals").textContent=goals().filter(g=>g.done).length+"/"+goals().length;
+      $("#statSuccess").textContent=state.successes.length;
+      $("#statSelf").textContent=state.selfLove.length;
+    }
+    function coach(){
+      const openRoutine=state.routines.find(r=>!r.done);
+      const openAvoid=state.tasks.find(t=>!t.done && t.type==="Schiebe-Aufgabe");
+      const openTask=state.tasks.find(t=>!t.done);
+      let title="Wasser trinken und kurz ankommen.", text="Starte körperlich. Dann erst planen.", step="Wasser trinken";
+      if(openRoutine){ title=openRoutine.title; text="Erledige deinen nächsten Morgen-Baustein."; step=openRoutine.title; }
+      else if(!state.morningSaved){ title="Morgenstart speichern."; text="Gefühl, Bedürfnis und kleine Sache festhalten."; step="Morgenstart speichern"; }
+      else if(state.avoidTask && openAvoid){ title="10 Minuten Schiebe-Aufgabe."; text="Nicht fertig werden. Nur beginnen."; step="10 Minuten: "+state.avoidTask; }
+      else if(openTask){ title=openTask.title; text="Das ist dein nächster guter Schritt."; step=openTask.title; }
+      else if(state.selfLove.length===0){ title="Eine Selbstliebe-Murmel sammeln."; text="Nicht leisten. Freundlich mit dir handeln."; step="Eine Selbstliebe-Murmel eintragen"; }
+      else if(!state.eveningSaved && new Date().getHours()>=18){ title="Abendabschluss machen."; text="Sichtbar machen, was du geschafft hast."; step="Abendabschluss speichern"; }
+      return {title,text,step,line:"Dein nächster guter Schritt: "+step};
+    }
+    function renderNow(){
+      const c=coach();
+      $("#nowTitle").textContent=c.title;
+      $("#nowText").textContent=c.text;
+      $("#phaseBadge").textContent=phaseLabel();
+    }
+    function phaseLabel(){
+      if(!state.morningSaved) return "Morgen";
+      if(progress().pct<60) return "Tag";
+      if(!state.eveningSaved) return "Abend";
+      return "Rund";
+    }
+    function doNow(){
+      const c=coach();
+      const r=state.routines.find(x=>!x.done && x.title===c.step);
+      if(r){r.done=true; recordSuccess("Routine erledigt: "+r.title); celebrate(); save(); return;}
+      const t=state.tasks.find(x=>!x.done && c.step.includes(x.title));
+      if(t){t.done=true; recordSuccess("Aufgabe erledigt: "+t.title); celebrate(); save(); return;}
+      toast("Nächsten Schritt unten eintragen oder abhaken.");
+    }
+    function emojiCards(container, arr, selected, multi, cb){
+      $(container).innerHTML=arr.map(([e,t])=>`<button class="emoji-card ${(multi?selected.includes(t):selected===t)?"active":""}" data-val="${esc(t)}"><span class="e">${e}</span><span>${esc(t)}</span></button>`).join("");
+      $$(container+" [data-val]").forEach(b=>b.onclick=()=>cb(b.dataset.val));
+    }
+    function renderMorning(){
+      $("#routineList").innerHTML=state.routines.map((r,i)=>`
+        <div class="routine-item">
+          <div class="row">
+            <div class="left">
+              <button class="check ${r.done?"done":""}" data-routine="${i}">✓</button>
+              <div>
+                <div class="item-title">${esc(r.title)}</div>
+                <div class="item-meta">${esc(scheduleLabel(r))}</div>
+              </div>
+            </div>
+          </div>
+        </div>`).join("");
+      $$("[data-routine]").forEach(b=>b.onclick=()=>{const r=state.routines[+b.dataset.routine];r.done=!r.done;if(r.done){recordSuccess("Routine erledigt: "+r.title);celebrate()}save()});
+      emojiCards("#moodGrid",opts.moods,state.mood,true,v=>{state.mood=state.mood.includes(v)?state.mood.filter(x=>x!==v):[...state.mood,v];save()});
+      emojiCards("#needGrid",opts.needs,state.need,false,v=>{state.need=v;save()});
+      $("#smallThing").value=state.smallThing;
+      $("#morningBadge").textContent=state.routines.filter(r=>r.done).length+"/"+state.routines.length;
+    }
+    function saveMorning(){
+      state.smallThing=$("#smallThing").value.trim();
+      state.morningSaved=true;
+      if(state.smallThing && !state.tasks.some(t=>t.source==="smallThing")){
+        state.tasks.unshift({id:uid("t"),title:state.smallThing,type:"kleine Sache",done:false,important:true,source:"smallThing",scheduleMode:"flexibel",time:""});
+      }
+      save(); toast("Morgenstart gespeichert.");
+    }
+    function renderCounts(){
+      $("#avoidTask").value=state.avoidTask;
+      $("#selfCareGoal").value=state.selfCareGoal;
+      $("#dayGoal").value=state.dayGoal;
+      $("#stepsInput").value=state.steps||"";
+      const all=[...goals().map(g=>({...g,kind:"goal"})),...state.tasks.map(t=>({...t,kind:"task"}))];
+      $("#taskList").innerHTML=all.length?all.map(x=>{
+        const idx=x.kind==="task"?state.tasks.findIndex(t=>t.id===x.id):-1;
+        return `<div class="item">
+          <div class="row">
+            <div class="left">
+              <button class="check ${x.done?"done":""}" ${x.kind==="task"?`data-task="${idx}"`:`data-goal="${x.id}"`}>✓</button>
+              <div>
+                <div class="item-title">${esc(x.title)} <span class="type">${esc(x.type||x.kind)}</span></div>
+                <div class="item-meta">${esc(scheduleLabel(x))}</div>
+              </div>
+            </div>
+            ${x.kind==="task"?`<button class="chip" data-rmt="${idx}">Löschen</button>`:""}
+          </div>
+          ${x.kind==="task"?`
+          <div class="schedule-row">
+            <input value="${esc(x.title)}" data-edit-title="${idx}">
+            <select class="scheduleMode" data-edit-mode="${idx}">${scheduleOptions(x.scheduleMode)}</select>
+            <input class="timeField ${x.scheduleMode==="zeit"?"":"hidden"}" type="time" value="${esc(x.time||"")}" data-edit-time="${idx}">
+          </div>`:""}
+        </div>`;
+      }).join(""):`<div class="empty">Noch keine Aufgaben. Starte mit deiner Schiebe-Aufgabe.</div>`;
+      $$("[data-task]").forEach(b=>b.onclick=()=>{const t=state.tasks[+b.dataset.task];t.done=!t.done;if(t.done){recordSuccess("Aufgabe erledigt: "+t.title);celebrate()}save()});
+      $$("[data-rmt]").forEach(b=>b.onclick=()=>{state.tasks.splice(+b.dataset.rmt,1);save()});
+      $$("[data-edit-title]").forEach(inp=>inp.onchange=()=>{state.tasks[+inp.dataset.editTitle].title=inp.value.trim();save()});
+      $$("[data-edit-mode]").forEach(sel=>sel.onchange=()=>{const t=state.tasks[+sel.dataset.editMode];t.scheduleMode=sel.value;if(sel.value!=="zeit")t.time="";save()});
+      $$("[data-edit-time]").forEach(inp=>inp.onchange=()=>{state.tasks[+inp.dataset.editTime].time=inp.value;save()});
+      $("#taskBadge").textContent=state.tasks.filter(t=>!t.done).length+" offen";
+      bindScheduleVisibility();
+    }
+    function saveCore(){
+      state.avoidTask=$("#avoidTask").value.trim();
+      state.selfCareGoal=$("#selfCareGoal").value.trim();
+      state.dayGoal=$("#dayGoal").value.trim();
+      state.steps=Number($("#stepsInput").value||0);
+      if(state.avoidTask && !state.tasks.some(t=>t.source==="avoidTask")){
+        state.tasks.unshift({id:uid("t"),title:state.avoidTask,type:"Schiebe-Aufgabe",done:false,important:true,source:"avoidTask",scheduleMode:"flexibel",time:""});
+      }
+      if(state.selfCareGoal && !state.tasks.some(t=>t.source==="selfCareGoal")){
+        state.tasks.push({id:uid("t"),title:state.selfCareGoal,type:"Selbstfürsorge",done:false,important:true,source:"selfCareGoal",scheduleMode:"flexibel",time:""});
+      }
+      save(); toast("Heute zählt gespeichert.");
+    }
+    function addTask(){
+      const title=$("#taskInput").value.trim(); if(!title)return;
+      const mode=$("#taskScheduleMode").value;
+      state.tasks.push({id:uid("t"),title,type:$("#taskType").value,done:false,scheduleMode:mode,time:mode==="zeit"?$("#taskTime").value:""});
+      $("#taskInput").value=""; save();
+    }
+    function renderEvidence(){
+      $("#successList").innerHTML=state.successes.length?state.successes.slice(0,8).map((s,i)=>`
+        <div class="item"><div class="row"><div><div class="item-title">✓ ${esc(s.text)}</div><div class="item-meta">${esc(s.time)}</div></div><button class="chip" data-rms="${i}">Löschen</button></div></div>`).join(""):`<div class="empty">Noch kein Erfolg sichtbar.</div>`;
+      $$("[data-rms]").forEach(b=>b.onclick=()=>{state.successes.splice(+b.dataset.rms,1);save()});
+      $("#selfProgress").style.width=Math.min(100,state.selfLove.length/5*100)+"%";
+      $("#selfLoveList").innerHTML=state.selfLove.length?state.selfLove.slice(0,8).map((m,i)=>`
+        <div class="item"><div class="row"><div><div class="item-title">🫶 ${esc(m.text)}</div><div class="item-meta">${esc(m.type)} · ${esc(m.time)}</div></div><button class="chip" data-rmm="${i}">Löschen</button></div></div>`).join(""):`<div class="empty">Noch keine Murmel. Was war freundlich zu dir?</div>`;
+      $$("[data-rmm]").forEach(b=>b.onclick=()=>{state.selfLove.splice(+b.dataset.rmm,1);save()});
+    }
+    function addSuccess(){const text=$("#successInput").value.trim(); if(!text)return; recordSuccess(text); $("#successInput").value=""; celebrate(); save();}
+    function addSelfLove(){const text=$("#selfLoveInput").value.trim(); if(!text)return; state.selfLove.unshift({text,type:$("#selfLoveType").value,time:now()}); $("#selfLoveInput").value=""; celebrate(); save();}
+    function recordSuccess(text){state.successes.unshift({text,time:now()});state.successes=state.successes.slice(0,50)}
+    function renderEvening(){
+      $("#eveningGood").value=state.evening.good;
+      $("#eveningLearned").value=state.evening.learned;
+      $("#eveningProud").value=state.evening.proud;
+      $("#tomorrow").value=state.evening.tomorrow;
+    }
+    function saveEvening(){
+      state.evening={good:$("#eveningGood").value.trim(),learned:$("#eveningLearned").value.trim(),proud:$("#eveningProud").value.trim(),tomorrow:$("#tomorrow").value.trim()};
+      state.eveningSaved=true;
+      if(state.evening.good) recordSuccess("Abend: "+state.evening.good);
+      save(); toast("Abendabschluss gespeichert.");
+    }
+    function renderSide(){
+      const p=progress();
+      $("#overviewBadge").textContent=p.pct+"%";
+      $("#overviewProgress").style.width=p.pct+"%";
+      const all=[...state.routines.map(x=>({...x,kind:"Routine"})),...goals().map(x=>({...x,kind:"Ziel"})),...state.tasks.map(x=>({...x,kind:"Aufgabe"}))];
+      $("#overviewList").innerHTML=all.slice(0,12).map(x=>`
+        <div class="item"><div class="left"><span class="check ${x.done?"done":""}">✓</span><div><div class="item-title">${esc(x.title)}</div><div class="item-meta">${esc(x.kind)} · ${esc(scheduleLabel(x))}</div></div></div></div>`).join("");
+      $("#affirmationText").textContent=state.affirmation;
+      $("#startStreak").textContent=streak("morning");
+      $("#selfStreak").textContent=streak("self");
+      $("#closeStreak").textContent=streak("close");
+      const c=coach();
+      $("#coachTitle").textContent=c.title;
+      $("#coachText").textContent=c.text;
+    }
+    function smartAffirmation(){
+      if(state.mood.includes("müde")) state.affirmation="Mein Körper ist mein Partner, nicht mein Gegner.";
+      else if(state.mood.includes("unruhig")||state.mood.includes("ängstlich")) state.affirmation="Ich darf unruhig sein und trotzdem bei mir bleiben.";
+      else if(state.mood.includes("überfordert")) state.affirmation="Ich mache es kleiner und bleibe freundlich.";
+      else if(state.need==="Mut") state.affirmation="Ich handle, bevor ich mich bewerte.";
+      else if(state.need==="Selbstfürsorge") state.affirmation="Selbstliebe ist eine kleine Handlung.";
+      else state.affirmation=affirmations[Math.floor(Math.random()*affirmations.length)];
+      save();
+    }
+    function renderSettings(){
+      $("#routineSettings").innerHTML=templates.routines.map((r,i)=>`
+        <div class="item">
+          <div class="row"><div><div class="item-title">${esc(r.title)}</div><div class="item-meta">${esc(scheduleLabel(r))} · ${r.active?"aktiv":"inaktiv"}</div></div><button class="chip" data-tpl="${i}">${r.active?"aus":"an"}</button></div>
+          <div class="schedule-row">
+            <input value="${esc(r.title)}" data-rt-title="${i}">
+            <select class="scheduleMode" data-rt-mode="${i}">${scheduleOptions(r.scheduleMode)}</select>
+            <input class="timeField ${r.scheduleMode==="zeit"?"":"hidden"}" type="time" value="${esc(r.time||"")}" data-rt-time="${i}">
+          </div>
+        </div>`).join("");
+      $$("[data-tpl]").forEach(b=>b.onclick=()=>{templates.routines[+b.dataset.tpl].active=!templates.routines[+b.dataset.tpl].active;save()});
+      $$("[data-rt-title]").forEach(inp=>inp.onchange=()=>{templates.routines[+inp.dataset.rtTitle].title=inp.value.trim();save()});
+      $$("[data-rt-mode]").forEach(sel=>sel.onchange=()=>{const r=templates.routines[+sel.dataset.rtMode];r.scheduleMode=sel.value;if(sel.value!=="zeit")r.time="";save()});
+      $$("[data-rt-time]").forEach(inp=>inp.onchange=()=>{templates.routines[+inp.dataset.rtTime].time=inp.value;save()});
+      bindScheduleVisibility();
+    }
+    function addRoutineTemplate(){
+      const title=$("#newRoutineTitle").value.trim(); if(!title)return;
+      const mode=$("#newRoutineScheduleMode").value;
+      templates.routines.push({id:uid("tpl"),title,scheduleMode:mode,time:mode==="zeit"?$("#newRoutineTime").value:"",active:true});
+      $("#newRoutineTitle").value=""; $("#newRoutineTime").value="";
+      save(); toast("Routine-Vorlage gespeichert. Gilt ab morgen.");
+    }
+    function renderJournal(){
+      const p=progress();
+      const done=[...state.routines,...goals(),...state.tasks].filter(x=>x.done);
+      const open=state.tasks.filter(x=>!x.done);
+      $("#journal").value=[
+        "📔 Mein Daily Life – "+$("#dateLine").textContent,
+        "",
+        "🌅 MORGENSTART",
+        "Gefühl: "+(state.mood.join(", ")||"—"),
+        "Bedürfnis: "+(state.need||"—"),
+        "Kleine Sache: "+(state.smallThing||"—"),
+        "",
+        "🧭 HEUTE ZÄHLT",
+        "Schiebe-Aufgabe: "+(state.avoidTask||"—"),
+        "Selbstfürsorge: "+(state.selfCareGoal||"—"),
+        "Tagesziel: "+(state.dayGoal||"—"),
+        "Schritte: "+Number(state.steps||0).toLocaleString("de-DE"),
+        "",
+        "📊 TAGESSTAND",
+        `Erledigt: ${p.done}/${p.total} Punkte (${p.pct}%)`,
+        `Streaks: Morgen ${streak("morning")} · Selbstliebe ${streak("self")} · Abend ${streak("close")}`,
+        "",
+        "✅ ERLEDIGT",
+        ...(done.length?done.map(x=>"✓ "+x.title+" · "+scheduleLabel(x)):["—"]),
+        "",
+        "🗒️ OFFEN / MITGENOMMEN",
+        ...(open.length?open.map(x=>"○ "+x.title+" · "+scheduleLabel(x)):["—"]),
+        "",
+        "✨ SATZ DES TAGES",
+        "„"+state.affirmation+"“",
+        "",
+        "🫶 SELBSTLIEBE-MURMELN",
+        ...(state.selfLove.length?state.selfLove.map(x=>"• "+x.text+" ("+x.type+")"):["—"]),
+        "",
+        "🏆 ERFOLGE",
+        ...(state.successes.length?state.successes.slice(0,14).map(x=>"• "+x.text+" · "+x.time):["—"]),
+        "",
+        "🌙 ABENDREFLEXION",
+        "Erfolgreich: "+(state.evening.good||"—"),
+        "Gelernt: "+(state.evening.learned||"—"),
+        "Stolz: "+(state.evening.proud||"—"),
+        "Morgen wichtig: "+(state.evening.tomorrow||"—"),
+        "",
+        "💚 COACH-SATZ",
+        coach().title+" – "+coach().step
+      ].join("\\n");
+    }
+    function toast(t){$("#toast").textContent=t;$("#toast").classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>$("#toast").classList.remove("show"),1600)}
+    function celebrate(){
+      const wrap=$("#celebrate"); wrap.innerHTML="";
+      const colors=["#4f7a63","#957251","#f0c9a5","#8fb79d","#ffffff"];
+      for(let i=0;i<28;i++){const c=document.createElement("span");c.className="confetti";c.style.left=Math.random()*100+"vw";c.style.animationDelay=Math.random()*180+"ms";c.style.background=colors[Math.floor(Math.random()*colors.length)];wrap.appendChild(c)}
+      setTimeout(()=>wrap.innerHTML="",1000);
+    }
+    load(); bind(); render();
+  </script>
+</body>
+</html>

@@ -1,3 +1,3 @@
-# Mein Daily Life v2.1
+# Mein Daily Life v3.0
 
-Geführter Tagesbegleiter mit KI-light-Coach: stimmungsbasierter Tagesimpuls, passender Glaubenssatz, Coach-Schritt und automatischer Abendabschluss.
+Geführter Tagesbegleiter mit modernem Dashboard, Jetzt-gerade-Coach, freundlichen Streaks, Selbstliebe-Murmeln, Erfolgsmanagement und Apple-Notes-Export.
