@@ -1,3 +1,3 @@
-# Mein Daily OS v1
+# Mein Daily Life v3.6
 
-Apple-inspirierte statische Daily-Planning- und Reflection-App mit Heute, Capture, Plan, Reflexion und Bereiche.
+Gezielte Weiterentwicklung der bestehenden Daily-App: Routinen als eigener Bereich, Zwei-Gläser-Murmel-System, Ziele in drei Ebenen und kompakte Statusanzeige.

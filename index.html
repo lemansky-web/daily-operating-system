@@ -3,49 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Mein Daily OS · Version 1</title>
+  <title>Mein Daily Life · v3.6</title>
   <style>
     :root{
-      --bg:#f4f4f6;
+      --bg:#f2f2f7;
       --surface:#ffffff;
-      --surface-raised:#fbfbfd;
-      --surface-muted:#ededf1;
+      --surface-2:#f8f8fb;
+      --surface-3:#eeeeF2;
       --text:#1d1d1f;
-      --text-soft:#3a3a3c;
+      --text-2:#3a3a3c;
       --muted:#6e6e73;
       --muted-2:#8e8e93;
       --line:rgba(60,60,67,.12);
       --line-soft:rgba(60,60,67,.08);
       --accent:#4f7480;
-      --accent-2:#6e8992;
       --accent-soft:rgba(79,116,128,.11);
       --green:#5e8a6f;
-      --orange:#b17a45;
-      --red:#a75f5f;
+      --gold:#a77d48;
+      --red:#a95f5f;
       --shadow:0 12px 28px rgba(0,0,0,.045);
       --radius-xl:30px;
       --radius-lg:22px;
       --radius-md:16px;
-      --nav-height:78px;
+      --nav-height:80px;
       --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;
     }
 
     html[data-theme="dark"]{
       --bg:#000000;
       --surface:#1c1c1e;
-      --surface-raised:#242426;
-      --surface-muted:#2c2c2e;
+      --surface-2:#2c2c2e;
+      --surface-3:#3a3a3c;
       --text:#f5f5f7;
-      --text-soft:#e5e5ea;
+      --text-2:#e5e5ea;
       --muted:#a1a1a6;
       --muted-2:#8e8e93;
       --line:rgba(255,255,255,.13);
-      --line-soft:rgba(255,255,255,.08);
+      --line-soft:rgba(255,255,255,.075);
       --accent:#8fb4bf;
-      --accent-2:#a6c5cd;
       --accent-soft:rgba(143,180,191,.16);
       --green:#86b894;
-      --orange:#d1a06f;
+      --gold:#d1a06f;
       --red:#d48787;
       --shadow:0 12px 28px rgba(0,0,0,.34);
     }
@@ -60,26 +58,21 @@
       -webkit-font-smoothing:antialiased;
       line-height:1.42;
     }
-
-    button,input,textarea,select{font:inherit}
+    button,input,select,textarea{font:inherit}
     button{border:0;cursor:pointer;color:inherit}
-    input,textarea,select{
+    input,select,textarea{
       width:100%;
       min-height:48px;
       border:1px solid var(--line-soft);
-      border-radius:15px;
-      background:var(--surface-raised);
+      background:var(--surface-2);
       color:var(--text);
+      border-radius:14px;
       padding:12px 14px;
       outline:none;
       transition:border-color .16s ease, background .16s ease, box-shadow .16s ease;
     }
-    textarea{
-      min-height:96px;
-      resize:vertical;
-      line-height:1.5;
-    }
-    input:focus,textarea:focus,select:focus{
+    textarea{min-height:130px;resize:vertical;line-height:1.5}
+    input:focus,select:focus,textarea:focus{
       border-color:rgba(79,116,128,.42);
       box-shadow:0 0 0 4px var(--accent-soft);
       background:var(--surface);
@@ -95,7 +88,7 @@
     .shell{
       max-width:1180px;
       margin:0 auto;
-      padding:14px 14px calc(var(--nav-height) + 28px);
+      padding:16px 14px calc(var(--nav-height) + 28px);
     }
 
     .topbar{
@@ -129,15 +122,15 @@
       border-radius:11px;
       background:var(--surface);
       border:1px solid var(--line-soft);
+      color:var(--accent);
       display:grid;
       place-items:center;
-      color:var(--accent);
       font-weight:800;
       flex:0 0 auto;
     }
     h1{
       margin:0;
-      font-size:clamp(22px,3.4vw,32px);
+      font-size:clamp(22px,3.3vw,32px);
       line-height:1.05;
       letter-spacing:-.75px;
       font-weight:760;
@@ -151,18 +144,15 @@
       text-overflow:ellipsis;
     }
     .icon-button{
-      width:40px;
-      height:40px;
-      border-radius:999px;
+      width:40px;height:40px;border-radius:999px;
       background:var(--surface);
       border:1px solid var(--line-soft);
-      display:grid;
-      place-items:center;
+      display:grid;place-items:center;
       transition:transform .16s ease, background .16s ease;
     }
     .icon-button:active{transform:scale(.96)}
 
-    .app-nav{
+    .nav{
       position:fixed;
       left:10px;
       right:10px;
@@ -180,9 +170,9 @@
       overflow:auto;
       -webkit-overflow-scrolling:touch;
     }
-    .app-nav button{
+    .nav button{
       flex:1 0 auto;
-      min-width:72px;
+      min-width:78px;
       border-radius:18px;
       padding:9px 10px;
       background:transparent;
@@ -191,26 +181,28 @@
       font-weight:700;
       transition:background .16s ease, color .16s ease, transform .16s ease;
     }
-    .app-nav button.active{
-      background:var(--surface-muted);
+    .nav button.active{
+      background:var(--surface-3);
       color:var(--text);
     }
-    .app-nav button:active{transform:scale(.97)}
+    .nav button:active{transform:scale(.97)}
 
     .page{display:none}
     .page.active{display:block}
-    .page-grid{
+    .grid{
       display:grid;
-      gap:14px;
       grid-template-columns:minmax(0,1fr);
-    }
-    .main-stack,.side-stack{
-      display:grid;
       gap:14px;
-      align-content:start;
+    }
+    .stack{display:grid;gap:14px;align-content:start;min-width:0}
+    .card{
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      border-radius:var(--radius-lg);
+      padding:18px;
+      box-shadow:none;
       min-width:0;
     }
-
     .focus-card{
       background:var(--surface);
       border:1px solid var(--line-soft);
@@ -228,25 +220,16 @@
     }
     .focus-title{
       margin:0;
-      font-size:clamp(34px,6vw,54px);
+      font-size:clamp(34px,5.2vw,54px);
       line-height:.98;
       letter-spacing:-1.8px;
       font-weight:790;
     }
     .focus-text{
-      color:var(--text-soft);
+      color:var(--text-2);
       font-size:16px;
       margin:12px 0 0;
       max-width:760px;
-    }
-
-    .card{
-      background:var(--surface);
-      border:1px solid var(--line-soft);
-      border-radius:var(--radius-lg);
-      padding:18px;
-      box-shadow:none;
-      min-width:0;
     }
     .card-header{
       display:flex;
@@ -267,14 +250,43 @@
       font-size:13px;
       margin:5px 0 0;
     }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      min-height:26px;
+      padding:5px 9px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:12px;
+      font-weight:720;
+      white-space:nowrap;
+    }
 
-    .section-label{
+    .status-strip{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-bottom:14px;
+    }
+    .status-pill{
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      border-radius:18px;
+      padding:14px;
+      min-width:0;
+    }
+    .status-value{
+      font-size:27px;
+      line-height:1;
+      letter-spacing:-.75px;
+      font-weight:760;
+    }
+    .status-label{
       color:var(--muted);
       font-size:12px;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-      margin:2px 0 8px;
+      margin-top:5px;
+      font-weight:650;
     }
 
     .btn{
@@ -292,7 +304,7 @@
       transition:transform .16s ease, opacity .16s ease, background .16s ease;
     }
     .btn.secondary{
-      background:var(--surface-raised);
+      background:var(--surface-2);
       color:var(--text);
       border:1px solid var(--line-soft);
     }
@@ -304,62 +316,20 @@
     }
     .btn:active{transform:scale(.97)}
     .btn:hover{opacity:.9}
-    .button-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-    }
-
-    .status-grid,.smart-grid,.area-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px;
-    }
-    .status-tile,.smart-tile,.area-card{
-      background:var(--surface-raised);
-      border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:14px;
-      min-width:0;
-    }
-    .status-value,.smart-value{
-      font-size:22px;
-      font-weight:760;
-      letter-spacing:-.5px;
-      line-height:1.05;
-    }
-    .status-label,.smart-label{
-      color:var(--muted);
-      font-size:12px;
-      font-weight:650;
-      margin-top:4px;
-    }
+    .button-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
     .list{display:grid;gap:8px}
     .list-item{
-      background:var(--surface-raised);
+      background:var(--surface-2);
       border:1px solid var(--line-soft);
       border-radius:18px;
       padding:13px;
       min-width:0;
     }
-    .item-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .item-left{
-      display:flex;
-      align-items:center;
-      gap:11px;
-      min-width:0;
-    }
+    .item-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .item-left{display:flex;align-items:center;gap:11px;min-width:0}
     .check{
-      width:34px;
-      height:34px;
-      border-radius:50%;
+      width:34px;height:34px;border-radius:50%;
       border:1px solid var(--line);
       background:var(--surface);
       color:transparent;
@@ -369,11 +339,7 @@
       flex:0 0 auto;
       transition:transform .16s ease, background .16s ease, border-color .16s ease;
     }
-    .check.done{
-      color:white;
-      background:var(--accent);
-      border-color:var(--accent);
-    }
+    .check.done{background:var(--accent);border-color:var(--accent);color:white}
     .check:active{transform:scale(.92)}
     .item-title{
       font-size:15px;
@@ -386,35 +352,81 @@
       color:var(--muted);
       margin-top:2px;
     }
-
-    .priority-dot{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      background:var(--muted-2);
-      display:inline-block;
-      margin-right:6px;
-    }
-    .priority-dot.high{background:var(--orange)}
-    .priority-dot.critical{background:var(--red)}
-    .priority-dot.low{background:var(--green)}
-
-    .chip-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
+    .type-pill{
+      display:inline-flex;
       align-items:center;
+      margin-left:6px;
+      padding:3px 7px;
+      border-radius:999px;
+      background:var(--surface-3);
+      color:var(--muted);
+      font-size:11px;
+      font-weight:700;
     }
+
+    .routine-list{display:grid;gap:10px}
+    .routine-item{
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      border-radius:20px;
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .routine-item:before{
+      content:"";
+      position:absolute;
+      left:0;top:0;bottom:0;
+      width:4px;
+      background:var(--accent);
+      opacity:.75;
+    }
+    .routine-item.done{
+      background:var(--surface-2);
+    }
+    .routine-title{
+      font-weight:740;
+      letter-spacing:-.18px;
+      font-size:15px;
+    }
+    .routine-meta{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+    .routine-check{
+      width:42px;height:42px;border-radius:50%;
+      background:var(--surface-2);
+      border:1px solid var(--line-soft);
+      color:transparent;
+      display:grid;place-items:center;
+      font-weight:800;
+      flex:0 0 auto;
+    }
+    .routine-check.done{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    .form-grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .two-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .three-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .chip-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
     .chip{
       min-height:34px;
       border-radius:999px;
       padding:8px 11px;
-      background:var(--surface-raised);
+      background:var(--surface-2);
       border:1px solid var(--line-soft);
       color:var(--muted);
       font-size:13px;
       font-weight:680;
-      transition:background .16s ease, color .16s ease, transform .16s ease;
+      transition:transform .16s ease, background .16s ease, color .16s ease;
     }
     .chip.active{
       background:var(--accent);
@@ -422,65 +434,103 @@
       border-color:var(--accent);
     }
     .chip:active{transform:scale(.97)}
+    .hidden{display:none!important}
 
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
+    .goal-card{
+      background:var(--surface-2);
+      border:1px solid var(--line-soft);
+      border-radius:20px;
+      padding:15px;
     }
-    .two-grid{
-      display:grid;
-      grid-template-columns:1fr;
+    .goal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
       gap:12px;
+      margin-bottom:10px;
     }
-    .timeline{
-      display:grid;
-      gap:10px;
-    }
-    .time-block{
-      display:grid;
-      grid-template-columns:64px minmax(0,1fr);
-      gap:12px;
-      align-items:start;
-    }
-    .time-label{
-      color:var(--muted);
-      font-size:12px;
-      font-weight:700;
-      padding-top:12px;
-      text-align:right;
-    }
-
-    .capture-input{
-      display:grid;
-      gap:10px;
-    }
-    .capture-entry{
-      min-height:74px;
-      font-size:17px;
-    }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
+    .goal-level{
+      color:var(--accent);
+      background:var(--accent-soft);
       border-radius:999px;
       padding:4px 8px;
-      background:var(--accent-soft);
-      color:var(--accent);
       font-size:11px;
       font-weight:720;
-      margin-right:4px;
+    }
+    .goal-progress{
+      height:7px;
+      border-radius:999px;
+      background:var(--surface-3);
+      overflow:hidden;
+      margin-top:12px;
+    }
+    .goal-progress span{
+      display:block;
+      height:100%;
+      width:0%;
+      background:var(--accent);
+      border-radius:999px;
+      transition:width .2s ease;
     }
 
-    .prompt-card{
-      background:var(--surface-raised);
+    .marble-system{
+      display:grid;
+      gap:16px;
+    }
+    .jar-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .jar{
+      min-height:235px;
+      border-radius:30px;
+      background:var(--surface-2);
       border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:14px;
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .jar-title{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:720;
+      margin-bottom:18px;
+    }
+    .marble-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-content:flex-end;
+      min-height:160px;
+      justify-content:center;
+    }
+    .marble{
+      width:35px;height:35px;border-radius:50%;
+      background:radial-gradient(circle at 30% 28%,#fff 0%,#f8fbfc 10%,var(--marble,#9bb8c2) 45%,#3c6471 100%);
+      box-shadow:inset -4px -6px 10px rgba(0,0,0,.16), inset 3px 4px 8px rgba(255,255,255,.52), 0 5px 10px rgba(0,0,0,.07);
+      animation:marbleIn .35s ease;
+    }
+    .marble.moving{
+      animation:marbleMove .75s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes marbleIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
+    @keyframes marbleMove{
+      0%{transform:translateX(-92px) translateY(-16px) scale(.82);opacity:.2}
+      60%{transform:translateX(8px) translateY(0) scale(1.04);opacity:1}
+      100%{transform:translateX(0) translateY(0) scale(1)}
     }
 
+    .notes-preview{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      font-size:13px;
+      min-height:280px;
+      background:var(--surface-2);
+    }
     .empty{
-      background:var(--surface-raised);
+      background:var(--surface-2);
       border:1px dashed var(--line);
       border-radius:18px;
       padding:16px;
@@ -488,14 +538,6 @@
       font-size:14px;
       text-align:center;
     }
-
-    .notes-export{
-      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
-      font-size:13px;
-      min-height:260px;
-      background:var(--surface-raised);
-    }
-
     .toast{
       position:fixed;
       left:50%;
@@ -513,51 +555,31 @@
       transition:opacity .16s ease, transform .16s ease;
       z-index:100;
     }
-    .toast.show{
-      opacity:1;
-      transform:translateX(-50%) translateY(0);
-    }
-
-    .footer{
-      text-align:center;
-      color:var(--muted-2);
-      font-size:12px;
-      margin:24px 0 2px;
-    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .footer{text-align:center;color:var(--muted-2);font-size:12px;margin:24px 0 2px}
 
     @media(min-width:720px){
       :root{--nav-height:0px}
       .shell{padding:18px 22px 42px}
       .topbar{margin:0 -22px 14px;padding:10px 22px}
-      .app-nav{
+      .nav{
         position:sticky;
         top:64px;
-        left:auto;
-        right:auto;
-        bottom:auto;
+        left:auto;right:auto;bottom:auto;
         margin-bottom:16px;
         box-shadow:none;
-        background:var(--surface-muted);
+        background:var(--surface-3);
         border-radius:999px;
-        max-width:720px;
+        max-width:860px;
       }
-      .app-nav button{
-        min-width:auto;
-        padding:9px 14px;
-      }
-      .page-grid{
-        grid-template-columns:minmax(0,1.18fr) minmax(300px,.82fr);
-      }
-      .status-grid{grid-template-columns:repeat(3,1fr)}
-      .smart-grid{grid-template-columns:repeat(4,1fr)}
-      .area-grid{grid-template-columns:repeat(2,1fr)}
+      .nav button{min-width:auto;padding:9px 14px}
+      .grid{grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr)}
+      .status-strip{grid-template-columns:repeat(4,1fr)}
       .two-grid{grid-template-columns:1fr 1fr}
-      .form-grid.task-form{grid-template-columns:minmax(0,1fr) 145px 145px 130px auto}
-      .form-grid.capture-form{grid-template-columns:minmax(0,1fr) 150px auto}
-    }
-
-    @media(min-width:1040px){
-      .area-grid{grid-template-columns:repeat(4,1fr)}
+      .three-grid{grid-template-columns:repeat(3,1fr)}
+      .form-grid.task-form{grid-template-columns:minmax(0,1fr) 140px 140px 126px auto}
+      .form-grid.goal-form{grid-template-columns:minmax(0,1fr) 135px 135px auto}
+      .form-grid.routine-form{grid-template-columns:minmax(0,1fr) 140px auto}
     }
 
     @media(max-width:719px){
@@ -566,8 +588,9 @@
       .card{padding:16px}
       .button-row .btn{flex:1 1 auto}
       .item-row{align-items:flex-start}
-      .time-block{grid-template-columns:54px minmax(0,1fr)}
-      .time-label{text-align:left}
+      .jar{min-height:205px;padding:14px}
+      .marble-grid{min-height:135px}
+      .marble{width:31px;height:31px}
     }
   </style>
 </head>
@@ -580,7 +603,7 @@
         <div class="brand">
           <div class="app-icon">●</div>
           <div>
-            <h1>Mein Daily OS</h1>
+            <h1>Mein Daily Life</h1>
             <div class="date-line" id="dateLine"></div>
           </div>
         </div>
@@ -588,26 +611,35 @@
       </div>
     </header>
 
-    <nav class="app-nav" aria-label="Hauptnavigation">
+    <nav class="nav">
       <button class="active" data-page="heute">Heute</button>
-      <button data-page="capture">Capture</button>
       <button data-page="plan">Plan</button>
+      <button data-page="routinen">Routinen</button>
+      <button data-page="ziele">Ziele</button>
+      <button data-page="selbstwert">Selbstwert</button>
       <button data-page="reflexion">Reflexion</button>
-      <button data-page="bereiche">Bereiche</button>
+      <button data-page="settings">Vorlagen</button>
     </nav>
 
     <section class="page active" id="page-heute">
-      <div class="page-grid">
-        <div class="main-stack">
+      <div class="status-strip">
+        <div class="status-pill"><div class="status-value" id="statusProgress">0%</div><div class="status-label">Tagesfortschritt</div></div>
+        <div class="status-pill"><div class="status-value" id="statusTop3">0/3</div><div class="status-label">Top 3 erledigt</div></div>
+        <div class="status-pill"><div class="status-value" id="statusMarbles">0/5</div><div class="status-label">Murmeln</div></div>
+        <div class="status-pill"><div class="status-value" id="statusRoutines">0/4</div><div class="status-label">Routinen</div></div>
+      </div>
+
+      <div class="grid">
+        <div class="stack">
           <section class="focus-card">
             <div>
               <div class="kicker">Jetzt gerade</div>
-              <h2 class="focus-title" id="nowTitle">Den Tag ruhig starten.</h2>
-              <p class="focus-text" id="nowText">Wähle eine konkrete Handlung, die dich heute weiterbringt.</p>
+              <h2 class="focus-title" id="nowTitle">Ruhig starten.</h2>
+              <p class="focus-text" id="nowText">Wähle den nächsten guten Schritt.</p>
             </div>
             <div class="button-row">
-              <button class="btn" id="completeNow">Als erledigt markieren</button>
-              <button class="btn secondary" data-go-page="capture">Gedanke erfassen</button>
+              <button class="btn" id="completeNow">Erledigt</button>
+              <button class="btn secondary" data-go-page="plan">Zum Plan</button>
             </div>
           </section>
 
@@ -615,355 +647,413 @@
             <div class="card-header">
               <div>
                 <h3 class="card-title">Heute zählt</h3>
-                <p class="card-subtitle">Eine Hauptaufgabe, drei Prioritäten und ein kleiner Selbstfürsorge-Schritt.</p>
+                <p class="card-subtitle">Aufgaben sind Tagesarbeit. Routinen sind Anker. Ziele sind Richtung.</p>
               </div>
             </div>
 
             <label for="mainTask">Wichtigste Aufgabe des Tages</label>
             <input id="mainTask" placeholder="Was macht den Tag wirklich sinnvoll?">
 
-            <label for="selfCare">Kleiner Selbstfürsorge-Schritt</label>
-            <input id="selfCare" placeholder="z. B. Spaziergang, Pause, früh ins Bett">
+            <label for="selfCareStep">Kleiner Selbstfürsorge-Schritt</label>
+            <input id="selfCareStep" placeholder="z. B. Pause, Spaziergang, Handy weglegen">
 
             <div class="button-row" style="margin-top:12px">
-              <button class="btn" id="saveTodayFocus">Heute speichern</button>
-              <button class="btn secondary" data-go-page="plan">Top 3 im Plan wählen</button>
+              <button class="btn" id="saveToday">Heute speichern</button>
+              <button class="btn secondary" data-go-page="routinen">Routinen öffnen</button>
             </div>
           </section>
 
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Top 3 für heute</h3>
-                <p class="card-subtitle">Aus deinen Aufgaben im Plan markiert.</p>
+                <h3 class="card-title">Top 3</h3>
+                <p class="card-subtitle">Aus deinen Aufgaben markiert. Direkt erledigbar.</p>
               </div>
             </div>
             <div class="list" id="todayTop3List"></div>
           </section>
         </div>
 
-        <aside class="side-stack">
+        <aside class="stack">
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Status</h3>
-                <p class="card-subtitle">Kompakt statt Health-Dashboard.</p>
+                <h3 class="card-title">Routinen heute</h3>
+                <p class="card-subtitle">Wiederkehrende Tagesanker.</p>
               </div>
+              <span class="badge" id="routineBadgeToday">0/4</span>
             </div>
-
-            <div class="status-grid">
-              <div class="status-tile">
-                <div class="status-value" id="energyValue">—</div>
-                <div class="status-label">Energie</div>
-              </div>
-              <div class="status-tile">
-                <div class="status-value" id="moodValue">—</div>
-                <div class="status-label">Stimmung</div>
-              </div>
-              <div class="status-tile">
-                <div class="status-value" id="sleepValue">—</div>
-                <div class="status-label">Schlaf</div>
-              </div>
-            </div>
-
-            <label>Energie</label>
-            <div class="chip-row" id="energyChips"></div>
-
-            <label>Stimmung</label>
-            <div class="chip-row" id="moodChips"></div>
-
-            <label>Schlaf</label>
-            <div class="chip-row" id="sleepChips"></div>
+            <div class="routine-list" id="todayRoutineList"></div>
           </section>
 
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Smarte Bereiche</h3>
-                <p class="card-subtitle">Schneller Blick auf offene Themen.</p>
+                <h3 class="card-title">Status sekundär</h3>
+                <p class="card-subtitle">Energie, Stimmung, Schlaf und Zielstatus.</p>
               </div>
             </div>
-            <div class="smart-grid">
-              <div class="smart-tile"><div class="smart-value" id="smartToday">0</div><div class="smart-label">Heute</div></div>
-              <div class="smart-tile"><div class="smart-value" id="smartWeek">0</div><div class="smart-label">Woche</div></div>
-              <div class="smart-tile"><div class="smart-value" id="smartImportant">0</div><div class="smart-label">Wichtig</div></div>
-              <div class="smart-tile"><div class="smart-value" id="smartWaiting">0</div><div class="smart-label">Warten auf</div></div>
-            </div>
-          </section>
-        </aside>
-      </div>
-    </section>
-
-    <section class="page" id="page-capture">
-      <div class="page-grid">
-        <div class="main-stack">
-          <section class="focus-card">
-            <div>
-              <div class="kicker">Capture</div>
-              <h2 class="focus-title">Raus aus dem Kopf.</h2>
-              <p class="focus-text">Gedanken, Aufgaben, Sorgen und Ideen schnell erfassen. Sortieren kommt später.</p>
-            </div>
-          </section>
-
-          <section class="card">
-            <div class="card-header">
+            <div class="three-grid">
               <div>
-                <h3 class="card-title">Inbox</h3>
-                <p class="card-subtitle">Eine Eingabe, ein Tag, fertig.</p>
+                <label>Energie</label>
+                <select id="energySelect"><option value="">—</option><option>niedrig</option><option>mittel</option><option>hoch</option></select>
               </div>
-            </div>
-
-            <div class="capture-input">
-              <textarea class="capture-entry" id="captureText" placeholder="Was soll aus deinem Kopf raus?"></textarea>
-              <div class="chip-row" id="captureTags"></div>
-              <div class="form-grid capture-form">
-                <select id="captureType">
-                  <option value="Gedanke">Gedanke</option>
-                  <option value="Aufgabe">Aufgabe</option>
-                  <option value="Sorge">Sorge</option>
-                  <option value="Idee">Idee</option>
-                  <option value="WartenAuf">Warten auf</option>
-                </select>
-                <button class="btn" id="addCapture">Erfassen</button>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        <aside class="side-stack">
-          <section class="card">
-            <div class="card-header">
               <div>
-                <h3 class="card-title">Inbox-Einträge</h3>
-                <p class="card-subtitle">Später in Aufgaben oder Bereiche überführen.</p>
+                <label>Stimmung</label>
+                <select id="moodSelect"><option value="">—</option><option>ruhig</option><option>klar</option><option>unruhig</option><option>müde</option><option>motiviert</option></select>
+              </div>
+              <div>
+                <label>Schlaf</label>
+                <select id="sleepSelect"><option value="">—</option><option>schlecht</option><option>okay</option><option>gut</option></select>
               </div>
             </div>
-            <div class="list" id="captureList"></div>
+            <button class="btn secondary" id="saveStatus" style="margin-top:12px">Status speichern</button>
           </section>
         </aside>
       </div>
     </section>
 
     <section class="page" id="page-plan">
-      <div class="page-grid">
-        <div class="main-stack">
+      <div class="grid">
+        <div class="stack">
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Neue Aufgabe</h3>
-                <p class="card-subtitle">Alltagstauglich: Aufgabe, Bereich, Priorität, nächster Schritt.</p>
+                <h3 class="card-title">Heutiger Plan</h3>
+                <p class="card-subtitle">Normale Aufgaben, Termine und Fokusblöcke. Keine Routinen.</p>
               </div>
+              <span class="badge" id="taskOpenBadge">0 offen</span>
             </div>
 
             <div class="form-grid task-form">
-              <input id="taskTitle" placeholder="Aufgabe">
-              <select id="taskArea"></select>
-              <select id="taskScope">
-                <option value="Heute">Heute</option>
-                <option value="Diese Woche">Diese Woche</option>
-                <option value="Wichtig">Wichtig</option>
-                <option value="Warten auf">Warten auf</option>
+              <input id="taskTitle" placeholder="Aufgabe, Termin oder Fokus">
+              <select id="taskType">
+                <option>Aufgabe</option>
+                <option>Termin</option>
+                <option>Fokus</option>
+              </select>
+              <select id="taskSchedule">
+                <option>Flexibel</option>
+                <option>Morgens</option>
+                <option>Mittags</option>
+                <option>Abends</option>
               </select>
               <select id="taskPriority">
                 <option value="normal">Normal</option>
                 <option value="hoch">Hoch</option>
                 <option value="kritisch">Kritisch</option>
-                <option value="niedrig">Niedrig</option>
               </select>
               <button class="btn" id="addTask">Hinzufügen</button>
             </div>
 
-            <label for="taskNext">Nächster konkreter Schritt</label>
+            <label for="taskNext">Nächster kleiner Schritt</label>
             <input id="taskNext" placeholder="Was ist der erste kleine Schritt?">
-          </section>
 
-          <section class="card">
-            <div class="card-header">
-              <div>
-                <h3 class="card-title">Tagesplan</h3>
-                <p class="card-subtitle">Timeline statt endloser Liste.</p>
-              </div>
-            </div>
-            <div class="timeline" id="timeline"></div>
+            <div class="list" id="taskList" style="margin-top:16px"></div>
           </section>
         </div>
 
-        <aside class="side-stack">
+        <aside class="stack">
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Smarte Listen</h3>
-                <p class="card-subtitle">Filtern ohne Komplexität.</p>
+                <h3 class="card-title">Top 3 Auswahl</h3>
+                <p class="card-subtitle">Maximal drei Aufgaben für den Tagesfokus.</p>
+              </div>
+              <span class="badge" id="top3Badge">0/3</span>
+            </div>
+            <div class="list" id="top3List"></div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page" id="page-routinen">
+      <div class="grid">
+        <div class="stack">
+          <section class="focus-card">
+            <div>
+              <div class="kicker">Routinen</div>
+              <h2 class="focus-title">Deine Tagesanker.</h2>
+              <p class="focus-text">Routinen sind keine Aufgaben. Sie halten deinen Tag stabil.</p>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Heute abhaken</h3>
+                <p class="card-subtitle">Schnell, ruhig, ohne Liste aufzublähen.</p>
+              </div>
+              <span class="badge" id="routineBadge">0/4</span>
+            </div>
+            <div class="routine-list" id="routineList"></div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Routinen-Vorlagen</h3>
+                <p class="card-subtitle">Gelten für neue Tage.</p>
               </div>
             </div>
-            <div class="chip-row" id="smartFilters"></div>
-            <div class="list" id="taskList" style="margin-top:14px"></div>
+            <div class="list" id="routineTemplateList"></div>
+            <div class="form-grid routine-form" style="margin-top:14px">
+              <input id="newRoutineTitle" placeholder="Neue Routine">
+              <select id="newRoutineAnchor">
+                <option>Morgens</option>
+                <option>Mittags</option>
+                <option>Abends</option>
+                <option>Flexibel</option>
+              </select>
+              <button class="btn" id="addRoutineTemplate">Vorlage hinzufügen</button>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page" id="page-ziele">
+      <div class="grid">
+        <div class="stack">
+          <section class="focus-card">
+            <div>
+              <div class="kicker">Ziele</div>
+              <h2 class="focus-title">Richtung statt nur Erledigung.</h2>
+              <p class="focus-text">Ziele zeigen, wofür deine heutigen Aufgaben wichtig sind.</p>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Ziel hinzufügen</h3>
+                <p class="card-subtitle">Kurzfristig, mittelfristig oder langfristig.</p>
+              </div>
+            </div>
+
+            <div class="form-grid goal-form">
+              <input id="goalTitle" placeholder="Ziel">
+              <select id="goalLevel">
+                <option value="kurzfristig">kurzfristig</option>
+                <option value="mittelfristig">mittelfristig</option>
+                <option value="langfristig">langfristig</option>
+              </select>
+              <select id="goalProgress">
+                <option value="0">0%</option>
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="75">75%</option>
+                <option value="100">100%</option>
+              </select>
+              <button class="btn" id="addGoal">Ziel hinzufügen</button>
+            </div>
+
+            <label for="goalWhy">Warum ist es wichtig?</label>
+            <input id="goalWhy" placeholder="Wofür zahlt dieses Ziel ein?">
+
+            <label for="goalNext">Nächster kleiner Schritt</label>
+            <input id="goalNext" placeholder="Was ist der nächste konkrete Schritt?">
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Zielübersicht</h3>
+                <p class="card-subtitle">Drei Ebenen, klar von Aufgaben getrennt.</p>
+              </div>
+            </div>
+            <div class="list" id="goalList"></div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page" id="page-selbstwert">
+      <div class="grid">
+        <div class="stack">
+          <section class="focus-card">
+            <div>
+              <div class="kicker">Selbstliebe</div>
+              <h2 class="focus-title">Murmeln sammeln.</h2>
+              <p class="focus-text">Jede Murmel steht für eine konkrete Handlung, mit der du gut für dich sorgst.</p>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Murmel-System</h3>
+                <p class="card-subtitle">Links offen. Rechts erreicht.</p>
+              </div>
+              <span class="badge" id="marbleBadge">0/5</span>
+            </div>
+
+            <div class="marble-system">
+              <div class="jar-row">
+                <div class="jar">
+                  <div class="jar-title">offen</div>
+                  <div class="marble-grid" id="openMarbles"></div>
+                </div>
+                <div class="jar">
+                  <div class="jar-title">erreicht</div>
+                  <div class="marble-grid" id="doneMarbles"></div>
+                </div>
+              </div>
+
+              <input id="selfLoveText" placeholder="Selbstliebe-Handlung, z. B. Pause gemacht">
+              <select id="selfLoveType">
+                <option>Selbstfürsorge</option>
+                <option>Mut</option>
+                <option>Grenze</option>
+                <option>Körper</option>
+                <option>Nicht geflüchtet</option>
+              </select>
+              <button class="btn" id="addMarble">Murmel erreichen</button>
+            </div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Erfolge</h3>
+                <p class="card-subtitle">Sichtbare Beweise für Selbstwert.</p>
+              </div>
+            </div>
+            <input id="successText" placeholder="Erfolg eintragen">
+            <button class="btn" id="addSuccess" style="margin-top:12px">Erfolg speichern</button>
+            <div class="list" id="successList" style="margin-top:14px"></div>
           </section>
         </aside>
       </div>
     </section>
 
     <section class="page" id="page-reflexion">
-      <div class="page-grid">
-        <div class="main-stack">
+      <div class="grid">
+        <div class="stack">
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Morgenstart</h3>
-                <p class="card-subtitle">Drei kurze Fragen. Kein Roman.</p>
+                <h3 class="card-title">Abendreflexion</h3>
+                <p class="card-subtitle">Kurz abschließen, nicht zerdenken.</p>
               </div>
             </div>
             <div class="two-grid">
-              <div class="prompt-card">
-                <label for="morningFeel">Wie fühle ich mich?</label>
-                <input id="morningFeel" placeholder="z. B. ruhig, müde, unruhig">
-              </div>
-              <div class="prompt-card">
-                <label for="morningNeed">Was brauche ich heute?</label>
-                <input id="morningNeed" placeholder="z. B. Struktur, Ruhe, Fokus">
-              </div>
-              <div class="prompt-card">
-                <label for="morningEnough">Was wäre heute genug?</label>
-                <input id="morningEnough" placeholder="Ein realistischer guter Tag">
-              </div>
-            </div>
-            <button class="btn" id="saveMorningReflection" style="margin-top:12px">Morgenstart speichern</button>
-          </section>
-
-          <section class="card">
-            <div class="card-header">
               <div>
-                <h3 class="card-title">Abendcheck</h3>
-                <p class="card-subtitle">Kurz abschließen, nicht analysieren.</p>
-              </div>
-            </div>
-            <div class="two-grid">
-              <div class="prompt-card">
                 <label for="eveningGood">Was war gut?</label>
                 <input id="eveningGood" placeholder="Ein Satz reicht">
               </div>
-              <div class="prompt-card">
+              <div>
                 <label for="eveningHard">Was war schwer?</label>
                 <input id="eveningHard" placeholder="Ehrlich und kurz">
               </div>
-              <div class="prompt-card">
+              <div>
                 <label for="eveningTomorrow">Was ist morgen wichtig?</label>
                 <input id="eveningTomorrow" placeholder="Eine Sache">
               </div>
             </div>
-            <button class="btn" id="saveEveningReflection" style="margin-top:12px">Abendcheck speichern</button>
+            <button class="btn" id="saveEvening" style="margin-top:12px">Abend speichern</button>
           </section>
         </div>
 
-        <aside class="side-stack">
+        <aside class="stack">
           <section class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title">Wochenreview</h3>
-                <p class="card-subtitle">Offen, geschafft, gelernt, loslassen.</p>
-              </div>
-            </div>
-            <label for="weekOpen">Offen</label>
-            <input id="weekOpen" placeholder="Was ist noch offen?">
-            <label for="weekDone">Geschafft</label>
-            <input id="weekDone" placeholder="Was habe ich geschafft?">
-            <label for="weekLearned">Gelernt</label>
-            <input id="weekLearned" placeholder="Was habe ich gelernt?">
-            <label for="weekLetGo">Loslassen</label>
-            <input id="weekLetGo" placeholder="Was darf ich loslassen?">
-            <button class="btn secondary" id="saveWeeklyReview" style="margin-top:12px">Wochenreview speichern</button>
-          </section>
-
-          <section class="card">
-            <div class="card-header">
-              <div>
-                <h3 class="card-title">Export</h3>
-                <p class="card-subtitle">Für Apple Notes oder Journal.</p>
+                <h3 class="card-title">Apple-Notes-Export</h3>
+                <p class="card-subtitle">Kopieren und sichern.</p>
               </div>
               <button class="btn secondary" id="copyExport">Kopieren</button>
             </div>
-            <textarea class="notes-export" id="exportText" readonly></textarea>
+            <textarea class="notes-preview" id="exportText" readonly></textarea>
           </section>
         </aside>
       </div>
     </section>
 
-    <section class="page" id="page-bereiche">
-      <div class="main-stack">
-        <section class="focus-card">
-          <div>
-            <div class="kicker">Bereiche</div>
-            <h2 class="focus-title">Ordnung zwischen Lebensfeldern.</h2>
-            <p class="focus-text">Teutonia, Karriere, Gesundheit und Privat behalten eigene Räume.</p>
-          </div>
-        </section>
-
-        <section class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Lebensbereiche</h3>
-              <p class="card-subtitle">Aufgaben, Capture und Notizen nach Bereichen geordnet.</p>
+    <section class="page" id="page-settings">
+      <div class="grid">
+        <div class="stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Routinen-Vorlagen</h3>
+                <p class="card-subtitle">Hier pflegst du wiederkehrende Tagesanker.</p>
+              </div>
             </div>
-          </div>
-          <div class="area-grid" id="areaGrid"></div>
-        </section>
+            <div class="list" id="settingsRoutineList"></div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Speicherung</h3>
+                <p class="card-subtitle">Lokal im Browser dieses Geräts.</p>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="item-title">Hinweis</div>
+              <div class="item-meta">iPhone und iPad synchronisieren noch nicht automatisch. Später sinnvoll: Backup/Import oder Cloud-Sync.</div>
+            </div>
+          </section>
+        </aside>
       </div>
     </section>
 
-    <footer class="footer">Mein Daily OS · Version 1 · lokal gespeichert</footer>
+    <footer class="footer">Mein Daily Life · v3.6 · Produktlogik verbessert</footer>
   </main>
 
   <script>
-    const $ = selector => document.querySelector(selector);
-    const $$ = selector => Array.from(document.querySelectorAll(selector));
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+    const today = new Date().toISOString().slice(0,10);
+    const stateKey = "mein_daily_life_v36_" + today;
+    const templateKey = "mein_daily_life_v36_templates";
+    const settingsKey = "mein_daily_life_v36_settings";
+    const MARBLE_TARGET = 5;
 
-    const todayKey = new Date().toISOString().slice(0,10);
-    const storageKey = "mein_daily_os_v1_state_" + todayKey;
-    const settingsKey = "mein_daily_os_v1_settings";
-
-    const defaultAreas = [
-      {id:"teutonia", name:"Teutonia", subtitle:"Jugendfußball, Organisation, Verein"},
-      {id:"karriere", name:"Karriere", subtitle:"Sport, IT, Koordination, Jobsuche"},
-      {id:"gesundheit", name:"Gesundheit", subtitle:"Energie, Schlaf, Bewegung"},
-      {id:"privat", name:"Privat", subtitle:"Alltag, Beziehungen, persönliche Themen"}
+    const defaultTemplates = [
+      {id:"morning", title:"Morgenstart", anchor:"Morgens", active:true},
+      {id:"frog", title:"Eat the Frog", anchor:"Morgens", active:true},
+      {id:"selflove", title:"Selbstliebe", anchor:"Flexibel", active:true},
+      {id:"evening", title:"Abendabschluss", anchor:"Abends", active:true}
     ];
 
-    const tagOptions = ["#Teutonia", "#Karriere", "#Gesundheit", "#Privat", "#WartenAuf"];
-    const statusOptions = {
-      energy:["niedrig","mittel","hoch"],
-      mood:["ruhig","klar","unruhig","müde","motiviert"],
-      sleep:["schlecht","okay","gut"]
-    };
+    let templates = {routines: defaultTemplates};
+    let settings = {theme:"light"};
+    let movingMarble = false;
 
     let state = {
-      today:{
-        mainTask:"",
-        selfCare:"",
-        energy:"",
-        mood:"",
-        sleep:""
-      },
-      capture:[],
+      today:{mainTask:"", selfCareStep:"", energy:"", mood:"", sleep:""},
+      routines:[],
       tasks:[
-        {id:uid("task"), title:"2 km Spaziergang", area:"gesundheit", scope:"Heute", priority:"normal", next:"Schuhe anziehen und los", done:false, top3:true, time:"Morgen"},
-        {id:uid("task"), title:"Eine unangenehme Sache beginnen", area:"karriere", scope:"Wichtig", priority:"hoch", next:"10 Minuten Timer starten", done:false, top3:true, time:"Fokus"},
-        {id:uid("task"), title:"Teutonia-Orga kurz prüfen", area:"teutonia", scope:"Heute", priority:"normal", next:"Nachrichten und offene Punkte checken", done:false, top3:false, time:"Mittag"}
+        {id:uid("task"), title:"10 Minuten an der Schiebe-Aufgabe beginnen", type:"Fokus", schedule:"Morgens", priority:"hoch", next:"Timer stellen", done:false, top3:true},
+        {id:uid("task"), title:"2 km Spaziergang", type:"Aufgabe", schedule:"Morgens", priority:"normal", next:"Schuhe anziehen", done:false, top3:true},
+        {id:uid("task"), title:"Teutonia kurz prüfen", type:"Aufgabe", schedule:"Mittags", priority:"normal", next:"Nachrichten checken", done:false, top3:false}
       ],
-      reflections:{
-        morning:{feel:"", need:"", enough:""},
-        evening:{good:"", hard:"", tomorrow:""},
-        weekly:{open:"", done:"", learned:"", letGo:""}
-      }
+      goals:[
+        {id:uid("goal"), title:"Stabiler Tagesrhythmus", level:"kurzfristig", why:"Mehr Ruhe, Energie und Selbstführung im Alltag.", next:"Morgenstart und Abendabschluss halten", progress:25},
+        {id:uid("goal"), title:"Berufliche Neuorientierung", level:"mittelfristig", why:"Sport, IT und Koordination sinnvoll verbinden.", next:"Eine passende Stelle recherchieren", progress:35},
+        {id:uid("goal"), title:"Selbstwert aufbauen", level:"langfristig", why:"Ich will mir selbst mehr vertrauen und liebevoller mit mir umgehen.", next:"Täglich eine Selbstliebe-Murmel", progress:20}
+      ],
+      marbles:[],
+      successes:[],
+      evening:{good:"", hard:"", tomorrow:""}
     };
-
-    let settings = {theme:"light"};
-    let activeFilter = "Heute";
 
     function uid(prefix){
       return prefix + "_" + Date.now() + "_" + Math.random().toString(16).slice(2);
     }
 
-    function escapeHtml(value){
+    function esc(value){
       return String(value ?? "")
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
@@ -973,19 +1063,39 @@
     }
 
     function load(){
-      const saved = localStorage.getItem(storageKey);
-      if(saved) state = {...state, ...JSON.parse(saved)};
+      const savedTemplates = localStorage.getItem(templateKey);
+      if(savedTemplates) templates = {...templates, ...JSON.parse(savedTemplates)};
+
+      const savedState = localStorage.getItem(stateKey);
+      if(savedState) state = {...state, ...JSON.parse(savedState)};
 
       const savedSettings = localStorage.getItem(settingsKey);
       if(savedSettings) settings = {...settings, ...JSON.parse(savedSettings)};
+
+      if(!state.routines.length){
+        state.routines = templates.routines.filter(r => r.active).map(r => ({
+          id:"routine_" + r.id,
+          templateId:r.id,
+          title:r.title,
+          anchor:r.anchor,
+          done:false
+        }));
+      }
 
       document.documentElement.dataset.theme = settings.theme;
     }
 
     function save(){
-      localStorage.setItem(storageKey, JSON.stringify(state));
+      localStorage.setItem(stateKey, JSON.stringify(state));
+      localStorage.setItem(templateKey, JSON.stringify(templates));
       localStorage.setItem(settingsKey, JSON.stringify(settings));
       render();
+    }
+
+    function setPage(page){
+      $$(".page").forEach(p => p.classList.toggle("active", p.id === "page-" + page));
+      $$(".nav button").forEach(b => b.classList.toggle("active", b.dataset.page === page));
+      window.scrollTo({top:0, behavior:"smooth"});
     }
 
     function bind(){
@@ -995,227 +1105,153 @@
         save();
       };
 
-      $$(".app-nav button").forEach(button => {
-        button.onclick = () => setPage(button.dataset.page);
+      $$(".nav button").forEach(b => b.onclick = () => setPage(b.dataset.page));
+      document.addEventListener("click", e => {
+        const go = e.target.closest("[data-go-page]");
+        if(go){ e.preventDefault(); setPage(go.dataset.goPage); }
       });
 
-      document.addEventListener("click", event => {
-        const go = event.target.closest("[data-go-page]");
-        if(go){
-          event.preventDefault();
-          setPage(go.dataset.goPage);
-        }
-      });
-
-      $("#saveTodayFocus").onclick = saveTodayFocus;
-      $("#completeNow").onclick = completeCurrentFocus;
-      $("#addCapture").onclick = addCapture;
+      $("#saveToday").onclick = saveToday;
+      $("#saveStatus").onclick = saveStatus;
+      $("#completeNow").onclick = completeNow;
       $("#addTask").onclick = addTask;
-      $("#saveMorningReflection").onclick = saveMorningReflection;
-      $("#saveEveningReflection").onclick = saveEveningReflection;
-      $("#saveWeeklyReview").onclick = saveWeeklyReview;
+      $("#addGoal").onclick = addGoal;
+      $("#addMarble").onclick = addMarble;
+      $("#addSuccess").onclick = addSuccess;
+      $("#saveEvening").onclick = saveEvening;
       $("#copyExport").onclick = () => navigator.clipboard.writeText($("#exportText").value).then(() => toast("Export kopiert."));
+      $("#addRoutineTemplate").onclick = addRoutineTemplate;
     }
 
-    function setPage(page){
-      $$(".page").forEach(section => section.classList.toggle("active", section.id === "page-" + page));
-      $$(".app-nav button").forEach(button => button.classList.toggle("active", button.dataset.page === page));
-      window.scrollTo({top:0, behavior:"smooth"});
+    function progress(){
+      const totalTasks = state.tasks.length || 1;
+      const taskProgress = state.tasks.filter(t => t.done).length / totalTasks;
+      const routineProgress = state.routines.length ? state.routines.filter(r => r.done).length / state.routines.length : 0;
+      const marbleProgress = Math.min(state.marbles.length / MARBLE_TARGET, 1);
+      return Math.round(((taskProgress * .45) + (routineProgress * .40) + (marbleProgress * .15)) * 100);
+    }
+
+    function top3Done(){
+      const top = state.tasks.filter(t => t.top3).slice(0,3);
+      return {done: top.filter(t => t.done).length, total: top.length || 3};
+    }
+
+    function currentFocus(){
+      const openRoutine = state.routines.find(r => !r.done);
+      if(openRoutine) return {kind:"routine", item:openRoutine, title:openRoutine.title, text:"Tagesanker: " + openRoutine.anchor};
+      const topOpen = state.tasks.find(t => t.top3 && !t.done);
+      if(topOpen) return {kind:"task", item:topOpen, title:topOpen.title, text:"Nächster Schritt: " + (topOpen.next || "klein anfangen")};
+      const openTask = state.tasks.find(t => !t.done);
+      if(openTask) return {kind:"task", item:openTask, title:openTask.title, text:"Nächster Schritt: " + (openTask.next || "klein anfangen")};
+      if(state.marbles.length < MARBLE_TARGET) return {kind:"selflove", item:null, title:"Eine Selbstliebe-Murmel sammeln", text:"Eine kleine Handlung, die dich stärkt."};
+      return {kind:"done", item:null, title:"Tag bewusst abschließen", text:"Reflexion öffnen und sichtbar machen, was gelungen ist."};
     }
 
     function render(){
       renderHeader();
       renderToday();
-      renderCapture();
       renderPlan();
-      renderReflections();
-      renderAreas();
+      renderRoutines();
+      renderGoals();
+      renderSelfWorth();
+      renderReflection();
+      renderSettings();
       $("#themeBtn").textContent = settings.theme === "dark" ? "☀" : "☾";
     }
 
     function renderHeader(){
-      $("#dateLine").textContent = new Date().toLocaleDateString("de-DE", {weekday:"long", day:"2-digit", month:"long", year:"numeric"});
-    }
-
-    function currentFocus(){
-      const topOpen = state.tasks.find(task => task.top3 && !task.done);
-      const importantOpen = state.tasks.find(task => task.scope === "Wichtig" && !task.done);
-      const todayOpen = state.tasks.find(task => task.scope === "Heute" && !task.done);
-      if(topOpen) return topOpen;
-      if(importantOpen) return importantOpen;
-      if(todayOpen) return todayOpen;
-      return null;
+      $("#dateLine").textContent = new Date().toLocaleDateString("de-DE",{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
     }
 
     function renderToday(){
-      $("#mainTask").value = state.today.mainTask;
-      $("#selfCare").value = state.today.selfCare;
+      const top = top3Done();
+      const routineDone = state.routines.filter(r => r.done).length;
+
+      $("#statusProgress").textContent = progress() + "%";
+      $("#statusTop3").textContent = top.done + "/" + top.total;
+      $("#statusMarbles").textContent = Math.min(state.marbles.length, MARBLE_TARGET) + "/" + MARBLE_TARGET;
+      $("#statusRoutines").textContent = routineDone + "/" + state.routines.length;
+
+      $("#mainTask").value = state.today.mainTask || "";
+      $("#selfCareStep").value = state.today.selfCareStep || "";
+      $("#energySelect").value = state.today.energy || "";
+      $("#moodSelect").value = state.today.mood || "";
+      $("#sleepSelect").value = state.today.sleep || "";
 
       const focus = currentFocus();
-      $("#nowTitle").textContent = focus ? focus.title : (state.today.mainTask || "Den Tag ruhig führen.");
-      $("#nowText").textContent = focus ? ("Nächster Schritt: " + (focus.next || "klein anfangen")) : "Setze eine wichtigste Aufgabe oder erfasse den nächsten Gedanken.";
+      $("#nowTitle").textContent = focus.title;
+      $("#nowText").textContent = focus.text;
 
-      $("#energyValue").textContent = state.today.energy || "—";
-      $("#moodValue").textContent = state.today.mood || "—";
-      $("#sleepValue").textContent = state.today.sleep || "—";
+      $("#todayTop3List").innerHTML = top3Items().length ? top3Items().map(taskHTML).join("") : `<div class="empty">Noch keine Top 3 markiert.</div>`;
 
-      renderChips("#energyChips", statusOptions.energy, state.today.energy, value => {
-        state.today.energy = value;
-        save();
-      });
-      renderChips("#moodChips", statusOptions.mood, state.today.mood, value => {
-        state.today.mood = value;
-        save();
-      });
-      renderChips("#sleepChips", statusOptions.sleep, state.today.sleep, value => {
-        state.today.sleep = value;
-        save();
-      });
-
-      const top3 = state.tasks.filter(task => task.top3).slice(0,3);
-      $("#todayTop3List").innerHTML = top3.length ? top3.map(taskItem).join("") : `<div class="empty">Noch keine Top 3 markiert. Gehe in den Plan und markiere wichtige Aufgaben.</div>`;
-
-      $("#smartToday").textContent = state.tasks.filter(task => task.scope === "Heute" && !task.done).length;
-      $("#smartWeek").textContent = state.tasks.filter(task => task.scope === "Diese Woche" && !task.done).length;
-      $("#smartImportant").textContent = state.tasks.filter(task => task.scope === "Wichtig" && !task.done).length;
-      $("#smartWaiting").textContent = state.tasks.filter(task => task.scope === "Warten auf" && !task.done).length;
+      $("#routineBadgeToday").textContent = routineDone + "/" + state.routines.length;
+      $("#todayRoutineList").innerHTML = state.routines.map(routineHTML).join("");
+      bindTaskActions();
+      bindRoutineActions();
     }
 
-    function renderChips(container, values, selected, callback){
-      $(container).innerHTML = values.map(value => `
-        <button class="chip ${selected === value ? "active" : ""}" data-value="${escapeHtml(value)}">${escapeHtml(value)}</button>
-      `).join("");
-      $$(container + " [data-value]").forEach(button => {
-        button.onclick = () => callback(button.dataset.value);
-      });
+    function top3Items(){
+      return state.tasks.filter(t => t.top3).slice(0,3);
     }
 
-    function saveTodayFocus(){
+    function saveToday(){
       state.today.mainTask = $("#mainTask").value.trim();
-      state.today.selfCare = $("#selfCare").value.trim();
+      state.today.selfCareStep = $("#selfCareStep").value.trim();
 
-      if(state.today.mainTask && !state.tasks.some(task => task.source === "mainTask")){
+      if(state.today.mainTask && !state.tasks.some(t => t.source === "mainTask")){
         state.tasks.unshift({
           id:uid("task"),
           title:state.today.mainTask,
-          area:"privat",
-          scope:"Heute",
+          type:"Fokus",
+          schedule:"Flexibel",
           priority:"hoch",
           next:"10 Minuten beginnen",
           done:false,
           top3:true,
-          time:"Fokus",
           source:"mainTask"
         });
       }
-
-      save();
       toast("Heute gespeichert.");
+      save();
     }
 
-    function completeCurrentFocus(){
+    function saveStatus(){
+      state.today.energy = $("#energySelect").value;
+      state.today.mood = $("#moodSelect").value;
+      state.today.sleep = $("#sleepSelect").value;
+      toast("Status gespeichert.");
+      save();
+    }
+
+    function completeNow(){
       const focus = currentFocus();
-      if(!focus){
-        toast("Kein offener Fokus vorhanden.");
+      if(focus.kind === "routine"){
+        focus.item.done = true;
+        if(focus.item.templateId === "selflove") autoMarble("Selbstliebe-Routine erledigt", "Selbstfürsorge");
+      } else if(focus.kind === "task"){
+        focus.item.done = true;
+        state.successes.unshift({text:"Erledigt: " + focus.item.title, time:now()});
+      } else if(focus.kind === "selflove"){
+        setPage("selbstwert");
+        toast("Trage eine Selbstliebe-Handlung ein.");
+        return;
+      } else {
+        setPage("reflexion");
         return;
       }
-      focus.done = true;
-      save();
       toast("Erledigt.");
-    }
-
-    function renderCapture(){
-      renderChips("#captureTags", tagOptions, state.captureTag || "", value => {
-        state.captureTag = value;
-        save();
-      });
-
-      $("#captureList").innerHTML = state.capture.length ? state.capture.map(item => `
-        <div class="list-item">
-          <div class="item-row">
-            <div>
-              <div class="item-title">${escapeHtml(item.text)}</div>
-              <div class="item-meta"><span class="tag">${escapeHtml(item.tag)}</span>${escapeHtml(item.type)} · ${escapeHtml(item.created)}</div>
-            </div>
-            <button class="btn ghost" data-capture-task="${item.id}">Als Aufgabe</button>
-          </div>
-        </div>
-      `).join("") : `<div class="empty">Noch nichts in der Inbox. Alles, was raus aus dem Kopf soll, landet hier.</div>`;
-
-      $$("[data-capture-task]").forEach(button => {
-        button.onclick = () => {
-          const item = state.capture.find(entry => entry.id === button.dataset.captureTask);
-          if(!item) return;
-          state.tasks.unshift({
-            id:uid("task"),
-            title:item.text,
-            area:tagToArea(item.tag),
-            scope:item.type === "WartenAuf" ? "Warten auf" : "Diese Woche",
-            priority:"normal",
-            next:"",
-            done:false,
-            top3:false,
-            time:"Inbox"
-          });
-          state.capture = state.capture.filter(entry => entry.id !== item.id);
-          save();
-          toast("Als Aufgabe übernommen.");
-        };
-      });
-    }
-
-    function tagToArea(tag){
-      if(tag === "#Teutonia") return "teutonia";
-      if(tag === "#Karriere") return "karriere";
-      if(tag === "#Gesundheit") return "gesundheit";
-      return "privat";
-    }
-
-    function addCapture(){
-      const text = $("#captureText").value.trim();
-      if(!text) return;
-
-      state.capture.unshift({
-        id:uid("cap"),
-        text,
-        tag:state.captureTag || "#Privat",
-        type:$("#captureType").value,
-        created:new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})
-      });
-
-      $("#captureText").value = "";
       save();
-      toast("Erfasst.");
+    }
+
+    function now(){
+      return new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
     }
 
     function renderPlan(){
-      $("#taskArea").innerHTML = defaultAreas.map(area => `<option value="${area.id}">${area.name}</option>`).join("");
-
-      renderChips("#smartFilters", ["Heute","Diese Woche","Wichtig","Warten auf"], activeFilter, value => {
-        activeFilter = value;
-        renderPlan();
-      });
-
-      const filtered = state.tasks.filter(task => task.scope === activeFilter);
-      $("#taskList").innerHTML = filtered.length ? filtered.map(taskItem).join("") : `<div class="empty">Keine Aufgaben in „${escapeHtml(activeFilter)}“.</div>`;
-
-      const timelineGroups = [
-        ["Morgen", state.tasks.filter(task => task.time === "Morgen" && !task.done)],
-        ["Fokus", state.tasks.filter(task => task.time === "Fokus" && !task.done)],
-        ["Mittag", state.tasks.filter(task => task.time === "Mittag" && !task.done)],
-        ["Abend", state.tasks.filter(task => task.time === "Abend" && !task.done)],
-        ["Inbox", state.tasks.filter(task => task.time === "Inbox" && !task.done)]
-      ];
-
-      $("#timeline").innerHTML = timelineGroups.map(([label,items]) => `
-        <div class="time-block">
-          <div class="time-label">${escapeHtml(label)}</div>
-          <div class="list">
-            ${items.length ? items.map(taskItem).join("") : `<div class="empty">frei</div>`}
-          </div>
-        </div>
-      `).join("");
-
+      $("#taskOpenBadge").textContent = state.tasks.filter(t => !t.done).length + " offen";
+      $("#taskList").innerHTML = state.tasks.length ? state.tasks.map(taskHTML).join("") : `<div class="empty">Noch keine Aufgaben.</div>`;
+      $("#top3Badge").textContent = top3Items().length + "/3";
+      $("#top3List").innerHTML = top3Items().length ? top3Items().map(taskHTML).join("") : `<div class="empty">Markiere im Plan deine Top 3.</div>`;
       bindTaskActions();
     }
 
@@ -1226,43 +1262,40 @@
       state.tasks.unshift({
         id:uid("task"),
         title,
-        area:$("#taskArea").value,
-        scope:$("#taskScope").value,
+        type:$("#taskType").value,
+        schedule:$("#taskSchedule").value,
         priority:$("#taskPriority").value,
         next:$("#taskNext").value.trim(),
         done:false,
-        top3:false,
-        time:$("#taskScope").value === "Heute" ? "Fokus" : "Inbox"
+        top3:false
       });
 
       $("#taskTitle").value = "";
       $("#taskNext").value = "";
-      save();
       toast("Aufgabe hinzugefügt.");
+      save();
     }
 
-    function priorityClass(priority){
-      if(priority === "kritisch") return "critical";
-      if(priority === "hoch") return "high";
-      if(priority === "niedrig") return "low";
-      return "";
+    function priorityLabel(priority){
+      if(priority === "kritisch") return "kritisch";
+      if(priority === "hoch") return "hoch";
+      return "normal";
     }
 
-    function taskItem(task){
-      const area = defaultAreas.find(item => item.id === task.area);
+    function taskHTML(task){
       return `
         <div class="list-item">
           <div class="item-row">
             <div class="item-left">
               <button class="check ${task.done ? "done" : ""}" data-task-done="${task.id}">✓</button>
               <div>
-                <div class="item-title"><span class="priority-dot ${priorityClass(task.priority)}"></span>${escapeHtml(task.title)}</div>
-                <div class="item-meta">${escapeHtml(area ? area.name : "Privat")} · ${escapeHtml(task.scope)}${task.next ? " · " + escapeHtml(task.next) : ""}</div>
+                <div class="item-title">${esc(task.title)} <span class="type-pill">${esc(task.type)}</span></div>
+                <div class="item-meta">${esc(task.schedule)} · ${esc(priorityLabel(task.priority))}${task.next ? " · " + esc(task.next) : ""}</div>
               </div>
             </div>
             <div class="chip-row">
               <button class="chip ${task.top3 ? "active" : ""}" data-task-top="${task.id}">Top</button>
-              <button class="btn ghost" data-task-delete="${task.id}">Löschen</button>
+              <button class="btn ghost" data-task-remove="${task.id}">Löschen</button>
             </div>
           </div>
         </div>
@@ -1270,149 +1303,271 @@
     }
 
     function bindTaskActions(){
-      $$("[data-task-done]").forEach(button => {
-        button.onclick = () => {
-          const task = state.tasks.find(item => item.id === button.dataset.taskDone);
-          if(!task) return;
-          task.done = !task.done;
-          save();
-        };
+      $$("[data-task-done]").forEach(btn => btn.onclick = () => {
+        const task = state.tasks.find(t => t.id === btn.dataset.taskDone);
+        if(!task) return;
+        task.done = !task.done;
+        if(task.done) state.successes.unshift({text:"Aufgabe erledigt: " + task.title, time:now()});
+        save();
       });
 
-      $$("[data-task-top]").forEach(button => {
-        button.onclick = () => {
-          const task = state.tasks.find(item => item.id === button.dataset.taskTop);
-          if(!task) return;
-          const currentTop = state.tasks.filter(item => item.top3).length;
-          if(!task.top3 && currentTop >= 3){
-            toast("Maximal 3 Top-Aufgaben.");
-            return;
-          }
-          task.top3 = !task.top3;
-          save();
-        };
+      $$("[data-task-top]").forEach(btn => btn.onclick = () => {
+        const task = state.tasks.find(t => t.id === btn.dataset.taskTop);
+        if(!task) return;
+        if(!task.top3 && top3Items().length >= 3){
+          toast("Maximal 3 Top-Aufgaben.");
+          return;
+        }
+        task.top3 = !task.top3;
+        save();
       });
 
-      $$("[data-task-delete]").forEach(button => {
-        button.onclick = () => {
-          state.tasks = state.tasks.filter(item => item.id !== button.dataset.taskDelete);
-          save();
-        };
+      $$("[data-task-remove]").forEach(btn => btn.onclick = () => {
+        state.tasks = state.tasks.filter(t => t.id !== btn.dataset.taskRemove);
+        save();
       });
     }
 
-    function renderReflections(){
-      $("#morningFeel").value = state.reflections.morning.feel;
-      $("#morningNeed").value = state.reflections.morning.need;
-      $("#morningEnough").value = state.reflections.morning.enough;
+    function renderRoutines(){
+      const done = state.routines.filter(r => r.done).length;
+      $("#routineBadge").textContent = done + "/" + state.routines.length;
+      $("#routineList").innerHTML = state.routines.map(routineHTML).join("");
+      $("#routineTemplateList").innerHTML = templates.routines.map(templateHTML).join("");
+      bindRoutineActions();
+      bindTemplateActions();
+    }
 
-      $("#eveningGood").value = state.reflections.evening.good;
-      $("#eveningHard").value = state.reflections.evening.hard;
-      $("#eveningTomorrow").value = state.reflections.evening.tomorrow;
+    function routineHTML(routine){
+      return `
+        <div class="routine-item ${routine.done ? "done" : ""}">
+          <div>
+            <div class="routine-title">${esc(routine.title)}</div>
+            <div class="routine-meta">${esc(routine.anchor)} · Tagesanker</div>
+          </div>
+          <button class="routine-check ${routine.done ? "done" : ""}" data-routine-done="${routine.id}">✓</button>
+        </div>
+      `;
+    }
 
-      $("#weekOpen").value = state.reflections.weekly.open;
-      $("#weekDone").value = state.reflections.weekly.done;
-      $("#weekLearned").value = state.reflections.weekly.learned;
-      $("#weekLetGo").value = state.reflections.weekly.letGo;
+    function bindRoutineActions(){
+      $$("[data-routine-done]").forEach(btn => btn.onclick = () => {
+        const routine = state.routines.find(r => r.id === btn.dataset.routineDone);
+        if(!routine) return;
+        routine.done = !routine.done;
+        if(routine.done){
+          state.successes.unshift({text:"Routine erledigt: " + routine.title, time:now()});
+          if(routine.templateId === "selflove") autoMarble("Selbstliebe-Routine erledigt", "Selbstfürsorge");
+        }
+        save();
+      });
+    }
 
+    function templateHTML(template){
+      return `
+        <div class="list-item">
+          <div class="item-row">
+            <div>
+              <div class="item-title">${esc(template.title)}</div>
+              <div class="item-meta">${esc(template.anchor)} · ${template.active ? "aktiv" : "inaktiv"}</div>
+            </div>
+            <button class="chip ${template.active ? "active" : ""}" data-template-toggle="${template.id}">${template.active ? "aktiv" : "inaktiv"}</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function bindTemplateActions(){
+      $$("[data-template-toggle]").forEach(btn => btn.onclick = () => {
+        const template = templates.routines.find(t => t.id === btn.dataset.templateToggle);
+        if(!template) return;
+        template.active = !template.active;
+        toast("Vorlage geändert. Gilt für neue Tage.");
+        save();
+      });
+    }
+
+    function addRoutineTemplate(){
+      const title = $("#newRoutineTitle").value.trim();
+      if(!title) return;
+      templates.routines.push({
+        id:uid("tpl"),
+        title,
+        anchor:$("#newRoutineAnchor").value,
+        active:true
+      });
+      $("#newRoutineTitle").value = "";
+      toast("Routine-Vorlage hinzugefügt.");
+      save();
+    }
+
+    function renderGoals(){
+      $("#goalList").innerHTML = state.goals.length ? state.goals.map(goalHTML).join("") : `<div class="empty">Noch keine Ziele.</div>`;
+      bindGoalActions();
+    }
+
+    function goalHTML(goal){
+      return `
+        <div class="goal-card">
+          <div class="goal-header">
+            <div>
+              <div class="item-title">${esc(goal.title)}</div>
+              <div class="item-meta">${esc(goal.why || "Warum noch offen")} · Nächster Schritt: ${esc(goal.next || "—")}</div>
+            </div>
+            <span class="goal-level">${esc(goal.level)}</span>
+          </div>
+          <div class="goal-progress"><span style="width:${Number(goal.progress || 0)}%"></span></div>
+          <div class="button-row" style="margin-top:12px">
+            <button class="chip" data-goal-progress="${goal.id}">+25%</button>
+            <button class="btn ghost" data-goal-remove="${goal.id}">Löschen</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function addGoal(){
+      const title = $("#goalTitle").value.trim();
+      if(!title) return;
+      state.goals.unshift({
+        id:uid("goal"),
+        title,
+        level:$("#goalLevel").value,
+        why:$("#goalWhy").value.trim(),
+        next:$("#goalNext").value.trim(),
+        progress:Number($("#goalProgress").value)
+      });
+      $("#goalTitle").value = "";
+      $("#goalWhy").value = "";
+      $("#goalNext").value = "";
+      toast("Ziel hinzugefügt.");
+      save();
+    }
+
+    function bindGoalActions(){
+      $$("[data-goal-progress]").forEach(btn => btn.onclick = () => {
+        const goal = state.goals.find(g => g.id === btn.dataset.goalProgress);
+        if(!goal) return;
+        goal.progress = Math.min(100, Number(goal.progress || 0) + 25);
+        save();
+      });
+      $$("[data-goal-remove]").forEach(btn => btn.onclick = () => {
+        state.goals = state.goals.filter(g => g.id !== btn.dataset.goalRemove);
+        save();
+      });
+    }
+
+    function renderSelfWorth(){
+      renderMarbles();
+      $("#successList").innerHTML = state.successes.length ? state.successes.slice(0,10).map(s => `
+        <div class="list-item">
+          <div class="item-title">${esc(s.text)}</div>
+          <div class="item-meta">${esc(s.time)}</div>
+        </div>
+      `).join("") : `<div class="empty">Noch keine Erfolge sichtbar.</div>`;
+    }
+
+    function marbleColor(type){
+      if(type === "Mut") return "#9BAFD8";
+      if(type === "Grenze") return "#C8A36B";
+      if(type === "Körper") return "#8FB99B";
+      if(type === "Nicht geflüchtet") return "#B8A1C9";
+      return "#9BB8C2";
+    }
+
+    function renderMarbles(){
+      $("#marbleBadge").textContent = Math.min(state.marbles.length, MARBLE_TARGET) + "/" + MARBLE_TARGET;
+      const openCount = Math.max(MARBLE_TARGET - state.marbles.length, 0);
+      $("#openMarbles").innerHTML = Array.from({length:openCount}).map(() => `<span class="marble" style="--marble:#d5dde1"></span>`).join("");
+      $("#doneMarbles").innerHTML = state.marbles.slice(0,MARBLE_TARGET).map((m,i) => `<span class="marble ${movingMarble && i === 0 ? "moving" : ""}" style="--marble:${marbleColor(m.type)}" title="${esc(m.text)}"></span>`).join("");
+      movingMarble = false;
+    }
+
+    function addMarble(){
+      const text = $("#selfLoveText").value.trim();
+      if(!text) return;
+      autoMarble(text, $("#selfLoveType").value);
+      $("#selfLoveText").value = "";
+      toast("Murmel erreicht.");
+      save();
+    }
+
+    function autoMarble(text,type){
+      if(state.marbles.length >= MARBLE_TARGET){
+        state.successes.unshift({text:"Selbstliebe: " + text, time:now()});
+        return;
+      }
+      state.marbles.unshift({text,type,time:now()});
+      state.successes.unshift({text:"Selbstliebe: " + text, time:now()});
+      movingMarble = true;
+    }
+
+    function addSuccess(){
+      const text = $("#successText").value.trim();
+      if(!text) return;
+      state.successes.unshift({text,time:now()});
+      $("#successText").value = "";
+      toast("Erfolg gespeichert.");
+      save();
+    }
+
+    function renderReflection(){
+      $("#eveningGood").value = state.evening.good || "";
+      $("#eveningHard").value = state.evening.hard || "";
+      $("#eveningTomorrow").value = state.evening.tomorrow || "";
       renderExport();
     }
 
-    function saveMorningReflection(){
-      state.reflections.morning = {
-        feel:$("#morningFeel").value.trim(),
-        need:$("#morningNeed").value.trim(),
-        enough:$("#morningEnough").value.trim()
-      };
-      save();
-      toast("Morgenstart gespeichert.");
-    }
-
-    function saveEveningReflection(){
-      state.reflections.evening = {
+    function saveEvening(){
+      state.evening = {
         good:$("#eveningGood").value.trim(),
         hard:$("#eveningHard").value.trim(),
         tomorrow:$("#eveningTomorrow").value.trim()
       };
+      const routine = state.routines.find(r => r.templateId === "evening");
+      if(routine) routine.done = true;
+      toast("Abend gespeichert.");
       save();
-      toast("Abendcheck gespeichert.");
-    }
-
-    function saveWeeklyReview(){
-      state.reflections.weekly = {
-        open:$("#weekOpen").value.trim(),
-        done:$("#weekDone").value.trim(),
-        learned:$("#weekLearned").value.trim(),
-        letGo:$("#weekLetGo").value.trim()
-      };
-      save();
-      toast("Wochenreview gespeichert.");
     }
 
     function renderExport(){
-      const done = state.tasks.filter(task => task.done);
-      const open = state.tasks.filter(task => !task.done);
+      const top = top3Done();
       $("#exportText").value = [
-        "Mein Daily OS – " + $("#dateLine").textContent,
+        "Mein Daily Life – " + $("#dateLine").textContent,
         "",
-        "HEUTE",
+        "STATUS",
+        "Tagesfortschritt: " + progress() + "%",
+        "Top 3: " + top.done + "/" + top.total,
+        "Murmeln: " + Math.min(state.marbles.length, MARBLE_TARGET) + "/" + MARBLE_TARGET,
+        "Routinen: " + state.routines.filter(r => r.done).length + "/" + state.routines.length,
+        "",
+        "HEUTE ZÄHLT",
         "Wichtigste Aufgabe: " + (state.today.mainTask || "—"),
-        "Selbstfürsorge: " + (state.today.selfCare || "—"),
-        "Energie/Stimmung/Schlaf: " + [state.today.energy || "—", state.today.mood || "—", state.today.sleep || "—"].join(" · "),
+        "Selbstfürsorge: " + (state.today.selfCareStep || "—"),
+        "",
+        "ROUTINEN",
+        ...state.routines.map(r => (r.done ? "✓ " : "○ ") + r.title),
         "",
         "TOP 3",
-        ...(state.tasks.filter(task => task.top3).slice(0,3).map(task => "• " + task.title) || ["—"]),
+        ...(top3Items().length ? top3Items().map(t => (t.done ? "✓ " : "○ ") + t.title) : ["—"]),
         "",
-        "ERLEDIGT",
-        ...(done.length ? done.map(task => "✓ " + task.title) : ["—"]),
+        "ZIELE",
+        ...state.goals.map(g => "• " + g.title + " (" + g.level + ", " + g.progress + "%) – " + (g.next || "kein Schritt")),
         "",
-        "OFFEN",
-        ...(open.length ? open.map(task => "○ " + task.title) : ["—"]),
+        "MURMELN",
+        ...(state.marbles.length ? state.marbles.map(m => "• " + m.text + " (" + m.type + ")") : ["—"]),
         "",
-        "MORGENSTART",
-        "Gefühl: " + (state.reflections.morning.feel || "—"),
-        "Bedarf: " + (state.reflections.morning.need || "—"),
-        "Genug: " + (state.reflections.morning.enough || "—"),
+        "ERFOLGE",
+        ...(state.successes.length ? state.successes.slice(0,12).map(s => "• " + s.text + " · " + s.time) : ["—"]),
         "",
-        "ABENDCHECK",
-        "Gut: " + (state.reflections.evening.good || "—"),
-        "Schwer: " + (state.reflections.evening.hard || "—"),
-        "Morgen wichtig: " + (state.reflections.evening.tomorrow || "—"),
-        "",
-        "WOCHENREVIEW",
-        "Offen: " + (state.reflections.weekly.open || "—"),
-        "Geschafft: " + (state.reflections.weekly.done || "—"),
-        "Gelernt: " + (state.reflections.weekly.learned || "—"),
-        "Loslassen: " + (state.reflections.weekly.letGo || "—")
-      ].join("\n");
+        "ABEND",
+        "Gut: " + (state.evening.good || "—"),
+        "Schwer: " + (state.evening.hard || "—"),
+        "Morgen wichtig: " + (state.evening.tomorrow || "—")
+      ].join("\\n");
     }
 
-    function renderAreas(){
-      $("#areaGrid").innerHTML = defaultAreas.map(area => {
-        const tasks = state.tasks.filter(task => task.area === area.id);
-        const captures = state.capture.filter(item => tagToArea(item.tag) === area.id);
-        const open = tasks.filter(task => !task.done).length;
-        return `
-          <div class="area-card">
-            <div class="card-title">${escapeHtml(area.name)}</div>
-            <div class="card-subtitle">${escapeHtml(area.subtitle)}</div>
-            <div class="status-grid" style="margin-top:14px">
-              <div class="status-tile">
-                <div class="status-value">${open}</div>
-                <div class="status-label">offen</div>
-              </div>
-              <div class="status-tile">
-                <div class="status-value">${captures.length}</div>
-                <div class="status-label">Inbox</div>
-              </div>
-            </div>
-            <div class="list" style="margin-top:14px">
-              ${tasks.slice(0,3).map(taskItem).join("") || `<div class="empty">Noch keine Einträge.</div>`}
-            </div>
-          </div>
-        `;
-      }).join("");
-      bindTaskActions();
+    function renderSettings(){
+      $("#settingsRoutineList").innerHTML = templates.routines.map(templateHTML).join("");
+      bindTemplateActions();
     }
 
     function toast(text){
