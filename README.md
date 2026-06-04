@@ -1,3 +1,3 @@
-# Mein Daily Life v1.6
+# Mein Daily Life v2.1
 
-Dashboard-Redesign: Top 3 direkt im Dashboard, Erfolge getrennt von Selbstliebe-Murmeln, Animation bei erledigten Dingen und ruhigeres iPad-Layout.
+Geführter Tagesbegleiter mit KI-light-Coach: stimmungsbasierter Tagesimpuls, passender Glaubenssatz, Coach-Schritt und automatischer Abendabschluss.
