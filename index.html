@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Mein Daily Life · v3.7</title>
+  <title>Mein Daily Life · v3.8</title>
   <style>
     :root{
       --bg:#f2f2f7;
@@ -620,16 +620,16 @@
       </div>
     </section>
 
-    <footer class="footer">Mein Daily Life · v3.7 · editierbare Produktversion</footer>
+    <footer class="footer">Mein Daily Life · v3.8 · Speicherfix</footer>
   </main>
 
   <script>
     const $ = s => document.querySelector(s);
     const $$ = s => Array.from(document.querySelectorAll(s));
     const today = new Date().toISOString().slice(0,10);
-    const stateKey = "mein_daily_life_v37_" + today;
-    const templateKey = "mein_daily_life_v37_templates";
-    const settingsKey = "mein_daily_life_v37_settings";
+    const stateKey = "mein_daily_life_v38_" + today;
+    const templateKey = "mein_daily_life_v38_templates";
+    const settingsKey = "mein_daily_life_v38_settings";
     const MARBLE_TARGET = 5;
 
     const defaultTemplates = [
@@ -639,7 +639,7 @@
       {id:"evening", title:"Abendabschluss", anchor:"Abends", note:"Tag sichtbar abschließen", active:true}
     ];
 
-    let templates = {routines: structuredClone(defaultTemplates)};
+    let templates = {routines: defaultTemplates.map(item => ({...item}))};
     let settings = {theme:"light"};
     let movingMarble = false;
 
@@ -681,19 +681,105 @@
       return new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
     }
 
+    function readJSON(key, fallback){
+      try{
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      }catch(error){
+        console.warn("Konnte lokale Daten nicht lesen:", error);
+        return fallback;
+      }
+    }
+
+    function writeJSON(key, value){
+      try{
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+      }catch(error){
+        console.warn("Konnte lokale Daten nicht speichern:", error);
+        return false;
+      }
+    }
+
+    function normalizeState(){
+      state.today = {
+        mainTask:"",
+        selfCareStep:"",
+        energy:"",
+        mood:"",
+        sleep:"",
+        frogId:"",
+        ...(state.today || {})
+      };
+
+      state.evening = {
+        good:"",
+        hard:"",
+        tomorrow:"",
+        ...(state.evening || {})
+      };
+
+      state.routines = Array.isArray(state.routines) ? state.routines : [];
+      state.tasks = Array.isArray(state.tasks) ? state.tasks : [];
+      state.inbox = Array.isArray(state.inbox) ? state.inbox : [];
+      state.goals = Array.isArray(state.goals) ? state.goals : [];
+      state.marbles = Array.isArray(state.marbles) ? state.marbles : [];
+      state.successes = Array.isArray(state.successes) ? state.successes : [];
+
+      state.tasks.forEach(task => {
+        if(!task.id) task.id = uid("task");
+        if(!task.type) task.type = "Aufgabe";
+        if(!task.schedule) task.schedule = "Flexibel";
+        if(!task.priority) task.priority = "normal";
+        task.done = !!task.done;
+        task.top3 = !!task.top3;
+      });
+
+      state.routines.forEach((routine,index) => {
+        if(!routine.id) routine.id = uid("routine");
+        if(!routine.title) routine.title = "Routine";
+        if(!routine.anchor) routine.anchor = "Flexibel";
+        if(routine.active === undefined) routine.active = true;
+        if(!routine.order) routine.order = index + 1;
+        routine.done = !!routine.done;
+      });
+
+      state.goals.forEach(goal => {
+        if(!goal.id) goal.id = uid("goal");
+        if(!goal.level) goal.level = "kurzfristig";
+        if(!goal.category) goal.category = "Persönlich";
+        goal.progress = Number(goal.progress || 0);
+      });
+
+      state.marbles.forEach(marble => {
+        if(!marble.id) marble.id = uid("marble");
+        if(!marble.type) marble.type = "Selbstfürsorge";
+        if(!marble.time) marble.time = now();
+      });
+
+      state.successes.forEach(success => {
+        if(!success.id) success.id = uid("success");
+        if(!success.time) success.time = now();
+      });
+    }
+
     function load(){
-      const savedTemplates = localStorage.getItem(templateKey);
-      if(savedTemplates) templates = {...templates, ...JSON.parse(savedTemplates)};
+      const savedTemplates = readJSON(templateKey, null);
+      if(savedTemplates && Array.isArray(savedTemplates.routines)){
+        templates = {...templates, ...savedTemplates};
+      }
 
-      const savedState = localStorage.getItem(stateKey);
-      if(savedState) state = {...state, ...JSON.parse(savedState)};
+      const savedState = readJSON(stateKey, null);
+      if(savedState){
+        state = {...state, ...savedState};
+      }
 
-      const savedSettings = localStorage.getItem(settingsKey);
-      if(savedSettings) settings = {...settings, ...JSON.parse(savedSettings)};
+      const savedSettings = readJSON(settingsKey, null);
+      if(savedSettings){
+        settings = {...settings, ...savedSettings};
+      }
 
-      if(!state.inbox) state.inbox = [];
-      if(!state.today) state.today = {mainTask:"", selfCareStep:"", energy:"", mood:"", sleep:"", frogId:""};
-      if(!state.today.frogId) state.today.frogId = "";
+      normalizeState();
 
       if(!state.routines.length){
         state.routines = templates.routines.filter(r => r.active).map(routineFromTemplate);
@@ -703,10 +789,17 @@
     }
 
     function save(){
-      localStorage.setItem(stateKey, JSON.stringify(state));
-      localStorage.setItem(templateKey, JSON.stringify(templates));
-      localStorage.setItem(settingsKey, JSON.stringify(settings));
+      normalizeState();
+      const saved =
+        writeJSON(stateKey, state) &&
+        writeJSON(templateKey, templates) &&
+        writeJSON(settingsKey, settings);
+
       render();
+
+      if(!saved){
+        toast("Hinweis: lokal konnte nicht gespeichert werden.");
+      }
     }
 
     function routineFromTemplate(tpl){
