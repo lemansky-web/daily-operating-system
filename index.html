@@ -1,121 +1,1430 @@
 <!DOCTYPE html>
 <html lang="de" data-theme="light">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mein Daily Life v3.2</title>
-<style>
-:root{--bg:#f7f1e8;--bg2:#eef3ed;--card:#fff;--card2:#fbf7f2;--text:#202520;--muted:#6c776e;--line:#e8ded1;--green:#4f7a63;--brown:#997455;--peach:#efc9a8;--soft:#eef5f0;--danger:#a45f5f;--shadow:0 16px 46px rgba(58,45,30,.1);--shadow2:0 8px 24px rgba(58,45,30,.07);--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-html[data-theme=dark]{--bg:#111613;--bg2:#1b241d;--card:#202721;--card2:#171d18;--text:#f5f1eb;--muted:#aeb8b0;--line:#334037;--green:#9fc6ad;--brown:#d0ac86;--peach:#d8b18f;--soft:rgba(159,198,173,.15);--shadow:0 16px 46px rgba(0,0,0,.26);--shadow2:0 8px 24px rgba(0,0,0,.22)}
-*{box-sizing:border-box}body{margin:0;font-family:var(--font);color:var(--text);background:radial-gradient(circle at 10% -5%,rgba(79,122,99,.18),transparent 35%),radial-gradient(circle at 92% 0%,rgba(239,201,168,.24),transparent 28%),linear-gradient(145deg,var(--bg),var(--bg2));line-height:1.42}button,input,select,textarea{font:inherit}button{border:0;cursor:pointer;color:inherit}input,select,textarea{width:100%;min-height:46px;border:1px solid var(--line);background:var(--card2);color:var(--text);border-radius:16px;padding:12px;outline:0}textarea{min-height:310px;resize:vertical;line-height:1.55}label{display:block;color:var(--muted);font-weight:900;font-size:13px;margin:12px 0 7px}.app{max-width:1180px;margin:0 auto;padding:16px 14px 36px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,var(--green),var(--brown));color:white;font-size:22px;box-shadow:var(--shadow2)}h1{font-size:clamp(24px,4vw,36px);letter-spacing:-.9px;margin:0;line-height:1}.date{font-size:14px;color:var(--muted);margin-top:4px}.icon{width:44px;height:44px;border-radius:16px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow2)}.hero{border-radius:32px;padding:22px;color:white;background:linear-gradient(135deg,rgba(79,122,99,.96),rgba(153,116,85,.9));box-shadow:var(--shadow);margin-bottom:14px}.hero h2{font-size:clamp(32px,6vw,54px);letter-spacing:-1.4px;line-height:1.02;margin:0 0 6px}.hero p{margin:0;color:rgba(255,255,255,.88)}.pills,.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.pill{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.22);font-size:13px;font-weight:950}.tabs{position:sticky;top:0;z-index:10;display:flex;gap:8px;overflow:auto;padding:10px 0 12px;backdrop-filter:blur(16px)}.tab{flex:0 0 auto;padding:10px 13px;border-radius:999px;background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shadow2);font-size:13px;font-weight:950;color:var(--muted)}html[data-theme=dark] .tab{background:rgba(32,39,33,.82);border-color:rgba(255,255,255,.08)}.tab.active{background:var(--green);color:white;border-color:var(--green)}.page{display:none}.page.active{display:block}.layout{display:grid;grid-template-columns:1fr;gap:14px}.main,.side{display:grid;gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:17px;box-shadow:var(--shadow2);min-width:0}.focus{background:linear-gradient(135deg,var(--card),var(--soft));box-shadow:var(--shadow)}.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:13px}.title{font-size:19px;font-weight:950;letter-spacing:-.35px;margin:0}.sub{font-size:13px;color:var(--muted);margin:4px 0 0}.badge{display:inline-flex;border-radius:999px;background:var(--soft);color:var(--green);padding:7px 10px;font-size:12px;font-weight:950;white-space:nowrap}.btn,.soft,.light,.chip{border-radius:16px;padding:12px 14px;font-weight:950;display:inline-flex;justify-content:center;align-items:center;gap:8px}.btn{background:var(--green);color:white}.soft{background:var(--soft);color:var(--green)}.light{background:var(--card2);border:1px solid var(--line)}.chip{padding:9px 11px;background:var(--card2);border:1px solid var(--line);color:var(--muted);font-size:13px}.chip.active{background:var(--green);color:white;border-color:var(--green)}.full{width:100%;margin-top:12px}.grid2,.grid3,.streaks{display:grid;gap:12px;grid-template-columns:1fr}.streak{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:var(--shadow2)}.streak strong{display:block;font-size:28px;line-height:1}.streak span{display:block;color:var(--muted);font-weight:900;font-size:12px;margin-top:4px}.progress{height:10px;border-radius:999px;background:rgba(127,127,127,.14);overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--peach));border-radius:inherit;transition:.25s}.now,.affirm{background:linear-gradient(135deg,var(--soft),rgba(239,201,168,.14));border:1px solid var(--line);border-radius:22px;padding:16px;display:grid;gap:10px}.now strong,.affirm strong{font-size:clamp(22px,4vw,34px);letter-spacing:-.8px;line-height:1.1}.jump{text-decoration:none;padding:8px 11px;border-radius:999px;background:var(--card2);border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:950}.list{display:grid;gap:9px}.item{background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:12px;min-width:0}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.left{display:flex;align-items:center;gap:10px;min-width:0}.check{width:36px;height:36px;border-radius:13px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;color:transparent;font-weight:950;flex:0 0 auto}.check.done{background:var(--green);border-color:var(--green);color:white}.star{width:34px;height:34px;border-radius:12px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-size:17px}.star.active{background:#fff6d6;border-color:#f0d777}.frog.active{background:#dff2cf;border-color:#9ccf7d}.item-title{font-weight:950;letter-spacing:-.15px;overflow-wrap:anywhere}.meta{font-size:13px;color:var(--muted);margin-top:2px}.type{display:inline-flex;margin-left:6px;padding:4px 8px;border-radius:999px;background:var(--soft);color:var(--green);font-size:11px;font-weight:950}.emoji-grid,.values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.emoji,.value{min-height:64px;border-radius:17px;background:var(--card2);border:1px solid var(--line);display:grid;place-items:center;gap:3px;text-align:center;color:var(--muted);font-weight:950;font-size:13px;padding:9px}.emoji .e{font-size:22px}.emoji.active,.value.active{background:var(--green);border-color:var(--green);color:white}.form,.schedule{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}.time.hidden{display:none}.empty{border:1px dashed var(--line);background:var(--card2);border-radius:18px;padding:14px;text-align:center;color:var(--muted)}.marble-panel{display:grid;gap:14px}.jar{position:relative;min-height:220px;border-radius:34px;padding:18px 16px 20px;background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.12));border:2px solid rgba(255,255,255,.4);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),var(--shadow2);overflow:hidden}.jar:before{content:"";position:absolute;left:22%;right:22%;top:0;height:18px;border-radius:0 0 18px 18px;background:rgba(255,255,255,.28)}.jar-label{position:absolute;top:22px;left:0;right:0;text-align:center;color:var(--muted);font-size:12px;font-weight:950}.marbles{position:relative;display:flex;flex-wrap:wrap;gap:10px;align-content:flex-end;min-height:160px;padding-top:36px}.marble{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,var(--m,#8fb79d) 45%,#466d58 92%);box-shadow:inset -4px -6px 10px rgba(0,0,0,.2),inset 3px 4px 8px rgba(255,255,255,.55),0 8px 14px rgba(0,0,0,.12);animation:pop .45s}.marble.drop{animation:drop .7s}@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}@keyframes drop{0%{transform:translateY(-80px) scale(.7);opacity:0}70%{transform:translateY(8px) scale(1)}100%{transform:translateY(0);opacity:1}}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(12px);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:999px;padding:11px 15px;font-weight:950;opacity:0;pointer-events:none;transition:.18s;z-index:100}.toast.show{opacity:1;transform:translateX(-50%)}.confetti{position:absolute;top:-20px;width:9px;height:14px;border-radius:4px;background:var(--green);animation:fall .9s forwards}.celebrate{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:120}@keyframes fall{to{transform:translateY(110vh) rotate(460deg);opacity:0}}.footer{text-align:center;color:var(--muted);font-size:12px;margin:24px 0 4px}
-@media(min-width:720px){.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.streaks{grid-template-columns:repeat(4,1fr)}.emoji-grid{grid-template-columns:repeat(3,1fr)}.values-grid{grid-template-columns:repeat(4,1fr)}.form.task{grid-template-columns:minmax(0,1fr) 150px 140px 120px auto}.form.goal{grid-template-columns:minmax(0,1fr) 150px auto}.form.routine{grid-template-columns:minmax(0,1fr) 140px 130px auto}.schedule{grid-template-columns:1fr 150px 120px}.marble-panel{grid-template-columns:280px 1fr}}
-@media(min-width:1080px){.layout{grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr)}}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mein Daily OS · Version 1</title>
+  <style>
+    :root{
+      --bg:#f4f4f6;
+      --surface:#ffffff;
+      --surface-raised:#fbfbfd;
+      --surface-muted:#ededf1;
+      --text:#1d1d1f;
+      --text-soft:#3a3a3c;
+      --muted:#6e6e73;
+      --muted-2:#8e8e93;
+      --line:rgba(60,60,67,.12);
+      --line-soft:rgba(60,60,67,.08);
+      --accent:#4f7480;
+      --accent-2:#6e8992;
+      --accent-soft:rgba(79,116,128,.11);
+      --green:#5e8a6f;
+      --orange:#b17a45;
+      --red:#a75f5f;
+      --shadow:0 12px 28px rgba(0,0,0,.045);
+      --radius-xl:30px;
+      --radius-lg:22px;
+      --radius-md:16px;
+      --nav-height:78px;
+      --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;
+    }
 
-    .dash-actions{display:grid;gap:9px;margin-top:12px}
-    .dash-action{
-      background:var(--card2);
-      border:1px solid var(--line);
+    html[data-theme="dark"]{
+      --bg:#000000;
+      --surface:#1c1c1e;
+      --surface-raised:#242426;
+      --surface-muted:#2c2c2e;
+      --text:#f5f5f7;
+      --text-soft:#e5e5ea;
+      --muted:#a1a1a6;
+      --muted-2:#8e8e93;
+      --line:rgba(255,255,255,.13);
+      --line-soft:rgba(255,255,255,.08);
+      --accent:#8fb4bf;
+      --accent-2:#a6c5cd;
+      --accent-soft:rgba(143,180,191,.16);
+      --green:#86b894;
+      --orange:#d1a06f;
+      --red:#d48787;
+      --shadow:0 12px 28px rgba(0,0,0,.34);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      line-height:1.42;
+    }
+
+    button,input,textarea,select{font:inherit}
+    button{border:0;cursor:pointer;color:inherit}
+    input,textarea,select{
+      width:100%;
+      min-height:48px;
+      border:1px solid var(--line-soft);
+      border-radius:15px;
+      background:var(--surface-raised);
+      color:var(--text);
+      padding:12px 14px;
+      outline:none;
+      transition:border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+    textarea{
+      min-height:96px;
+      resize:vertical;
+      line-height:1.5;
+    }
+    input:focus,textarea:focus,select:focus{
+      border-color:rgba(79,116,128,.42);
+      box-shadow:0 0 0 4px var(--accent-soft);
+      background:var(--surface);
+    }
+    label{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:650;
+      margin:14px 0 7px;
+    }
+
+    .shell{
+      max-width:1180px;
+      margin:0 auto;
+      padding:14px 14px calc(var(--nav-height) + 28px);
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      margin:0 -14px 12px;
+      padding:10px 14px;
+      background:color-mix(in srgb, var(--bg) 88%, transparent);
+      border-bottom:1px solid var(--line-soft);
+      backdrop-filter:saturate(180%) blur(18px);
+      -webkit-backdrop-filter:saturate(180%) blur(18px);
+    }
+    .topbar-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .app-icon{
+      width:38px;
+      height:38px;
+      border-radius:11px;
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      display:grid;
+      place-items:center;
+      color:var(--accent);
+      font-weight:800;
+      flex:0 0 auto;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(22px,3.4vw,32px);
+      line-height:1.05;
+      letter-spacing:-.75px;
+      font-weight:760;
+    }
+    .date-line{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .icon-button{
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      display:grid;
+      place-items:center;
+      transition:transform .16s ease, background .16s ease;
+    }
+    .icon-button:active{transform:scale(.96)}
+
+    .app-nav{
+      position:fixed;
+      left:10px;
+      right:10px;
+      bottom:10px;
+      z-index:50;
+      display:flex;
+      gap:4px;
+      padding:6px;
+      border-radius:24px;
+      background:color-mix(in srgb, var(--surface) 88%, transparent);
+      border:1px solid var(--line-soft);
+      backdrop-filter:saturate(180%) blur(18px);
+      -webkit-backdrop-filter:saturate(180%) blur(18px);
+      box-shadow:0 12px 32px rgba(0,0,0,.12);
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+    }
+    .app-nav button{
+      flex:1 0 auto;
+      min-width:72px;
       border-radius:18px;
-      padding:12px;
+      padding:9px 10px;
+      background:transparent;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      transition:background .16s ease, color .16s ease, transform .16s ease;
     }
-    .dash-action .check{cursor:pointer}
-    .tiny-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-
-  </style></head><body><div class="celebrate" id="celebrate"></div><div class="toast" id="toast"></div><main class="app">
-<header class="top"><div class="brand"><div class="logo">🌱</div><div><h1>Mein Daily Life</h1><div class="date" id="date"></div></div></div><button class="icon" id="theme">☾</button></header>
-<section class="hero"><div><h2 id="greet">Guten Morgen, Peer.</h2><p id="heroLine">Ein klarer Überblick. Ein nächster Schritt. Sichtbare Beweise.</p></div><div class="pills"><span class="pill" id="progPill">0% geführt</span><span class="pill" id="topPill">⭐ 0/3 Top 3</span><span class="pill" id="marblePill">🫶 0/5 Murmeln</span></div></section>
-<nav class="tabs"><button class="tab active" data-page="dashboard">Dashboard</button><button class="tab" data-page="plan">Plan</button><button class="tab" data-page="ziele">Ziele</button><button class="tab" data-page="selbstwert">Selbstwert</button><button class="tab" data-page="reflexion">Reflexion</button><button class="tab" data-page="settings">Einstellungen</button></nav>
-<section class="page active" id="page-dashboard"><div class="layout"><div class="main"><section class="card focus"><div class="head"><div><h2 class="title">Jetzt gerade</h2><p class="sub">Das ist dein nächster guter Schritt.</p></div><span class="badge" id="phase">Start</span></div><div class="now"><strong id="nowTitle"></strong><span class="sub" id="nowText"></span><div class="links"><button class="btn" id="doNow">Als erledigt markieren</button><a class="jump" data-go="plan" href="#">Zum Plan</a></div></div></section><div class="streaks"><div class="streak"><strong id="sMorning">0</strong><span>🔥 Morgenstart</span></div><div class="streak"><strong id="sFrog">0</strong><span>🐸 Eat the Frog</span></div><div class="streak"><strong id="sSelf">0</strong><span>🫶 Selbstliebe</span></div><div class="streak"><strong id="sEvening">0</strong><span>🌙 Abendabschluss</span></div></div><section class="card">
-          <div class="head">
-            <div>
-              <h2 class="title">Heute zählt</h2>
-              <p class="sub">Deine wichtigsten Punkte. Direkt hier erledigbar.</p>
-            </div>
-            <a href="#" class="nav-link" data-go-page="plan">Bearbeiten</a>
-          </div>
-
-          <div class="dash-actions" id="dashboardFocusList"></div>
-        </section><section class="card"><div class="head"><div><h2 class="title">Quick Add</h2><p class="sub">Schnell an die richtige Stelle.</p></div></div><div class="grid3"><button class="btn" data-go="selbstwert">+ Erfolg</button><button class="soft" data-go="selbstwert">+ Murmel</button><button class="light" data-go="plan">+ Aufgabe</button></div></section></div><aside class="side"><section class="card"><div class="head"><div><h2 class="title">Tagesampel</h2><p class="sub">Ein schneller Statusblick.</p></div><span class="badge" id="ovBadge">0%</span></div><div class="progress"><span id="ovProg"></span></div><div class="list" id="ovList" style="margin-top:12px"></div></section><section class="card"><div class="head"><div><h2 class="title">Satz des Tages</h2><p class="sub">Passend zu deinem Zustand.</p></div><div class="links"><button class="chip" id="smartAff">Passend</button><button class="chip" id="shuffleAff">Neu</button></div></div><div class="affirm"><strong id="affirmation"></strong></div></section></aside></div></section>
-<section class="page" id="page-plan"><div class="layout"><div class="main"><section class="card"><div class="head"><div><h2 class="title">Morgenstart</h2><p class="sub">Gefühl, Bedürfnis und kleine Sache.</p></div><span class="badge" id="morningBadge"></span></div><div class="list" id="routines"></div><div class="grid2" style="margin-top:14px"><div><label>Was fühle ich gerade?</label><div class="emoji-grid" id="moodGrid"></div></div><div><label>Was brauche ich heute?</label><div class="emoji-grid" id="needGrid"></div></div></div><label>Kleine Sache des Tages</label><input id="smallThing" placeholder="z. B. 10 Minuten Bewerbungen"><button class="btn full" id="saveMorning">Morgenstart speichern</button></section><section class="card"><div class="head"><div><h2 class="title">Heutiger Plan</h2><p class="sub">⭐ Top 3 markieren und 🐸 Eat the Frog setzen.</p></div><span class="badge" id="taskBadge"></span></div><div class="grid2"><div><label>Schritte heute</label><input id="steps" type="number" inputmode="numeric"></div><div><label>Eat the Frog</label><input id="frogText" placeholder="Wichtigste unangenehme Aufgabe"></div></div><button class="btn full" id="saveCore">Plan-Basis speichern</button><div class="form task"><input id="taskInput" placeholder="Aufgabe oder Aufgabe"><select id="taskType"><option value="Aufgabe">Aufgabe</option><option value="Aufgabe">Aufgabe</option><option value="Termin">Termin</option><option value="Fokus">Fokus</option></select><select id="taskMode" class="mode"><option value="flexibel">Flexibel</option><option value="morgens">Morgens</option><option value="mittags">Mittags</option><option value="abends">Abends</option><option value="zeit">Uhrzeit</option></select><input id="taskTime" class="time hidden" type="time"><button class="btn" id="addTask">Hinzufügen</button></div><div class="list" id="tasks" style="margin-top:12px"></div></section></div><aside class="side"><section class="card"><div class="head"><div><h2 class="title">Top 3 Auswahl</h2><p class="sub">Aus allen Dingen markiert.</p></div><span class="badge" id="topBadge"></span></div><div class="list" id="topList"></div></section></aside></div></section>
-<section class="page" id="page-ziele"><div class="layout"><div class="main"><section class="card"><div class="head"><div><h2 class="title">Langfristige Ziele</h2><p class="sub">Richtung mit nächstem kleinen Schritt.</p></div><span class="badge">Ziele</span></div><div class="form goal"><input id="goalInput" placeholder="Neues Ziel"><input id="goalValue" placeholder="Wert dahinter"><button class="btn" id="addGoal">Ziel hinzufügen</button></div><div class="list" id="goals" style="margin-top:12px"></div></section></div><aside class="side"><section class="card"><div class="head"><div><h2 class="title">Werte-Kompass</h2><p class="sub">Wähle 1–3 Werte für heute.</p></div><span class="badge" id="valuesBadge"></span></div><div class="values-grid" id="valuesGrid"></div></section></aside></div></section>
-<section class="page" id="page-selbstwert"><div class="layout"><div class="main"><section class="card"><div class="head"><div><h2 class="title">Erfolge</h2><p class="sub">Sichtbare Beweise.</p></div></div><input id="successInput" placeholder="Erfolg eintragen"><button class="btn full" id="addSuccess">+ Erfolg</button><div class="list" id="successes" style="margin-top:12px"></div></section></div><aside class="side"><section class="card"><div class="head"><div><h2 class="title">Murmelsystem</h2><p class="sub">Nur für echte Selbstliebe-Momente.</p></div><span class="badge" id="marbleBadge"></span></div><div class="marble-panel"><div class="jar"><div class="jar-label">Selbstliebe-Glas</div><div class="marbles" id="jar"></div></div><div><input id="selfInput" placeholder="z. B. Pause gemacht"><select id="selfType" style="margin-top:8px"><option>Selbstfürsorge</option><option>Mut</option><option>Grenze</option><option>Körper</option><option>Nicht geflüchtet</option></select><button class="btn full" id="addSelf">+ Murmel hinzufügen</button><div class="list" id="selfList" style="margin-top:12px"></div></div></div></section></aside></div></section>
-<section class="page" id="page-reflexion"><div class="layout"><div class="main"><section class="card"><div class="head"><div><h2 class="title">Abendreflexion</h2><p class="sub">Kurz, klar und stärkend.</p></div><span class="badge">Abend</span></div><div class="grid2"><div><label>Was habe ich geschafft?</label><input id="eveningGood"></div><div><label>Wo war ich liebevoll mit mir?</label><input id="eveningSelf"></div><div><label>Was habe ich gelernt?</label><input id="eveningLearned"></div><div><label>Was ist morgen wichtig?</label><input id="tomorrow"></div></div><button class="btn full" id="saveEvening">Abendabschluss speichern</button></section><section class="card"><div class="head"><div><h2 class="title">Wochenreflexion</h2><p class="sub">Wo stehe ich?</p></div><span class="badge">Woche</span></div><div class="grid2"><div><label>Wo stehe ich gerade?</label><input id="weekWhere"></div><div><label>Was gab Energie?</label><input id="weekEnergy"></div><div><label>Was bremste mich?</label><input id="weekBlock"></div><div><label>Fokus nächste Woche</label><input id="weekFocus"></div></div><button class="soft full" id="saveWeekly">Wochenreflexion speichern</button></section></div><aside class="side"><section class="card"><div class="head"><div><h2 class="title">Apple-Notes-Export</h2><p class="sub">Abends kopieren und sichern.</p></div><button class="soft" id="copyJournal">Export kopieren</button></div><textarea id="journal" readonly></textarea></section></aside></div></section>
-<section class="page" id="page-settings"><div class="layout"><div class="main"><section class="card"><div class="head"><div><h2 class="title">Routinen-Vorlagen</h2><p class="sub">Gelten für neue Tage.</p></div></div><div class="list" id="routineSettings"></div><div class="form routine"><input id="newRoutine" placeholder="Neue Routine"><select id="newRoutineMode" class="mode"><option value="morgens">Morgens</option><option value="mittags">Mittags</option><option value="abends">Abends</option><option value="flexibel">Flexibel</option><option value="zeit">Uhrzeit</option></select><input id="newRoutineTime" class="time hidden" type="time"><button class="btn" id="addRoutine">Routine</button></div></section></div><aside class="side"><section class="card"><div class="item"><div class="item-title">Hinweis</div><div class="meta">Daten bleiben lokal auf diesem Gerät. Backup/Sync wäre ein nächster sinnvoller Schritt.</div></div></section></aside></div></section>
-<footer class="footer">Mein Daily Life · v3.2 · lokal im Browser gespeichert</footer></main>
-<script>
-const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s)),today=new Date().toISOString().slice(0,10);const dayKey='mdl_v31_'+today,tplKey='mdl_v31_tpl',histKey='mdl_v31_hist',setKey='mdl_v31_set';const affs=['Ein kleiner ehrlicher Schritt reicht.','Ich handle, bevor ich mich bewerte.','Ich darf fühlen und trotzdem handeln.','Bewegung bringt Klarheit.','Selbstliebe ist eine kleine Handlung.','Heute zählt Richtung, nicht Perfektion.','Ich baue Vertrauen durch kleine Beweise auf.'];const moods=[['🙂','ruhig'],['🎯','klar'],['😴','müde'],['⚡','unruhig'],['🔥','motiviert'],['😵‍💫','überfordert'],['😔','traurig'],['😟','ängstlich'],['🌫','leer']],needs=[['🧭','Struktur'],['🌿','Ruhe'],['💪','Mut'],['🚶','Bewegung'],['🔍','Klarheit'],['🤝','Nähe'],['🫶','Selbstfürsorge']],values=['Mut','Selbstliebe','Klarheit','Authentizität','Ruhe','Disziplin','Freude','Nähe','Vertrauen','Fokus'];
-let templates={routines:[{id:'water',title:'Wasser trinken',mode:'morgens',time:'',active:true},{id:'journal',title:'Tagebuch in Apple Notes',mode:'morgens',time:'',active:true},{id:'activation',title:'5–15 Minuten Aktivierung',mode:'morgens',time:'',active:true},{id:'walk',title:'2 km Spaziergang',mode:'zeit',time:'06:40',active:true}]};let state={mood:[],need:'',values:[],smallThing:'',frog:'',steps:0,routines:[],tasks:[],goals:[],successes:[],selfLove:[],affirmation:'',evening:{good:'',self:'',learned:'',tomorrow:''},weekly:{where:'',energy:'',block:'',focus:''},morningSaved:false,coreSaved:false,eveningSaved:false};let history={},settings={theme:'light'},drop=0;
-const uid=p=>p+'_'+Date.now()+'_'+Math.random().toString(16).slice(2),esc=v=>String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;'),now=()=>new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});function label(o){return o.mode==='zeit'?(o.time?o.time+' Uhr':'Uhrzeit'):({morgens:'Morgens',mittags:'Mittags',abends:'Abends',flexibel:'Flexibel'}[o.mode]||'Flexibel')}function opts(mode){return [['flexibel','Flexibel'],['morgens','Morgens'],['mittags','Mittags'],['abends','Abends'],['zeit','Uhrzeit']].map(([v,l])=>`<option value="${v}" ${mode===v?'selected':''}>${l}</option>`).join('')}function norm(x){x.mode=x.mode||x.scheduleMode||'flexibel';x.top3=!!x.top3;x.done=!!x.done;x.time=x.time||'';return x}
-function load(){let t=localStorage.getItem(tplKey);if(t)templates={...templates,...JSON.parse(t)};let s=localStorage.getItem(dayKey);if(s)state={...state,...JSON.parse(s)};let h=localStorage.getItem(histKey);if(h)history=JSON.parse(h);let se=localStorage.getItem(setKey);if(se)settings={...settings,...JSON.parse(se)};document.documentElement.dataset.theme=settings.theme;init()}function init(){templates.routines=(templates.routines||[]).map(norm);if(!state.affirmation)state.affirmation=affs[Math.floor(Math.random()*affs.length)];if(!state.routines.length)state.routines=templates.routines.filter(r=>r.active).map(r=>({id:'r_'+r.id,title:r.title,mode:r.mode,time:r.time,done:false,top3:false,type:'Routine'}));state.routines=state.routines.map(norm);state.tasks=state.tasks.map(norm);state.goals=state.goals.map(g=>({...norm(g),value:g.value||'',next:g.next||''}));saveHist()}function save(){saveHist();localStorage.setItem(dayKey,JSON.stringify(state));localStorage.setItem(tplKey,JSON.stringify(templates));localStorage.setItem(histKey,JSON.stringify(history));render()}function saveHist(){history[today]={morning:!!state.morningSaved,frog:frogDone(),self:state.selfLove.length>0,evening:!!state.eveningSaved}}
-function streak(k){let c=0,d=new Date(today+'T12:00:00');for(let i=0;i<365;i++){let key=d.toISOString().slice(0,10);if(history[key]&&history[key][k])c++;else break;d.setDate(d.getDate()-1)}return c}function all(){return[...state.routines.map((x,i)=>({...x,g:'routine',i})),...state.tasks.map((x,i)=>({...x,g:'task',i})),...state.goals.map((x,i)=>({...x,g:'goal',i}))]}function top3(){return all().filter(x=>x.top3).slice(0,3)}function frog(){return all().find(x=>x.isFrog)||null}function frogDone(){let f=frog();return!!(f&&f.done)}function progress(){let total=state.routines.length+state.tasks.length+state.goals.length+1,done=state.routines.filter(x=>x.done).length+state.tasks.filter(x=>x.done).length+state.goals.filter(x=>x.done).length+(state.morningSaved?1:0);return{total,done,pct:total?Math.round(done/total*100):0}}
-function coach(){let r=state.routines.find(x=>!x.done),f=frog(),t=top3().find(x=>!x.done),task=state.tasks.find(x=>!x.done);if(r)return{title:r.title,text:'Starte mit deinem nächsten Morgen-Baustein.',g:'routine',id:r.id};if(!state.morningSaved)return{title:'Morgenstart speichern',text:'Gefühl, Bedürfnis und kleine Sache festhalten.',g:'meta',id:'morning'};if(f&&!f.done)return{title:'🐸 Eat the Frog',text:f.title,g:f.g,id:f.id};if(t)return{title:'⭐ Top 3',text:t.title,g:t.g,id:t.id};if(task)return{title:task.title,text:'Das ist dein nächster guter Schritt.',g:'task',id:task.id};if(!state.selfLove.length)return{title:'Eine Selbstliebe-Murmel sammeln',text:'Nicht leisten. Freundlich mit dir handeln.',g:'self',id:'self'};return{title:'Heute bewusst abschließen',text:'Du sammelst Beweise für Selbstführung.',g:'meta',id:'done'}}
-function page(p){$$('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+p));$$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.page===p));scrollTo({top:0,behavior:'smooth'})}function bind(){ $('#theme').onclick=()=>{settings.theme=settings.theme==='dark'?'light':'dark';localStorage.setItem(setKey,JSON.stringify(settings));document.documentElement.dataset.theme=settings.theme;render()};$$('.tab').forEach(b=>b.onclick=()=>page(b.dataset.page));document.addEventListener('click',e=>{let j=e.target.closest('[data-go]');if(j){e.preventDefault();page(j.dataset.go)}});$('#saveMorning').onclick=saveMorning;$('#saveCore').onclick=saveCore;$('#addTask').onclick=addTask;$('#addGoal').onclick=addGoal;$('#addSuccess').onclick=addSuccess;$('#addSelf').onclick=addSelf;$('#saveEvening').onclick=saveEvening;$('#saveWeekly').onclick=saveWeekly;$('#copyJournal').onclick=()=>navigator.clipboard.writeText($('#journal').value).then(()=>toast('Apple-Notes-Export kopiert.'));$('#smartAff').onclick=smartAff;$('#shuffleAff').onclick=()=>{state.affirmation=affs[Math.floor(Math.random()*affs.length)];save()};$('#doNow').onclick=doNow;$('#addRoutine').onclick=addRoutine;document.addEventListener('change',e=>{if(e.target.classList.contains('mode'))timeFields()});timeFields()}
-function timeFields(){$$('.mode').forEach(sel=>{let i=sel.parentElement.querySelector('.time');if(i)i.classList.toggle('hidden',sel.value!=='zeit')})}function render(){renderHead();renderDash();renderPlan();renderGoals();renderSelf();renderRef();renderSet();$('#theme').textContent=settings.theme==='dark'?'☀':'☾';timeFields()}function renderHead(){let d=new Date();$('#date').textContent=d.toLocaleDateString('de-DE',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});let h=d.getHours();$('#greet').textContent=h<10?'Guten Morgen, Peer.':h>=18?'Guten Abend, Peer.':'Guten Tag, Peer.';let p=progress();$('#progPill').textContent=p.pct+'% geführt';$('#topPill').textContent='⭐ '+top3().length+'/3 Top 3';$('#marblePill').textContent='🫶 '+Math.min(5,state.selfLove.length)+'/5 Murmeln';$('#heroLine').textContent='Dein nächster guter Schritt: '+coach().text}
-function renderDash(){let c=coach(),p=progress();$('#phase').textContent=!state.morningSaved?'Morgen':!frogDone()?'Fokus':!state.eveningSaved?'Tag':'Abschluss';$('#nowTitle').textContent=c.title;$('#nowText').textContent=c.text;$('#sMorning').textContent=streak('morning');$('#sFrog').textContent=streak('frog');$('#sSelf').textContent=streak('self');$('#sEvening').textContent=streak('evening');$('#frogSummary').textContent=frog()?frog().title+(frog().done?' · erledigt':''):(state.frog||'Noch nicht festgelegt');$('#topSummary').textContent=top3().length?top3().map(x=>x.title).join(' · '):'Noch nichts ausgewählt';$('#valuesSummary').textContent=state.values.length?state.values.join(' · '):'Noch keine Werte gewählt';$('#ovBadge').textContent=p.pct+'%';$('#ovProg').style.width=p.pct+'%';let a=[['Morgenstart',state.morningSaved,state.morningSaved?'gespeichert':'offen'],['Eat the Frog',frogDone(),frog()?frog().done?'erledigt':'offen':'nicht gesetzt'],['Top 3',top3().length&&top3().every(x=>x.done),top3().filter(x=>x.done).length+'/'+top3().length+' erledigt'],['Abendabschluss',state.eveningSaved,state.eveningSaved?'gespeichert':'offen']];$('#ovList').innerHTML=a.map(x=>`<div class="item"><div class="left"><span class="check ${x[1]?'done':''}">✓</span><div><div class="item-title">${x[0]}</div><div class="meta">${x[2]}</div></div></div></div>`).join('');$('#affirmation').textContent=state.affirmation}
-
-function renderDashboardFocusList(){
-  const box = $('#dashboardFocusList');
-  if(!box) return;
-
-  const frog = frogItem();
-  const top = top3Items();
-  const values = state.values || [];
-
-  let rows = [];
-
-  if(frog){
-    rows.push({...frog, label:"🐸 Eat the Frog", group:frog._group});
-  } else if(state.frog){
-    rows.push({id:"frog_text", title:state.frog, done:false, label:"🐸 Eat the Frog", group:"text"});
-  }
-
-  top.forEach((item, idx)=>{
-    if(!rows.some(r=>r.id===item.id)){
-      rows.push({...item, label:"⭐ Top "+(idx+1), group:item._group});
+    .app-nav button.active{
+      background:var(--surface-muted);
+      color:var(--text);
     }
-  });
+    .app-nav button:active{transform:scale(.97)}
 
-  if(rows.length===0){
-    box.innerHTML = `<div class="empty">Noch nichts ausgewählt. Gehe in den Plan und markiere ⭐ Top 3 oder 🐸 Eat the Frog.</div>`;
-    return;
-  }
+    .page{display:none}
+    .page.active{display:block}
+    .page-grid{
+      display:grid;
+      gap:14px;
+      grid-template-columns:minmax(0,1fr);
+    }
+    .main-stack,.side-stack{
+      display:grid;
+      gap:14px;
+      align-content:start;
+      min-width:0;
+    }
 
-  box.innerHTML = rows.map(r=>`
-    <div class="dash-action">
-      <div class="row">
-        <div class="left">
-          <button class="check ${r.done?"done":""}" data-dashboard-done="${esc(r.group+":"+r.id)}">✓</button>
+    .focus-card{
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      border-radius:var(--radius-xl);
+      padding:24px;
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:18px;
+    }
+    .kicker{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .focus-title{
+      margin:0;
+      font-size:clamp(34px,6vw,54px);
+      line-height:.98;
+      letter-spacing:-1.8px;
+      font-weight:790;
+    }
+    .focus-text{
+      color:var(--text-soft);
+      font-size:16px;
+      margin:12px 0 0;
+      max-width:760px;
+    }
+
+    .card{
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      border-radius:var(--radius-lg);
+      padding:18px;
+      box-shadow:none;
+      min-width:0;
+    }
+    .card-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .card-title{
+      margin:0;
+      font-size:19px;
+      line-height:1.12;
+      letter-spacing:-.42px;
+      font-weight:740;
+    }
+    .card-subtitle{
+      color:var(--muted);
+      font-size:13px;
+      margin:5px 0 0;
+    }
+
+    .section-label{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      margin:2px 0 8px;
+    }
+
+    .btn{
+      min-height:44px;
+      border-radius:999px;
+      padding:11px 16px;
+      background:var(--accent);
+      color:#fff;
+      font-size:14px;
+      font-weight:720;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      transition:transform .16s ease, opacity .16s ease, background .16s ease;
+    }
+    .btn.secondary{
+      background:var(--surface-raised);
+      color:var(--text);
+      border:1px solid var(--line-soft);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--accent);
+      padding-left:4px;
+      padding-right:4px;
+    }
+    .btn:active{transform:scale(.97)}
+    .btn:hover{opacity:.9}
+    .button-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .status-grid,.smart-grid,.area-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+    .status-tile,.smart-tile,.area-card{
+      background:var(--surface-raised);
+      border:1px solid var(--line-soft);
+      border-radius:18px;
+      padding:14px;
+      min-width:0;
+    }
+    .status-value,.smart-value{
+      font-size:22px;
+      font-weight:760;
+      letter-spacing:-.5px;
+      line-height:1.05;
+    }
+    .status-label,.smart-label{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:650;
+      margin-top:4px;
+    }
+
+    .list{display:grid;gap:8px}
+    .list-item{
+      background:var(--surface-raised);
+      border:1px solid var(--line-soft);
+      border-radius:18px;
+      padding:13px;
+      min-width:0;
+    }
+    .item-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .item-left{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      min-width:0;
+    }
+    .check{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:var(--surface);
+      color:transparent;
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      flex:0 0 auto;
+      transition:transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+    .check.done{
+      color:white;
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+    .check:active{transform:scale(.92)}
+    .item-title{
+      font-size:15px;
+      font-weight:700;
+      letter-spacing:-.16px;
+      overflow-wrap:anywhere;
+    }
+    .item-meta{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .priority-dot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--muted-2);
+      display:inline-block;
+      margin-right:6px;
+    }
+    .priority-dot.high{background:var(--orange)}
+    .priority-dot.critical{background:var(--red)}
+    .priority-dot.low{background:var(--green)}
+
+    .chip-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+    }
+    .chip{
+      min-height:34px;
+      border-radius:999px;
+      padding:8px 11px;
+      background:var(--surface-raised);
+      border:1px solid var(--line-soft);
+      color:var(--muted);
+      font-size:13px;
+      font-weight:680;
+      transition:background .16s ease, color .16s ease, transform .16s ease;
+    }
+    .chip.active{
+      background:var(--accent);
+      color:white;
+      border-color:var(--accent);
+    }
+    .chip:active{transform:scale(.97)}
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .two-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    .timeline{
+      display:grid;
+      gap:10px;
+    }
+    .time-block{
+      display:grid;
+      grid-template-columns:64px minmax(0,1fr);
+      gap:12px;
+      align-items:start;
+    }
+    .time-label{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      padding-top:12px;
+      text-align:right;
+    }
+
+    .capture-input{
+      display:grid;
+      gap:10px;
+    }
+    .capture-entry{
+      min-height:74px;
+      font-size:17px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:4px 8px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:11px;
+      font-weight:720;
+      margin-right:4px;
+    }
+
+    .prompt-card{
+      background:var(--surface-raised);
+      border:1px solid var(--line-soft);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .empty{
+      background:var(--surface-raised);
+      border:1px dashed var(--line);
+      border-radius:18px;
+      padding:16px;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+    }
+
+    .notes-export{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      font-size:13px;
+      min-height:260px;
+      background:var(--surface-raised);
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:calc(var(--nav-height) + 14px);
+      transform:translateX(-50%) translateY(12px);
+      background:var(--surface);
+      border:1px solid var(--line-soft);
+      box-shadow:var(--shadow);
+      border-radius:999px;
+      padding:12px 16px;
+      font-size:14px;
+      font-weight:720;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .16s ease, transform .16s ease;
+      z-index:100;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted-2);
+      font-size:12px;
+      margin:24px 0 2px;
+    }
+
+    @media(min-width:720px){
+      :root{--nav-height:0px}
+      .shell{padding:18px 22px 42px}
+      .topbar{margin:0 -22px 14px;padding:10px 22px}
+      .app-nav{
+        position:sticky;
+        top:64px;
+        left:auto;
+        right:auto;
+        bottom:auto;
+        margin-bottom:16px;
+        box-shadow:none;
+        background:var(--surface-muted);
+        border-radius:999px;
+        max-width:720px;
+      }
+      .app-nav button{
+        min-width:auto;
+        padding:9px 14px;
+      }
+      .page-grid{
+        grid-template-columns:minmax(0,1.18fr) minmax(300px,.82fr);
+      }
+      .status-grid{grid-template-columns:repeat(3,1fr)}
+      .smart-grid{grid-template-columns:repeat(4,1fr)}
+      .area-grid{grid-template-columns:repeat(2,1fr)}
+      .two-grid{grid-template-columns:1fr 1fr}
+      .form-grid.task-form{grid-template-columns:minmax(0,1fr) 145px 145px 130px auto}
+      .form-grid.capture-form{grid-template-columns:minmax(0,1fr) 150px auto}
+    }
+
+    @media(min-width:1040px){
+      .area-grid{grid-template-columns:repeat(4,1fr)}
+    }
+
+    @media(max-width:719px){
+      .focus-card{padding:22px 19px}
+      .focus-title{font-size:34px}
+      .card{padding:16px}
+      .button-row .btn{flex:1 1 auto}
+      .item-row{align-items:flex-start}
+      .time-block{grid-template-columns:54px minmax(0,1fr)}
+      .time-label{text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <div class="toast" id="toast">Gespeichert.</div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="app-icon">●</div>
           <div>
-            <div class="item-title">${esc(r.label)} · ${esc(r.title)}</div>
-            <div class="item-meta">${r.done?"erledigt":"offen"}${values.length ? " · Werte: "+esc(values.join(", ")) : ""}</div>
+            <h1>Mein Daily OS</h1>
+            <div class="date-line" id="dateLine"></div>
           </div>
         </div>
+        <button class="icon-button" id="themeBtn" aria-label="Dark Mode">☾</button>
       </div>
-    </div>
-  `).join("");
+    </header>
 
-  $$("[data-dashboard-done]").forEach(btn=>btn.onclick=()=>{
-    const [group,id] = btn.dataset.dashboardDone.split(":");
-    let arr = group==="routine" ? state.routines : group==="task" ? state.tasks : group==="goal" ? state.goals : null;
-    if(!arr){ toast("Bitte im Plan bearbeiten."); return; }
-    const item = arr.find(x=>x.id===id);
-    if(!item) return;
-    item.done = !item.done;
-    if(item.done){
-      recordSuccess("Erledigt: "+item.title);
-      celebrate();
+    <nav class="app-nav" aria-label="Hauptnavigation">
+      <button class="active" data-page="heute">Heute</button>
+      <button data-page="capture">Capture</button>
+      <button data-page="plan">Plan</button>
+      <button data-page="reflexion">Reflexion</button>
+      <button data-page="bereiche">Bereiche</button>
+    </nav>
+
+    <section class="page active" id="page-heute">
+      <div class="page-grid">
+        <div class="main-stack">
+          <section class="focus-card">
+            <div>
+              <div class="kicker">Jetzt gerade</div>
+              <h2 class="focus-title" id="nowTitle">Den Tag ruhig starten.</h2>
+              <p class="focus-text" id="nowText">Wähle eine konkrete Handlung, die dich heute weiterbringt.</p>
+            </div>
+            <div class="button-row">
+              <button class="btn" id="completeNow">Als erledigt markieren</button>
+              <button class="btn secondary" data-go-page="capture">Gedanke erfassen</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Heute zählt</h3>
+                <p class="card-subtitle">Eine Hauptaufgabe, drei Prioritäten und ein kleiner Selbstfürsorge-Schritt.</p>
+              </div>
+            </div>
+
+            <label for="mainTask">Wichtigste Aufgabe des Tages</label>
+            <input id="mainTask" placeholder="Was macht den Tag wirklich sinnvoll?">
+
+            <label for="selfCare">Kleiner Selbstfürsorge-Schritt</label>
+            <input id="selfCare" placeholder="z. B. Spaziergang, Pause, früh ins Bett">
+
+            <div class="button-row" style="margin-top:12px">
+              <button class="btn" id="saveTodayFocus">Heute speichern</button>
+              <button class="btn secondary" data-go-page="plan">Top 3 im Plan wählen</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Top 3 für heute</h3>
+                <p class="card-subtitle">Aus deinen Aufgaben im Plan markiert.</p>
+              </div>
+            </div>
+            <div class="list" id="todayTop3List"></div>
+          </section>
+        </div>
+
+        <aside class="side-stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Status</h3>
+                <p class="card-subtitle">Kompakt statt Health-Dashboard.</p>
+              </div>
+            </div>
+
+            <div class="status-grid">
+              <div class="status-tile">
+                <div class="status-value" id="energyValue">—</div>
+                <div class="status-label">Energie</div>
+              </div>
+              <div class="status-tile">
+                <div class="status-value" id="moodValue">—</div>
+                <div class="status-label">Stimmung</div>
+              </div>
+              <div class="status-tile">
+                <div class="status-value" id="sleepValue">—</div>
+                <div class="status-label">Schlaf</div>
+              </div>
+            </div>
+
+            <label>Energie</label>
+            <div class="chip-row" id="energyChips"></div>
+
+            <label>Stimmung</label>
+            <div class="chip-row" id="moodChips"></div>
+
+            <label>Schlaf</label>
+            <div class="chip-row" id="sleepChips"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Smarte Bereiche</h3>
+                <p class="card-subtitle">Schneller Blick auf offene Themen.</p>
+              </div>
+            </div>
+            <div class="smart-grid">
+              <div class="smart-tile"><div class="smart-value" id="smartToday">0</div><div class="smart-label">Heute</div></div>
+              <div class="smart-tile"><div class="smart-value" id="smartWeek">0</div><div class="smart-label">Woche</div></div>
+              <div class="smart-tile"><div class="smart-value" id="smartImportant">0</div><div class="smart-label">Wichtig</div></div>
+              <div class="smart-tile"><div class="smart-value" id="smartWaiting">0</div><div class="smart-label">Warten auf</div></div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page" id="page-capture">
+      <div class="page-grid">
+        <div class="main-stack">
+          <section class="focus-card">
+            <div>
+              <div class="kicker">Capture</div>
+              <h2 class="focus-title">Raus aus dem Kopf.</h2>
+              <p class="focus-text">Gedanken, Aufgaben, Sorgen und Ideen schnell erfassen. Sortieren kommt später.</p>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Inbox</h3>
+                <p class="card-subtitle">Eine Eingabe, ein Tag, fertig.</p>
+              </div>
+            </div>
+
+            <div class="capture-input">
+              <textarea class="capture-entry" id="captureText" placeholder="Was soll aus deinem Kopf raus?"></textarea>
+              <div class="chip-row" id="captureTags"></div>
+              <div class="form-grid capture-form">
+                <select id="captureType">
+                  <option value="Gedanke">Gedanke</option>
+                  <option value="Aufgabe">Aufgabe</option>
+                  <option value="Sorge">Sorge</option>
+                  <option value="Idee">Idee</option>
+                  <option value="WartenAuf">Warten auf</option>
+                </select>
+                <button class="btn" id="addCapture">Erfassen</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="side-stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Inbox-Einträge</h3>
+                <p class="card-subtitle">Später in Aufgaben oder Bereiche überführen.</p>
+              </div>
+            </div>
+            <div class="list" id="captureList"></div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page" id="page-plan">
+      <div class="page-grid">
+        <div class="main-stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Neue Aufgabe</h3>
+                <p class="card-subtitle">Alltagstauglich: Aufgabe, Bereich, Priorität, nächster Schritt.</p>
+              </div>
+            </div>
+
+            <div class="form-grid task-form">
+              <input id="taskTitle" placeholder="Aufgabe">
+              <select id="taskArea"></select>
+              <select id="taskScope">
+                <option value="Heute">Heute</option>
+                <option value="Diese Woche">Diese Woche</option>
+                <option value="Wichtig">Wichtig</option>
+                <option value="Warten auf">Warten auf</option>
+              </select>
+              <select id="taskPriority">
+                <option value="normal">Normal</option>
+                <option value="hoch">Hoch</option>
+                <option value="kritisch">Kritisch</option>
+                <option value="niedrig">Niedrig</option>
+              </select>
+              <button class="btn" id="addTask">Hinzufügen</button>
+            </div>
+
+            <label for="taskNext">Nächster konkreter Schritt</label>
+            <input id="taskNext" placeholder="Was ist der erste kleine Schritt?">
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Tagesplan</h3>
+                <p class="card-subtitle">Timeline statt endloser Liste.</p>
+              </div>
+            </div>
+            <div class="timeline" id="timeline"></div>
+          </section>
+        </div>
+
+        <aside class="side-stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Smarte Listen</h3>
+                <p class="card-subtitle">Filtern ohne Komplexität.</p>
+              </div>
+            </div>
+            <div class="chip-row" id="smartFilters"></div>
+            <div class="list" id="taskList" style="margin-top:14px"></div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page" id="page-reflexion">
+      <div class="page-grid">
+        <div class="main-stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Morgenstart</h3>
+                <p class="card-subtitle">Drei kurze Fragen. Kein Roman.</p>
+              </div>
+            </div>
+            <div class="two-grid">
+              <div class="prompt-card">
+                <label for="morningFeel">Wie fühle ich mich?</label>
+                <input id="morningFeel" placeholder="z. B. ruhig, müde, unruhig">
+              </div>
+              <div class="prompt-card">
+                <label for="morningNeed">Was brauche ich heute?</label>
+                <input id="morningNeed" placeholder="z. B. Struktur, Ruhe, Fokus">
+              </div>
+              <div class="prompt-card">
+                <label for="morningEnough">Was wäre heute genug?</label>
+                <input id="morningEnough" placeholder="Ein realistischer guter Tag">
+              </div>
+            </div>
+            <button class="btn" id="saveMorningReflection" style="margin-top:12px">Morgenstart speichern</button>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Abendcheck</h3>
+                <p class="card-subtitle">Kurz abschließen, nicht analysieren.</p>
+              </div>
+            </div>
+            <div class="two-grid">
+              <div class="prompt-card">
+                <label for="eveningGood">Was war gut?</label>
+                <input id="eveningGood" placeholder="Ein Satz reicht">
+              </div>
+              <div class="prompt-card">
+                <label for="eveningHard">Was war schwer?</label>
+                <input id="eveningHard" placeholder="Ehrlich und kurz">
+              </div>
+              <div class="prompt-card">
+                <label for="eveningTomorrow">Was ist morgen wichtig?</label>
+                <input id="eveningTomorrow" placeholder="Eine Sache">
+              </div>
+            </div>
+            <button class="btn" id="saveEveningReflection" style="margin-top:12px">Abendcheck speichern</button>
+          </section>
+        </div>
+
+        <aside class="side-stack">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Wochenreview</h3>
+                <p class="card-subtitle">Offen, geschafft, gelernt, loslassen.</p>
+              </div>
+            </div>
+            <label for="weekOpen">Offen</label>
+            <input id="weekOpen" placeholder="Was ist noch offen?">
+            <label for="weekDone">Geschafft</label>
+            <input id="weekDone" placeholder="Was habe ich geschafft?">
+            <label for="weekLearned">Gelernt</label>
+            <input id="weekLearned" placeholder="Was habe ich gelernt?">
+            <label for="weekLetGo">Loslassen</label>
+            <input id="weekLetGo" placeholder="Was darf ich loslassen?">
+            <button class="btn secondary" id="saveWeeklyReview" style="margin-top:12px">Wochenreview speichern</button>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Export</h3>
+                <p class="card-subtitle">Für Apple Notes oder Journal.</p>
+              </div>
+              <button class="btn secondary" id="copyExport">Kopieren</button>
+            </div>
+            <textarea class="notes-export" id="exportText" readonly></textarea>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page" id="page-bereiche">
+      <div class="main-stack">
+        <section class="focus-card">
+          <div>
+            <div class="kicker">Bereiche</div>
+            <h2 class="focus-title">Ordnung zwischen Lebensfeldern.</h2>
+            <p class="focus-text">Teutonia, Karriere, Gesundheit und Privat behalten eigene Räume.</p>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Lebensbereiche</h3>
+              <p class="card-subtitle">Aufgaben, Capture und Notizen nach Bereichen geordnet.</p>
+            </div>
+          </div>
+          <div class="area-grid" id="areaGrid"></div>
+        </section>
+      </div>
+    </section>
+
+    <footer class="footer">Mein Daily OS · Version 1 · lokal gespeichert</footer>
+  </main>
+
+  <script>
+    const $ = selector => document.querySelector(selector);
+    const $$ = selector => Array.from(document.querySelectorAll(selector));
+
+    const todayKey = new Date().toISOString().slice(0,10);
+    const storageKey = "mein_daily_os_v1_state_" + todayKey;
+    const settingsKey = "mein_daily_os_v1_settings";
+
+    const defaultAreas = [
+      {id:"teutonia", name:"Teutonia", subtitle:"Jugendfußball, Organisation, Verein"},
+      {id:"karriere", name:"Karriere", subtitle:"Sport, IT, Koordination, Jobsuche"},
+      {id:"gesundheit", name:"Gesundheit", subtitle:"Energie, Schlaf, Bewegung"},
+      {id:"privat", name:"Privat", subtitle:"Alltag, Beziehungen, persönliche Themen"}
+    ];
+
+    const tagOptions = ["#Teutonia", "#Karriere", "#Gesundheit", "#Privat", "#WartenAuf"];
+    const statusOptions = {
+      energy:["niedrig","mittel","hoch"],
+      mood:["ruhig","klar","unruhig","müde","motiviert"],
+      sleep:["schlecht","okay","gut"]
+    };
+
+    let state = {
+      today:{
+        mainTask:"",
+        selfCare:"",
+        energy:"",
+        mood:"",
+        sleep:""
+      },
+      capture:[],
+      tasks:[
+        {id:uid("task"), title:"2 km Spaziergang", area:"gesundheit", scope:"Heute", priority:"normal", next:"Schuhe anziehen und los", done:false, top3:true, time:"Morgen"},
+        {id:uid("task"), title:"Eine unangenehme Sache beginnen", area:"karriere", scope:"Wichtig", priority:"hoch", next:"10 Minuten Timer starten", done:false, top3:true, time:"Fokus"},
+        {id:uid("task"), title:"Teutonia-Orga kurz prüfen", area:"teutonia", scope:"Heute", priority:"normal", next:"Nachrichten und offene Punkte checken", done:false, top3:false, time:"Mittag"}
+      ],
+      reflections:{
+        morning:{feel:"", need:"", enough:""},
+        evening:{good:"", hard:"", tomorrow:""},
+        weekly:{open:"", done:"", learned:"", letGo:""}
+      }
+    };
+
+    let settings = {theme:"light"};
+    let activeFilter = "Heute";
+
+    function uid(prefix){
+      return prefix + "_" + Date.now() + "_" + Math.random().toString(16).slice(2);
     }
-    save();
-  });
-}
 
-function doNow(){let c=coach();if(c.id==='morning'){page('plan');return}if(c.id==='self'){page('selbstwert');return}let arr=c.g==='routine'?state.routines:c.g==='task'?state.tasks:c.g==='goal'?state.goals:null;if(arr){let it=arr.find(x=>x.id===c.id);if(it){it.done=!it.done;if(it.done){record('Erledigt: '+it.title);celebrate()}save();return}}toast('Gehe zum passenden Bereich.')}function emoji(container,arr,sel,multi,cb){$(container).innerHTML=arr.map(([e,t])=>`<button class="emoji ${(multi?sel.includes(t):sel===t)?'active':''}" data-v="${t}"><span class="e">${e}</span><span>${t}</span></button>`).join('');$$(container+' [data-v]').forEach(b=>b.onclick=()=>cb(b.dataset.v))}
-function renderPlan(){ $('#steps').value=state.steps||'';$('#frogText').value=state.frog||'';$('#smallThing').value=state.smallThing||'';emoji('#moodGrid',moods,state.mood,true,v=>{state.mood=state.mood.includes(v)?state.mood.filter(x=>x!==v):[...state.mood,v];save()});emoji('#needGrid',needs,state.need,false,v=>{state.need=v;save()});$('#routines').innerHTML=state.routines.map((r,i)=>`<div class="item"><div class="row"><div class="left"><button class="check ${r.done?'done':''}" data-r="${i}">✓</button><div><div class="item-title">${esc(r.title)}<span class="type">Routine</span></div><div class="meta">${label(r)}</div></div></div><button class="star ${r.top3?'active':''}" data-top="routine:${i}">⭐</button></div></div>`).join('');$$('[data-r]').forEach(b=>b.onclick=()=>{let r=state.routines[+b.dataset.r];r.done=!r.done;if(r.done){record('Routine erledigt: '+r.title);celebrate()}save()});$('#morningBadge').textContent=state.routines.filter(x=>x.done).length+'/'+state.routines.length;$('#tasks').innerHTML=state.tasks.length?state.tasks.map((t,i)=>`<div class="item"><div class="row"><div class="left"><button class="check ${t.done?'done':''}" data-t="${i}">✓</button><div><div class="item-title">${esc(t.title)}${t.isFrog?'<span class="type">Eat the Frog</span>':''}<span class="type">${esc(t.type||'Aufgabe')}</span></div><div class="meta">${label(t)}</div></div></div><div class="links"><button class="star ${t.top3?'active':''}" data-top="task:${i}">⭐</button><button class="star frog ${t.isFrog?'active':''}" data-frog="task:${i}">🐸</button><button class="chip" data-del="${i}">Löschen</button></div></div><div class="schedule"><input value="${esc(t.title)}" data-ed="${i}"><select class="mode" data-mode="${i}">${opts(t.mode)}</select><input class="time ${t.mode==='zeit'?'':'hidden'}" type="time" value="${esc(t.time||'')}" data-time="${i}"></div></div>`).join(''):'<div class="empty">Noch keine Aufgaben.</div>';$$('[data-t]').forEach(b=>b.onclick=()=>{let t=state.tasks[+b.dataset.t];t.done=!t.done;if(t.done){record('Aufgabe erledigt: '+t.title);celebrate()}save()});$$('[data-del]').forEach(b=>b.onclick=()=>{state.tasks.splice(+b.dataset.del,1);save()});$$('[data-ed]').forEach(inp=>inp.onchange=()=>{state.tasks[+inp.dataset.ed].title=inp.value;save()});$$('[data-mode]').forEach(sel=>sel.onchange=()=>{let t=state.tasks[+sel.dataset.mode];t.mode=sel.value;if(t.mode!=='zeit')t.time='';save()});$$('[data-time]').forEach(inp=>inp.onchange=()=>{state.tasks[+inp.dataset.time].time=inp.value;save()});$$('[data-top]').forEach(b=>b.onclick=()=>toggleTop(b.dataset.top));$$('[data-frog]').forEach(b=>b.onclick=()=>setFrog(b.dataset.frog));$('#taskBadge').textContent=state.tasks.filter(x=>!x.done).length+' offen';$('#topBadge').textContent=top3().length+'/3';$('#topList').innerHTML=top3().length?top3().map(x=>`<div class="item"><div class="item-title">⭐ ${esc(x.title)}</div><div class="meta">${x.g==='goal'?'Ziel':x.g==='routine'?'Routine':'Aufgabe'}</div></div>`).join(''):'<div class="empty">Markiere mit ⭐ deine drei wichtigsten Punkte.</div>'}
-function saveMorning(){state.smallThing=$('#smallThing').value.trim();state.morningSaved=true;if(state.smallThing&&!state.tasks.some(t=>t.source==='small'))state.tasks.unshift({id:uid('t'),title:state.smallThing,type:'kleine Sache',done:false,top3:false,source:'small',mode:'flexibel',time:''});save();toast('Morgenstart gespeichert.')}function saveCore(){state.steps=Number($('#steps').value||0);state.frog=$('#frogText').value.trim();if(state.frog&&!state.tasks.some(t=>t.source==='frog'))state.tasks.unshift({id:uid('t'),title:state.frog,type:'Fokus',done:false,top3:true,isFrog:true,source:'frog',mode:'flexibel',time:''});else if(state.frog){let f=state.tasks.find(t=>t.source==='frog');if(f)f.title=state.frog}state.coreSaved=true;save();toast('Plan-Basis gespeichert.')}function addTask(){let title=$('#taskInput').value.trim();if(!title)return;let mode=$('#taskMode').value;state.tasks.push({id:uid('t'),title,type:$('#taskType').value,done:false,top3:false,isFrog:false,mode,time:mode==='zeit'?$('#taskTime').value:''});$('#taskInput').value='';save()}
-function toggleTop(ref){let[g,i]=ref.split(':'),arr=g==='routine'?state.routines:g==='task'?state.tasks:state.goals,it=arr[+i];if(!it.top3&&top3().length>=3){toast('Maximal 3 Top-3-Punkte.');return}it.top3=!it.top3;save()}function setFrog(ref){state.routines.forEach(x=>x.isFrog=false);state.tasks.forEach(x=>x.isFrog=false);state.goals.forEach(x=>x.isFrog=false);let[g,i]=ref.split(':'),arr=g==='routine'?state.routines:g==='task'?state.tasks:state.goals;arr[+i].isFrog=true;state.frog=arr[+i].title;save()}
-function renderGoals(){ $('#valuesGrid').innerHTML=values.map(v=>`<button class="value ${state.values.includes(v)?'active':''}" data-val="${v}">${v}</button>`).join('');$$('[data-val]').forEach(b=>b.onclick=()=>{let v=b.dataset.val;if(state.values.includes(v))state.values=state.values.filter(x=>x!==v);else if(state.values.length<3)state.values.push(v);else{toast('Maximal 3 Werte.');return}save()});$('#valuesBadge').textContent=state.values.length+'/3';$('#goals').innerHTML=state.goals.length?state.goals.map((g,i)=>`<div class="item"><div class="row"><div class="left"><button class="check ${g.done?'done':''}" data-g="${i}">✓</button><div><div class="item-title">${esc(g.title)}${g.isFrog?'<span class="type">Eat the Frog</span>':''}<span class="type">Ziel</span></div><div class="meta">Wert: ${esc(g.value||'—')} · Nächster Schritt: ${esc(g.next||'—')}</div></div></div><div class="links"><button class="star ${g.top3?'active':''}" data-top="goal:${i}">⭐</button><button class="star frog ${g.isFrog?'active':''}" data-frog="goal:${i}">🐸</button><button class="chip" data-rmg="${i}">Löschen</button></div></div><div class="schedule"><input value="${esc(g.title)}" data-gt="${i}"><input value="${esc(g.value||'')}" data-gv="${i}" placeholder="Wert"><input value="${esc(g.next||'')}" data-gn="${i}" placeholder="Nächster Schritt"></div></div>`).join(''):'<div class="empty">Noch keine langfristigen Ziele angelegt.</div>';$$('[data-g]').forEach(b=>b.onclick=()=>{let g=state.goals[+b.dataset.g];g.done=!g.done;if(g.done){record('Ziel-Schritt erledigt: '+g.title);celebrate()}save()});$$('[data-rmg]').forEach(b=>b.onclick=()=>{state.goals.splice(+b.dataset.rmg,1);save()});$$('[data-gt]').forEach(i=>i.onchange=()=>{state.goals[+i.dataset.gt].title=i.value;save()});$$('[data-gv]').forEach(i=>i.onchange=()=>{state.goals[+i.dataset.gv].value=i.value;save()});$$('[data-gn]').forEach(i=>i.onchange=()=>{state.goals[+i.dataset.gn].next=i.value;save()});$$('[data-top]').forEach(b=>b.onclick=()=>toggleTop(b.dataset.top));$$('[data-frog]').forEach(b=>b.onclick=()=>setFrog(b.dataset.frog))}function addGoal(){let title=$('#goalInput').value.trim();if(!title)return;state.goals.push({id:uid('g'),title,value:$('#goalValue').value.trim(),next:'',done:false,top3:false,isFrog:false,mode:'flexibel'});$('#goalInput').value='';$('#goalValue').value='';save()}
-function marbleColor(type){return type==='Mut'?'#91b1ff':type==='Grenze'?'#f0b468':type==='Körper'?'#88d1ab':type==='Nicht geflüchtet'?'#cf95d8':'#8fb79d'}function renderSelf(){$('#successes').innerHTML=state.successes.length?state.successes.slice(0,10).map((s,i)=>`<div class="item"><div class="row"><div><div class="item-title">✓ ${esc(s.text)}</div><div class="meta">${esc(s.time)}</div></div><button class="chip" data-rms="${i}">Löschen</button></div></div>`).join(''):'<div class="empty">Noch kein Erfolg sichtbar.</div>';$$('[data-rms]').forEach(b=>b.onclick=()=>{state.successes.splice(+b.dataset.rms,1);save()});$('#marbleBadge').textContent=Math.min(5,state.selfLove.length)+'/5';$('#jar').innerHTML=state.selfLove.map((m,i)=>`<div class="marble ${drop&&i===0?'drop':''}" style="--m:${marbleColor(m.type)}" title="${esc(m.text)}"></div>`).join('');drop=0;$('#selfList').innerHTML=state.selfLove.length?state.selfLove.slice(0,8).map((m,i)=>`<div class="item"><div class="row"><div><div class="item-title">🫶 ${esc(m.text)}</div><div class="meta">${esc(m.type)} · ${esc(m.time)}</div></div><button class="chip" data-rmm="${i}">Löschen</button></div></div>`).join(''):'<div class="empty">Noch keine Murmel.</div>';$$('[data-rmm]').forEach(b=>b.onclick=()=>{state.selfLove.splice(+b.dataset.rmm,1);save()})}function addSuccess(){let text=$('#successInput').value.trim();if(!text)return;record(text);$('#successInput').value='';celebrate();save()}function addSelf(){let text=$('#selfInput').value.trim();if(!text)return;state.selfLove.unshift({text,type:$('#selfType').value,time:now()});$('#selfInput').value='';drop=1;celebrate();save()}function record(text){state.successes.unshift({text,time:now()});state.successes=state.successes.slice(0,50)}
-function renderRef(){$('#eveningGood').value=state.evening.good||'';$('#eveningSelf').value=state.evening.self||'';$('#eveningLearned').value=state.evening.learned||'';$('#tomorrow').value=state.evening.tomorrow||'';$('#weekWhere').value=state.weekly.where||'';$('#weekEnergy').value=state.weekly.energy||'';$('#weekBlock').value=state.weekly.block||'';$('#weekFocus').value=state.weekly.focus||'';renderJournal()}function saveEvening(){state.evening={good:$('#eveningGood').value.trim(),self:$('#eveningSelf').value.trim(),learned:$('#eveningLearned').value.trim(),tomorrow:$('#tomorrow').value.trim()};state.eveningSaved=true;if(state.evening.good)record('Abend: '+state.evening.good);save();toast('Abendabschluss gespeichert.')}function saveWeekly(){state.weekly={where:$('#weekWhere').value.trim(),energy:$('#weekEnergy').value.trim(),block:$('#weekBlock').value.trim(),focus:$('#weekFocus').value.trim()};save();toast('Wochenreflexion gespeichert.')}function renderJournal(){let p=progress(),done=[...state.routines,...state.tasks,...state.goals].filter(x=>x.done),open=[...state.tasks.filter(x=>!x.done),...state.goals.filter(x=>!x.done)];$('#journal').value=[`📔 Mein Daily Life – ${$('#date').textContent}`,'','🌅 MORGENSTART',`Gefühl: ${state.mood.join(', ')||'—'}`,`Bedürfnis: ${state.need||'—'}`,`Kleine Sache: ${state.smallThing||'—'}`,'','🐸 EAT THE FROG',state.frog||'—','','⭐ TOP 3',...(top3().length?top3().map(x=>'• '+x.title):['—']),'','🫶 WERTE-KOMPASS',state.values.length?state.values.join(', '):'—','','📊 TAGESSTAND',`Erledigt: ${p.done}/${p.total} Punkte (${p.pct}%)`,`Streaks: Morgen ${streak('morning')} · Frog ${streak('frog')} · Selbstliebe ${streak('self')} · Abend ${streak('evening')}`,`Schritte: ${Number(state.steps||0).toLocaleString('de-DE')}`,'','✅ ERLEDIGT',...(done.length?done.map(x=>'✓ '+x.title):['—']),'','🗒️ OFFEN / MITGENOMMEN',...(open.length?open.map(x=>'○ '+x.title):['—']),'','🏆 ERFOLGE',...(state.successes.length?state.successes.slice(0,14).map(x=>'• '+x.text+' · '+x.time):['—']),'','🫙 SELBSTLIEBE-MURMELN',...(state.selfLove.length?state.selfLove.map(x=>'• '+x.text+' ('+x.type+')'):['—']),'','🌙 ABENDREFLEXION',`Geschafft: ${state.evening.good||'—'}`,`Liebevoll mit mir: ${state.evening.self||'—'}`,`Gelernt: ${state.evening.learned||'—'}`,`Morgen wichtig: ${state.evening.tomorrow||'—'}`,'','🗓️ WOCHENREFLEXION',`Wo stehe ich: ${state.weekly.where||'—'}`,`Energie: ${state.weekly.energy||'—'}`,`Blockaden: ${state.weekly.block||'—'}`,`Fokus nächste Woche: ${state.weekly.focus||'—'}`,'','✨ SATZ DES TAGES',`„${state.affirmation}“`].join('\n')}
-function smartAff(){if(state.mood.includes('müde'))state.affirmation='Mein Körper ist mein Partner, nicht mein Gegner.';else if(state.mood.includes('unruhig')||state.mood.includes('ängstlich'))state.affirmation='Ich darf unruhig sein und trotzdem bei mir bleiben.';else if(state.mood.includes('überfordert'))state.affirmation='Ich mache es kleiner und bleibe freundlich.';else if(state.need==='Mut')state.affirmation='Ich handle, bevor ich mich bewerte.';else if(state.need==='Selbstfürsorge')state.affirmation='Selbstliebe ist eine kleine Handlung.';else state.affirmation=affs[Math.floor(Math.random()*affs.length)];save()}
-function renderSet(){$('#routineSettings').innerHTML=templates.routines.map((r,i)=>`<div class="item"><div class="row"><div><div class="item-title">${esc(r.title)}</div><div class="meta">${label(r)} · ${r.active?'aktiv':'inaktiv'}</div></div><button class="chip ${r.active?'active':''}" data-tpl="${i}">${r.active?'aktiv':'inaktiv'}</button></div><div class="schedule"><input value="${esc(r.title)}" data-rt="${i}"><select class="mode" data-rm="${i}">${opts(r.mode)}</select><input class="time ${r.mode==='zeit'?'':'hidden'}" type="time" value="${esc(r.time||'')}" data-rtime="${i}"></div></div>`).join('');$$('[data-tpl]').forEach(b=>b.onclick=()=>{templates.routines[+b.dataset.tpl].active=!templates.routines[+b.dataset.tpl].active;save();toast('Routine-Vorlage geändert. Gilt ab morgen.')});$$('[data-rt]').forEach(i=>i.onchange=()=>{templates.routines[+i.dataset.rt].title=i.value;save()});$$('[data-rm]').forEach(s=>s.onchange=()=>{let r=templates.routines[+s.dataset.rm];r.mode=s.value;if(r.mode!=='zeit')r.time='';save()});$$('[data-rtime]').forEach(i=>i.onchange=()=>{templates.routines[+i.dataset.rtime].time=i.value;save()})}function addRoutine(){let title=$('#newRoutine').value.trim();if(!title)return;let mode=$('#newRoutineMode').value;templates.routines.push({id:uid('tpl'),title,mode,time:mode==='zeit'?$('#newRoutineTime').value:'',active:true});$('#newRoutine').value='';$('#newRoutineTime').value='';save();toast('Routine-Vorlage gespeichert.')}
-function toast(t){$('#toast').textContent=t;$('#toast').classList.add('show');clearTimeout(window.__t);window.__t=setTimeout(()=>$('#toast').classList.remove('show'),1600)}function celebrate(){let wrap=document.createElement('div');wrap.className='celebrate';document.body.appendChild(wrap);let colors=['#4f7a63','#997455','#efc9a8','#89b29a','#fff'];for(let i=0;i<26;i++){let c=document.createElement('span');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.animationDelay=Math.random()*180+'ms';c.style.background=colors[Math.floor(Math.random()*colors.length)];wrap.appendChild(c)}setTimeout(()=>wrap.remove(),1000)}load();bind();render();
-</script></body></html>
+    function escapeHtml(value){
+      return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function load(){
+      const saved = localStorage.getItem(storageKey);
+      if(saved) state = {...state, ...JSON.parse(saved)};
+
+      const savedSettings = localStorage.getItem(settingsKey);
+      if(savedSettings) settings = {...settings, ...JSON.parse(savedSettings)};
+
+      document.documentElement.dataset.theme = settings.theme;
+    }
+
+    function save(){
+      localStorage.setItem(storageKey, JSON.stringify(state));
+      localStorage.setItem(settingsKey, JSON.stringify(settings));
+      render();
+    }
+
+    function bind(){
+      $("#themeBtn").onclick = () => {
+        settings.theme = settings.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = settings.theme;
+        save();
+      };
+
+      $$(".app-nav button").forEach(button => {
+        button.onclick = () => setPage(button.dataset.page);
+      });
+
+      document.addEventListener("click", event => {
+        const go = event.target.closest("[data-go-page]");
+        if(go){
+          event.preventDefault();
+          setPage(go.dataset.goPage);
+        }
+      });
+
+      $("#saveTodayFocus").onclick = saveTodayFocus;
+      $("#completeNow").onclick = completeCurrentFocus;
+      $("#addCapture").onclick = addCapture;
+      $("#addTask").onclick = addTask;
+      $("#saveMorningReflection").onclick = saveMorningReflection;
+      $("#saveEveningReflection").onclick = saveEveningReflection;
+      $("#saveWeeklyReview").onclick = saveWeeklyReview;
+      $("#copyExport").onclick = () => navigator.clipboard.writeText($("#exportText").value).then(() => toast("Export kopiert."));
+    }
+
+    function setPage(page){
+      $$(".page").forEach(section => section.classList.toggle("active", section.id === "page-" + page));
+      $$(".app-nav button").forEach(button => button.classList.toggle("active", button.dataset.page === page));
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function render(){
+      renderHeader();
+      renderToday();
+      renderCapture();
+      renderPlan();
+      renderReflections();
+      renderAreas();
+      $("#themeBtn").textContent = settings.theme === "dark" ? "☀" : "☾";
+    }
+
+    function renderHeader(){
+      $("#dateLine").textContent = new Date().toLocaleDateString("de-DE", {weekday:"long", day:"2-digit", month:"long", year:"numeric"});
+    }
+
+    function currentFocus(){
+      const topOpen = state.tasks.find(task => task.top3 && !task.done);
+      const importantOpen = state.tasks.find(task => task.scope === "Wichtig" && !task.done);
+      const todayOpen = state.tasks.find(task => task.scope === "Heute" && !task.done);
+      if(topOpen) return topOpen;
+      if(importantOpen) return importantOpen;
+      if(todayOpen) return todayOpen;
+      return null;
+    }
+
+    function renderToday(){
+      $("#mainTask").value = state.today.mainTask;
+      $("#selfCare").value = state.today.selfCare;
+
+      const focus = currentFocus();
+      $("#nowTitle").textContent = focus ? focus.title : (state.today.mainTask || "Den Tag ruhig führen.");
+      $("#nowText").textContent = focus ? ("Nächster Schritt: " + (focus.next || "klein anfangen")) : "Setze eine wichtigste Aufgabe oder erfasse den nächsten Gedanken.";
+
+      $("#energyValue").textContent = state.today.energy || "—";
+      $("#moodValue").textContent = state.today.mood || "—";
+      $("#sleepValue").textContent = state.today.sleep || "—";
+
+      renderChips("#energyChips", statusOptions.energy, state.today.energy, value => {
+        state.today.energy = value;
+        save();
+      });
+      renderChips("#moodChips", statusOptions.mood, state.today.mood, value => {
+        state.today.mood = value;
+        save();
+      });
+      renderChips("#sleepChips", statusOptions.sleep, state.today.sleep, value => {
+        state.today.sleep = value;
+        save();
+      });
+
+      const top3 = state.tasks.filter(task => task.top3).slice(0,3);
+      $("#todayTop3List").innerHTML = top3.length ? top3.map(taskItem).join("") : `<div class="empty">Noch keine Top 3 markiert. Gehe in den Plan und markiere wichtige Aufgaben.</div>`;
+
+      $("#smartToday").textContent = state.tasks.filter(task => task.scope === "Heute" && !task.done).length;
+      $("#smartWeek").textContent = state.tasks.filter(task => task.scope === "Diese Woche" && !task.done).length;
+      $("#smartImportant").textContent = state.tasks.filter(task => task.scope === "Wichtig" && !task.done).length;
+      $("#smartWaiting").textContent = state.tasks.filter(task => task.scope === "Warten auf" && !task.done).length;
+    }
+
+    function renderChips(container, values, selected, callback){
+      $(container).innerHTML = values.map(value => `
+        <button class="chip ${selected === value ? "active" : ""}" data-value="${escapeHtml(value)}">${escapeHtml(value)}</button>
+      `).join("");
+      $$(container + " [data-value]").forEach(button => {
+        button.onclick = () => callback(button.dataset.value);
+      });
+    }
+
+    function saveTodayFocus(){
+      state.today.mainTask = $("#mainTask").value.trim();
+      state.today.selfCare = $("#selfCare").value.trim();
+
+      if(state.today.mainTask && !state.tasks.some(task => task.source === "mainTask")){
+        state.tasks.unshift({
+          id:uid("task"),
+          title:state.today.mainTask,
+          area:"privat",
+          scope:"Heute",
+          priority:"hoch",
+          next:"10 Minuten beginnen",
+          done:false,
+          top3:true,
+          time:"Fokus",
+          source:"mainTask"
+        });
+      }
+
+      save();
+      toast("Heute gespeichert.");
+    }
+
+    function completeCurrentFocus(){
+      const focus = currentFocus();
+      if(!focus){
+        toast("Kein offener Fokus vorhanden.");
+        return;
+      }
+      focus.done = true;
+      save();
+      toast("Erledigt.");
+    }
+
+    function renderCapture(){
+      renderChips("#captureTags", tagOptions, state.captureTag || "", value => {
+        state.captureTag = value;
+        save();
+      });
+
+      $("#captureList").innerHTML = state.capture.length ? state.capture.map(item => `
+        <div class="list-item">
+          <div class="item-row">
+            <div>
+              <div class="item-title">${escapeHtml(item.text)}</div>
+              <div class="item-meta"><span class="tag">${escapeHtml(item.tag)}</span>${escapeHtml(item.type)} · ${escapeHtml(item.created)}</div>
+            </div>
+            <button class="btn ghost" data-capture-task="${item.id}">Als Aufgabe</button>
+          </div>
+        </div>
+      `).join("") : `<div class="empty">Noch nichts in der Inbox. Alles, was raus aus dem Kopf soll, landet hier.</div>`;
+
+      $$("[data-capture-task]").forEach(button => {
+        button.onclick = () => {
+          const item = state.capture.find(entry => entry.id === button.dataset.captureTask);
+          if(!item) return;
+          state.tasks.unshift({
+            id:uid("task"),
+            title:item.text,
+            area:tagToArea(item.tag),
+            scope:item.type === "WartenAuf" ? "Warten auf" : "Diese Woche",
+            priority:"normal",
+            next:"",
+            done:false,
+            top3:false,
+            time:"Inbox"
+          });
+          state.capture = state.capture.filter(entry => entry.id !== item.id);
+          save();
+          toast("Als Aufgabe übernommen.");
+        };
+      });
+    }
+
+    function tagToArea(tag){
+      if(tag === "#Teutonia") return "teutonia";
+      if(tag === "#Karriere") return "karriere";
+      if(tag === "#Gesundheit") return "gesundheit";
+      return "privat";
+    }
+
+    function addCapture(){
+      const text = $("#captureText").value.trim();
+      if(!text) return;
+
+      state.capture.unshift({
+        id:uid("cap"),
+        text,
+        tag:state.captureTag || "#Privat",
+        type:$("#captureType").value,
+        created:new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})
+      });
+
+      $("#captureText").value = "";
+      save();
+      toast("Erfasst.");
+    }
+
+    function renderPlan(){
+      $("#taskArea").innerHTML = defaultAreas.map(area => `<option value="${area.id}">${area.name}</option>`).join("");
+
+      renderChips("#smartFilters", ["Heute","Diese Woche","Wichtig","Warten auf"], activeFilter, value => {
+        activeFilter = value;
+        renderPlan();
+      });
+
+      const filtered = state.tasks.filter(task => task.scope === activeFilter);
+      $("#taskList").innerHTML = filtered.length ? filtered.map(taskItem).join("") : `<div class="empty">Keine Aufgaben in „${escapeHtml(activeFilter)}“.</div>`;
+
+      const timelineGroups = [
+        ["Morgen", state.tasks.filter(task => task.time === "Morgen" && !task.done)],
+        ["Fokus", state.tasks.filter(task => task.time === "Fokus" && !task.done)],
+        ["Mittag", state.tasks.filter(task => task.time === "Mittag" && !task.done)],
+        ["Abend", state.tasks.filter(task => task.time === "Abend" && !task.done)],
+        ["Inbox", state.tasks.filter(task => task.time === "Inbox" && !task.done)]
+      ];
+
+      $("#timeline").innerHTML = timelineGroups.map(([label,items]) => `
+        <div class="time-block">
+          <div class="time-label">${escapeHtml(label)}</div>
+          <div class="list">
+            ${items.length ? items.map(taskItem).join("") : `<div class="empty">frei</div>`}
+          </div>
+        </div>
+      `).join("");
+
+      bindTaskActions();
+    }
+
+    function addTask(){
+      const title = $("#taskTitle").value.trim();
+      if(!title) return;
+
+      state.tasks.unshift({
+        id:uid("task"),
+        title,
+        area:$("#taskArea").value,
+        scope:$("#taskScope").value,
+        priority:$("#taskPriority").value,
+        next:$("#taskNext").value.trim(),
+        done:false,
+        top3:false,
+        time:$("#taskScope").value === "Heute" ? "Fokus" : "Inbox"
+      });
+
+      $("#taskTitle").value = "";
+      $("#taskNext").value = "";
+      save();
+      toast("Aufgabe hinzugefügt.");
+    }
+
+    function priorityClass(priority){
+      if(priority === "kritisch") return "critical";
+      if(priority === "hoch") return "high";
+      if(priority === "niedrig") return "low";
+      return "";
+    }
+
+    function taskItem(task){
+      const area = defaultAreas.find(item => item.id === task.area);
+      return `
+        <div class="list-item">
+          <div class="item-row">
+            <div class="item-left">
+              <button class="check ${task.done ? "done" : ""}" data-task-done="${task.id}">✓</button>
+              <div>
+                <div class="item-title"><span class="priority-dot ${priorityClass(task.priority)}"></span>${escapeHtml(task.title)}</div>
+                <div class="item-meta">${escapeHtml(area ? area.name : "Privat")} · ${escapeHtml(task.scope)}${task.next ? " · " + escapeHtml(task.next) : ""}</div>
+              </div>
+            </div>
+            <div class="chip-row">
+              <button class="chip ${task.top3 ? "active" : ""}" data-task-top="${task.id}">Top</button>
+              <button class="btn ghost" data-task-delete="${task.id}">Löschen</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function bindTaskActions(){
+      $$("[data-task-done]").forEach(button => {
+        button.onclick = () => {
+          const task = state.tasks.find(item => item.id === button.dataset.taskDone);
+          if(!task) return;
+          task.done = !task.done;
+          save();
+        };
+      });
+
+      $$("[data-task-top]").forEach(button => {
+        button.onclick = () => {
+          const task = state.tasks.find(item => item.id === button.dataset.taskTop);
+          if(!task) return;
+          const currentTop = state.tasks.filter(item => item.top3).length;
+          if(!task.top3 && currentTop >= 3){
+            toast("Maximal 3 Top-Aufgaben.");
+            return;
+          }
+          task.top3 = !task.top3;
+          save();
+        };
+      });
+
+      $$("[data-task-delete]").forEach(button => {
+        button.onclick = () => {
+          state.tasks = state.tasks.filter(item => item.id !== button.dataset.taskDelete);
+          save();
+        };
+      });
+    }
+
+    function renderReflections(){
+      $("#morningFeel").value = state.reflections.morning.feel;
+      $("#morningNeed").value = state.reflections.morning.need;
+      $("#morningEnough").value = state.reflections.morning.enough;
+
+      $("#eveningGood").value = state.reflections.evening.good;
+      $("#eveningHard").value = state.reflections.evening.hard;
+      $("#eveningTomorrow").value = state.reflections.evening.tomorrow;
+
+      $("#weekOpen").value = state.reflections.weekly.open;
+      $("#weekDone").value = state.reflections.weekly.done;
+      $("#weekLearned").value = state.reflections.weekly.learned;
+      $("#weekLetGo").value = state.reflections.weekly.letGo;
+
+      renderExport();
+    }
+
+    function saveMorningReflection(){
+      state.reflections.morning = {
+        feel:$("#morningFeel").value.trim(),
+        need:$("#morningNeed").value.trim(),
+        enough:$("#morningEnough").value.trim()
+      };
+      save();
+      toast("Morgenstart gespeichert.");
+    }
+
+    function saveEveningReflection(){
+      state.reflections.evening = {
+        good:$("#eveningGood").value.trim(),
+        hard:$("#eveningHard").value.trim(),
+        tomorrow:$("#eveningTomorrow").value.trim()
+      };
+      save();
+      toast("Abendcheck gespeichert.");
+    }
+
+    function saveWeeklyReview(){
+      state.reflections.weekly = {
+        open:$("#weekOpen").value.trim(),
+        done:$("#weekDone").value.trim(),
+        learned:$("#weekLearned").value.trim(),
+        letGo:$("#weekLetGo").value.trim()
+      };
+      save();
+      toast("Wochenreview gespeichert.");
+    }
+
+    function renderExport(){
+      const done = state.tasks.filter(task => task.done);
+      const open = state.tasks.filter(task => !task.done);
+      $("#exportText").value = [
+        "Mein Daily OS – " + $("#dateLine").textContent,
+        "",
+        "HEUTE",
+        "Wichtigste Aufgabe: " + (state.today.mainTask || "—"),
+        "Selbstfürsorge: " + (state.today.selfCare || "—"),
+        "Energie/Stimmung/Schlaf: " + [state.today.energy || "—", state.today.mood || "—", state.today.sleep || "—"].join(" · "),
+        "",
+        "TOP 3",
+        ...(state.tasks.filter(task => task.top3).slice(0,3).map(task => "• " + task.title) || ["—"]),
+        "",
+        "ERLEDIGT",
+        ...(done.length ? done.map(task => "✓ " + task.title) : ["—"]),
+        "",
+        "OFFEN",
+        ...(open.length ? open.map(task => "○ " + task.title) : ["—"]),
+        "",
+        "MORGENSTART",
+        "Gefühl: " + (state.reflections.morning.feel || "—"),
+        "Bedarf: " + (state.reflections.morning.need || "—"),
+        "Genug: " + (state.reflections.morning.enough || "—"),
+        "",
+        "ABENDCHECK",
+        "Gut: " + (state.reflections.evening.good || "—"),
+        "Schwer: " + (state.reflections.evening.hard || "—"),
+        "Morgen wichtig: " + (state.reflections.evening.tomorrow || "—"),
+        "",
+        "WOCHENREVIEW",
+        "Offen: " + (state.reflections.weekly.open || "—"),
+        "Geschafft: " + (state.reflections.weekly.done || "—"),
+        "Gelernt: " + (state.reflections.weekly.learned || "—"),
+        "Loslassen: " + (state.reflections.weekly.letGo || "—")
+      ].join("\n");
+    }
+
+    function renderAreas(){
+      $("#areaGrid").innerHTML = defaultAreas.map(area => {
+        const tasks = state.tasks.filter(task => task.area === area.id);
+        const captures = state.capture.filter(item => tagToArea(item.tag) === area.id);
+        const open = tasks.filter(task => !task.done).length;
+        return `
+          <div class="area-card">
+            <div class="card-title">${escapeHtml(area.name)}</div>
+            <div class="card-subtitle">${escapeHtml(area.subtitle)}</div>
+            <div class="status-grid" style="margin-top:14px">
+              <div class="status-tile">
+                <div class="status-value">${open}</div>
+                <div class="status-label">offen</div>
+              </div>
+              <div class="status-tile">
+                <div class="status-value">${captures.length}</div>
+                <div class="status-label">Inbox</div>
+              </div>
+            </div>
+            <div class="list" style="margin-top:14px">
+              ${tasks.slice(0,3).map(taskItem).join("") || `<div class="empty">Noch keine Einträge.</div>`}
+            </div>
+          </div>
+        `;
+      }).join("");
+      bindTaskActions();
+    }
+
+    function toast(text){
+      $("#toast").textContent = text;
+      $("#toast").classList.add("show");
+      clearTimeout(window.__toast);
+      window.__toast = setTimeout(() => $("#toast").classList.remove("show"), 1600);
+    }
+
+    load();
+    bind();
+    render();
+  </script>
+</body>
+</html>
